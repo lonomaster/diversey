@@ -263,15 +263,15 @@ public class Main extends Activity {
 	private void setButtons() {
 		Button botTodos = (Button)findViewById(R.id.showlist_todos);
 		botTodos.setTypeface(BebasNeueBold);
-		//botTodos.setBackgroundResource(R.drawable.btn_todos_disabled);
+		botTodos.setBackgroundColor(R.color.gray_dark);
 
 		Button botPendientes = (Button)findViewById(R.id.showlist_pendientes);
 		botPendientes.setTypeface(BebasNeueRegular);
-		botPendientes.setBackgroundResource(R.drawable.btn_pendientes_disabled);
+		botTodos.setBackgroundColor(android.R.color.holo_red_dark);
 
 		Button botRealizados = (Button)findViewById(R.id.showlist_realizados);
 		botRealizados.setTypeface(BebasNeueRegular);
-		botRealizados.setBackgroundResource(R.drawable.btn_realizados_disabled);
+		botTodos.setBackgroundColor(android.R.color.holo_green_dark);
 
 	}
 
@@ -326,15 +326,15 @@ public class Main extends Activity {
 		int tipoOt = 0;
 		if(v.getId() == R.id.showlist_pendientes){
 			tipoOt=2;
-			v.setBackgroundResource(R.drawable.btn_pendientes_pressed);
+			v.setBackgroundColor(getResources().getColor(android.R.color.holo_red_light));
 		}
 		else if(v.getId() == R.id.showlist_realizados){
 			tipoOt=4;
-			v.setBackgroundResource(R.drawable.btn_realizados_pressed);
+			v.setBackgroundColor(getResources().getColor(android.R.color.holo_green_light));
 		}
 		else if(v.getId() == R.id.showlist_todos){
 			tipoOt=0;
-			v.setBackgroundResource(R.drawable.btn_todos_pressed);
+			v.setBackgroundColor(getResources().getColor(R.color.gray_light));
 			//			Log.i("Refrescando","Todos...");
 		}
 		else if(v.getId() == R.id.refresh){

@@ -7,33 +7,55 @@ import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.TextView;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import dmax.dialog.SpotsDialog;
 
 
 public class Login extends Activity{
 
-	private List<String> list = new ArrayList<String>();
+	private ArrayList<String> list = new ArrayList<String>();
 	private String userid = "";
 	private AlertDialog dialogC;
+	public Typeface BebasNeueBook;
+	public Typeface BebasNeueBold;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
 		setContentView(R.layout.login);
+
+
+		BebasNeueBook = Typeface.createFromAsset(Login.this.getAssets(),
+				"BebasNeueBook.ttf");
+		BebasNeueBold = Typeface.createFromAsset(Login.this.getAssets(),
+				"BebasNeueBold.ttf");
+
+
+		/*styling*/
+		TextView title_company_name = (TextView) findViewById(R.id.title_company_name);
+		TextView textLogin = (TextView)findViewById(R.id.login_title);
+		Button next = (Button)findViewById(R.id.login_continue);
+		title_company_name.setTypeface(BebasNeueBook);
+		textLogin.setTypeface(BebasNeueBook);
+		next.setTypeface(BebasNeueBold);
+
+
+
+
+		/* END styling*/
+
 
 		dialogC = new SpotsDialog(Login.this, R.style.connect);
 
@@ -49,7 +71,6 @@ public class Login extends Activity{
 		StrictMode.setThreadPolicy(policy);
 
 
-		Button next = (Button)findViewById(R.id.login_continue);
 		next.setText("Espere...");
 		next.setClickable(false);
 		Spinner spinUsers = (Spinner) findViewById(R.id.login_users);
@@ -133,7 +154,7 @@ dialogC.show();
 		    }
 			if(list.size()>0){
 
-				ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(ctx,R.layout.item_spinner, list);
+				SpinnerItemAdapter dataAdapter = new SpinnerItemAdapter(ctx, list);
 				dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
 				Spinner spinUsers = (Spinner) findViewById(R.id.login_users);

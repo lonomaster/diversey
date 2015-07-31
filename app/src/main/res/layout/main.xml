@@ -88,7 +88,6 @@
 
                     <Button
                         android:id="@+id/showlist_todos"
-                        android:background="@android:color/holo_red_light"
                         android:layout_width="110dip"
                         android:textColor="@color/white"
                         android:text="Todos"
@@ -98,12 +97,16 @@
                     <Button
                         android:id="@+id/showlist_pendientes"
                         android:layout_width="110dip"
+                        android:textColor="@color/white"
+                        android:text="Pendientes"
                         android:layout_height="match_parent"
                         android:onClick="showList" />
 
                     <Button
                         android:id="@+id/showlist_realizados"
                         android:layout_width="110dip"
+                        android:textColor="@color/white"
+                        android:text="Realizados"
                         android:layout_height="match_parent"
                         android:onClick="showList" />
                 </LinearLayout>

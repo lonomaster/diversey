@@ -3,7 +3,7 @@
   <string name="hello">Hello World, Main!</string>
   <string name="app_name">Diversey</string>
   <string name="login_title">Servicio Logistica Diversey </string>
-  <string name="bienvenida">Bienvenido al Sistema de Logística.  Por favor, selecciones su correo  </string>
+  <string name="bienvenida">Bienvenido.  Por favor, selecciones su correo:  </string>
   <string name="get_qr">Obtener QR</string>
   <string name="empresa_nombre">Nombre Empresa:</string>
   <string name="empresa_direccion">Direccion Empresa:</string>
@@ -12,7 +12,7 @@
   <string name="ot_nombre_producto">Nombre Producto</string>
   <string name="ot_codigo">Código: </string>
   <string name="alfanum_test">123456ABCD</string>
-  <string name="siguiente">Continuar</string>
+  <string name="siguiente">CONTINUAR</string>
   <string name="numero_ot">#OT:  </string>
   <string name="asignacion">Asignado:  </string>
   <string name="ejecucion">Fecha Programada :  </string>
