@@ -1,0 +1,142 @@
+<merge xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical" >
+
+        <LinearLayout
+            android:id="@+id/orden_trabajo_firma_layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="40dip"
+            android:layout_marginRight="40dip"
+            android:layout_marginTop="30dip"
+            android:orientation="vertical" >
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="39dip"
+                android:background="@drawable/gradiente"
+                android:gravity="center_vertical"
+                android:paddingLeft="15dip"
+                android:text="FIRMA"
+                android:textSize="9pt"
+                android:textStyle="bold" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical" >
+
+                <FrameLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal" >
+
+                    <com.diversey.servicio.logistica.DrawingView
+                        android:id="@+id/orden_trabajo_firma"
+                        android:layout_width="match_parent"
+                        android:layout_height="300dip"
+                        android:layout_gravity="center_horizontal" />
+
+                    <Button
+                        android:id="@+id/orden_trabajo_borrar_firma"
+                        android:layout_width="30dip"
+                        android:layout_height="30dip"
+                        android:layout_gravity="right|bottom"
+                        android:layout_marginBottom="5dp"
+                        android:layout_marginRight="5dp"
+                        android:background="@drawable/boton2_papelera"
+                        android:onClick="onClick" />
+                </FrameLayout>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="5dp"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginTop="15dp"
+                    android:text="Nombre"
+                    android:textColor="#a7a7a7"
+                    android:textSize="8pt"
+                    android:textStyle="bold" />
+
+                <EditText
+                    android:id="@+id/firma_nombre_editText"
+                    android:layout_width="match_parent"
+                    android:layout_height="35dp"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="15dp"
+                    android:background="@drawable/background_borde_negro"
+                    android:ems="10"
+                    android:textColor="#333333"
+                    android:textSize="8pt" >
+                </EditText>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="5dp"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginTop="15dp"
+                    android:text="Rut"
+                    android:textColor="#a7a7a7"
+                    android:textSize="8pt"
+                    android:textStyle="bold" />
+
+                <EditText
+                    android:id="@+id/firma_rut_editText"
+                    android:layout_width="match_parent"
+                    android:layout_height="35dp"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="15dp"
+                    android:background="@drawable/background_borde_negro"
+                    android:ems="10"
+                    android:inputType="text"
+                    android:numeric="integer"
+                    android:textColor="#333333"
+                    android:textSize="8pt" >
+                </EditText>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="5dp"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginTop="15dp"
+                    android:text="mail"
+                    android:textColor="#a7a7a7"
+                    android:textSize="8pt"
+                    android:textStyle="bold" />
+
+                <EditText
+                    android:id="@+id/firma_mail_editText"
+                    android:layout_width="match_parent"
+                    android:layout_height="35dp"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="15dp"
+                    android:background="@drawable/background_borde_negro"
+                    android:ems="10"
+                    android:textColor="#333333"
+                    android:textSize="8pt" 
+                    android:inputType="textWebEmailAddress">
+                </EditText>
+
+                <Button
+                    android:id="@+id/orden_trabajo_generar_reporte"
+                    android:layout_width="200dp"
+                    android:layout_height="45dp"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="10dp"
+                    android:background="#219fd8"
+                    android:onClick="onClick"
+                    android:text="GENERAR REPORTE"
+                    android:textColor="#fff"
+                    android:textSize="8pt"
+                    android:textStyle="bold" />
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+
+</merge>

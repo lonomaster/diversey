@@ -1,0 +1,526 @@
+<merge xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical" >
+
+        <LinearLayout
+            android:id="@+id/orden_trabajo_control_tecnico"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="40dip"
+            android:layout_marginRight="40dip"
+            android:layout_marginTop="30dip"
+            android:background="#ffffff"
+            android:orientation="vertical" >
+
+            <TextView
+                android:id="@+id/titulo_insumos_repuestos"
+                android:layout_width="match_parent"
+                android:layout_height="39dip"
+                android:background="@drawable/gradiente"
+                android:gravity="center_vertical"
+                android:paddingLeft="15dip"
+                android:text="CONTROL TÉCNICO"
+                android:textSize="9pt"
+                android:textStyle="bold" />
+
+            <RelativeLayout
+                android:id="@+id/RelativeLayout01"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:layout_marginBottom="15dp"
+                android:layout_marginTop="15dp" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_marginLeft="15dp"
+                    android:text="Diagnóstico"
+                    android:textSize="9pt"
+                    android:textStyle="bold" />
+
+                <EditText
+                    android:id="@+id/diagnostico_editText"
+                    android:layout_width="400dp"
+                    android:layout_height="100dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="200dp"
+                    android:layout_marginRight="15dp"
+                    android:background="@drawable/background_borde_negro_ins_gris"
+                    android:ems="10"
+                    android:textColor="#333333"
+                    android:textColorHint="#a7a7a7"
+                    android:textSize="8pt" >
+                </EditText>
+            </RelativeLayout>
+
+            <ImageView
+                android:layout_width="fill_parent"
+                android:layout_height="1dip"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="15dip"
+                android:src="@drawable/linea1" />
+
+            <RelativeLayout
+                android:id="@+id/RelativeLayout00"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:layout_marginBottom="15dp"
+                android:layout_marginTop="15dp" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_marginLeft="15dp"
+                    android:text="Observación General"
+                    android:textSize="9pt"
+                    android:textStyle="bold" />
+
+                <EditText
+                    android:id="@+id/observacion_gral_editText"
+                    android:layout_width="400dp"
+                    android:layout_height="100dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="200dp"
+                    android:layout_marginRight="15dp"
+                    android:background="@drawable/background_borde_negro_ins_gris"
+                    android:ems="10"
+                    android:textColor="#333333"
+                    android:textColorHint="#a7a7a7"
+                    android:textSize="8pt" >
+                </EditText>
+            </RelativeLayout>
+            <!--
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginTop="30dp" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_marginBottom="5dp"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginTop="15dp"
+                    android:text="Maquina 1"
+                    android:textSize="8pt"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginBottom="5dp"
+                    android:layout_marginRight="80dp"
+                    android:layout_marginTop="15dp"
+                    android:text="Adjuntar fotografía de estado de la máquina"
+                    android:textColor="#c2c2c2"
+                    android:textSize="7pt"
+                    android:textStyle="bold" />
+
+                <ImageView
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="15dp"
+                    android:background="#529fdd"
+                    android:src="@drawable/boton_camara" />
+            </RelativeLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="15dp"
+                android:fontFamily="8pt"
+                android:text="Piezas y partes reemplazadas"
+                android:textColor="#a7a7a7"
+                android:textSize="8pt" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp" >
+
+                <EditText
+                    android:id="@+id/insumos_numero_editText"
+                    android:layout_width="120dp"
+                    android:layout_height="35dp"
+                    android:layout_alignParentLeft="true"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="15dp"
+                    android:background="@drawable/background_borde_negro"
+                    android:ems="10"
+                    android:hint="cantidad"
+                    android:paddingLeft="5dp"
+                    android:textColor="#333333"
+                    android:textColorHint="#ccc"
+                    android:textSize="8pt" />
+
+                <EditText
+                    android:id="@+id/insumos_numero_editText"
+                    android:layout_width="120dp"
+                    android:layout_height="35dp"
+                    android:layout_alignParentLeft="true"
+                    android:layout_marginLeft="205dp"
+                    android:layout_marginRight="15dp"
+                    android:background="@drawable/background_borde_negro"
+                    android:ems="10"
+                    android:hint="código"
+                    android:paddingLeft="5dp"
+                    android:textColor="#333333"
+                    android:textColorHint="#ccc"
+                    android:textSize="8pt" />
+
+                <EditText
+                    android:id="@+id/insumos_numero_editText"
+                    android:layout_width="120dp"
+                    android:layout_height="35dp"
+                    android:layout_alignParentLeft="true"
+                    android:layout_marginLeft="395dp"
+                    android:layout_marginRight="15dp"
+                    android:background="@drawable/background_borde_negro"
+                    android:ems="10"
+                    android:hint="producto"
+                    android:paddingLeft="5dp"
+                    android:textColor="#333333"
+                    android:textColorHint="#ccc"
+                    android:textSize="8pt" />
+
+                <ImageView
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="15dp"
+                    android:background="#529fdd"
+                    android:src="@drawable/boton_signo_mas" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp" >
+
+                <EditText
+                    android:id="@+id/insumos_numero_editText"
+                    android:layout_width="120dp"
+                    android:layout_height="35dp"
+                    android:layout_alignParentLeft="true"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="15dp"
+                    android:background="@drawable/background_borde_negro"
+                    android:ems="10"
+                    android:hint="cantidad"
+                    android:paddingLeft="5dp"
+                    android:textColor="#333333"
+                    android:textColorHint="#ccc"
+                    android:textSize="8pt" />
+
+                <EditText
+                    android:id="@+id/insumos_numero_editText"
+                    android:layout_width="120dp"
+                    android:layout_height="35dp"
+                    android:layout_alignParentLeft="true"
+                    android:layout_marginLeft="205dp"
+                    android:layout_marginRight="15dp"
+                    android:background="@drawable/background_borde_negro"
+                    android:ems="10"
+                    android:hint="código"
+                    android:paddingLeft="5dp"
+                    android:textColor="#333333"
+                    android:textColorHint="#ccc"
+                    android:textSize="8pt" />
+
+                <EditText
+                    android:id="@+id/insumos_numero_editText"
+                    android:layout_width="120dp"
+                    android:layout_height="35dp"
+                    android:layout_alignParentLeft="true"
+                    android:layout_marginLeft="395dp"
+                    android:layout_marginRight="15dp"
+                    android:background="@drawable/background_borde_negro"
+                    android:ems="10"
+                    android:hint="producto"
+                    android:paddingLeft="5dp"
+                    android:textColor="#333333"
+                    android:textColorHint="#ccc"
+                    android:textSize="8pt" />
+
+                <ImageView
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="15dp"
+                    android:background="#529fdd"
+                    android:src="@drawable/boton_signo_menos" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_marginBottom="5dp"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginTop="15dp"
+                    android:text="Maquina 2"
+                    android:textSize="8pt"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginBottom="5dp"
+                    android:layout_marginRight="80dp"
+                    android:layout_marginTop="15dp"
+                    android:text="Adjuntar fotografía de estado de la máquina"
+                    android:textColor="#c2c2c2"
+                    android:textSize="7pt"
+                    android:textStyle="bold" />
+
+                <ImageView
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="15dp"
+                    android:background="#529fdd"
+                    android:src="@drawable/boton_camara" />
+            </RelativeLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="15dp"
+                android:fontFamily="8pt"
+                android:text="Piezas y partes reemplazadas"
+                android:textColor="#a7a7a7"
+                android:textSize="8pt" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp" >
+
+                <EditText
+                    android:id="@+id/insumos_numero_editText"
+                    android:layout_width="120dp"
+                    android:layout_height="35dp"
+                    android:layout_alignParentLeft="true"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="15dp"
+                    android:background="@drawable/background_borde_negro"
+                    android:ems="10"
+                    android:hint="cantidad"
+                    android:paddingLeft="5dp"
+                    android:textColor="#333333"
+                    android:textColorHint="#ccc"
+                    android:textSize="8pt" />
+
+                <EditText
+                    android:id="@+id/insumos_numero_editText"
+                    android:layout_width="120dp"
+                    android:layout_height="35dp"
+                    android:layout_alignParentLeft="true"
+                    android:layout_marginLeft="205dp"
+                    android:layout_marginRight="15dp"
+                    android:background="@drawable/background_borde_negro"
+                    android:ems="10"
+                    android:hint="código"
+                    android:paddingLeft="5dp"
+                    android:textColor="#333333"
+                    android:textColorHint="#ccc"
+                    android:textSize="8pt" />
+
+                <EditText
+                    android:id="@+id/insumos_numero_editText"
+                    android:layout_width="120dp"
+                    android:layout_height="35dp"
+                    android:layout_alignParentLeft="true"
+                    android:layout_marginLeft="395dp"
+                    android:layout_marginRight="15dp"
+                    android:background="@drawable/background_borde_negro"
+                    android:ems="10"
+                    android:hint="producto"
+                    android:paddingLeft="5dp"
+                    android:textColor="#333333"
+                    android:textColorHint="#ccc"
+                    android:textSize="8pt" />
+
+                <ImageView
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="15dp"
+                    android:background="#529fdd"
+                    android:src="@drawable/boton_signo_mas" />
+            </RelativeLayout>
+            -->
+
+            <ImageView
+                android:layout_width="fill_parent"
+                android:layout_height="1dip"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="15dip"
+                android:src="@drawable/linea1" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/orden_trabajo_maquinas"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="40dip"
+            android:layout_marginRight="40dip"
+            android:layout_marginTop="30dip"
+            android:background="#ffffff"
+            android:orientation="vertical" >
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="39dip"
+                android:background="@drawable/gradiente"
+                android:gravity="center_vertical"
+                android:paddingLeft="15dip"
+                android:text="MÁQUINAS"
+                android:textSize="9pt"
+                android:textStyle="bold" />
+
+            <LinearLayout
+                android:id="@+id/orden_trabajo_contenedor_maquinas"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:orientation="vertical" >
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/orden_trabajo_detalle2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="40dp"
+            android:layout_marginRight="40dp"
+            android:layout_marginTop="30dip"
+            android:background="#fff"
+            android:orientation="vertical" >
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="39dip"
+                android:background="@drawable/gradiente"
+                android:gravity="center_vertical"
+                android:paddingLeft="15dip"
+                android:text="DETALLE"
+                android:textSize="9pt"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="30dp"
+                android:text="Accesorios incluidos"
+                android:textSize="8pt"
+                android:textStyle="bold" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" >
+
+                <EditText
+                    android:id="@+id/asdasd_editText"
+                    android:layout_width="300dp"
+                    android:layout_height="35dp"
+                    android:layout_marginLeft="15dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/background_borde_negro"
+                    android:ems="10"
+                    android:hint="Descripción"
+                    android:paddingLeft="5dp"
+                    android:textColor="#333333"
+                    android:textColorHint="#ccc"
+                    android:textSize="8pt" />
+
+                <EditText
+                    android:id="@+id/insumos_numero_editText"
+                    android:layout_width="120dp"
+                    android:layout_height="35dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/background_borde_negro"
+                    android:ems="10"
+                    android:hint="Estado"
+                    android:paddingLeft="5dp"
+                    android:textColor="#333333"
+                    android:textColorHint="#ccc"
+                    android:textSize="8pt" />
+
+                <ImageView
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_marginLeft="150dp"
+                    android:layout_marginRight="15dp"
+                    android:background="#529fdd"
+                    android:src="@drawable/boton_signo_mas" />
+            </LinearLayout>
+
+            <ImageView
+                android:layout_width="fill_parent"
+                android:layout_height="1dip"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="15dip"
+                android:src="@drawable/linea1" />
+
+            <RelativeLayout
+                android:id="@id/RelativeLayout01"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:layout_marginBottom="15dp"
+                android:layout_marginTop="15dp" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_marginLeft="15dp"
+                    android:text="Descripcion trabajo realizado"
+                    android:textSize="8pt"
+                    android:textStyle="bold" />
+
+                <EditText
+                    android:id="@+id/dasdas_editText"
+                    android:layout_width="400dp"
+                    android:layout_height="100dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="15dp"
+                    android:background="@drawable/background_borde_negro_ins_gris"
+                    android:ems="10"
+                    android:textColor="#333333"
+                    android:textColorHint="#a7a7a7"
+                    android:textSize="8pt" />
+            </RelativeLayout>
+        </LinearLayout>
+    </LinearLayout>
+
+</merge>

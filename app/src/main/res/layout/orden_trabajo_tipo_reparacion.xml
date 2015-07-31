@@ -1,0 +1,123 @@
+<merge xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical" >
+
+        <LinearLayout
+            android:id="@+id/orden_trabajo_tipo_reparacion"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="40dip"
+            android:layout_marginRight="40dip"
+            android:layout_marginTop="30dip"
+            android:background="#ffffff"
+            android:orientation="vertical" >
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="39dip"
+                android:background="@drawable/gradiente"
+                android:gravity="center_vertical"
+                android:paddingLeft="15dip"
+                android:text="TIPO DE REPARACIÓN"
+                android:textSize="9pt"
+                android:textStyle="bold" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginTop="15dp"
+                android:gravity="center_vertical" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="15dp"
+                    android:text="Hora / Hombre"
+                    android:textSize="8pt"
+                    android:textStyle="bold" />
+
+                <EditText
+                    android:id="@+id/horas_hombre_editText_hh"
+                    android:layout_width="62dp"
+                    android:layout_height="35dp"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="15dp"
+                    android:background="@drawable/background_borde_negro"
+                    android:ems="10"
+                    android:hint="hh"
+                    android:inputType="number"
+                    android:paddingLeft="5dp"
+                    android:textColor="#333333"
+                    android:textColorHint="#ccc"
+                    android:textSize="8pt" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="2dp"
+                    android:text=":"
+                    android:textSize="8pt"
+                    android:textStyle="bold" />
+                
+                <EditText
+                    android:id="@+id/minutos_hombre_editText_mm"
+                    android:layout_width="61dp"
+                    android:layout_height="35dp"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="15dp"
+                    android:background="@drawable/background_borde_negro"
+                    android:ems="10"
+                    android:hint="mm"
+                    android:inputType="number"
+                    android:paddingLeft="5dp"
+                    android:textColor="#333333"
+                    android:textColorHint="#ccc"
+                    android:textSize="8pt" />
+                
+            </LinearLayout>
+
+            <ImageView
+                android:layout_width="fill_parent"
+                android:layout_height="1dip"
+                android:layout_marginBottom="15dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="15dip"
+                android:src="@drawable/linea1" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="15dp" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_marginLeft="15dp"
+                    android:text="Observaciones finales"
+                    android:textSize="8pt"
+                    android:textStyle="bold" />
+
+                <EditText
+                    android:id="@+id/obs_finales_editText"
+                    android:layout_width="400dp"
+                    android:layout_height="100dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginBottom="15dp"
+                    android:layout_marginRight="15dp"
+                    android:background="@drawable/background_borde_negro_ins_gris"
+                    android:ems="10"
+                    android:textColor="#333333"
+                    android:textColorHint="#a7a7a7"
+                    android:textSize="8pt" >
+                </EditText>
+            </RelativeLayout>
+        </LinearLayout>
+    </LinearLayout>
+
+</merge>

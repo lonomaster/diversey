@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/layout_orden_trabajo"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/fondo_lista"
+    android:orientation="vertical" >
+
+    <FrameLayout
+        android:id="@+id/layout_orden_trabajo_header"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" >
+    </FrameLayout>
+
+    <ScrollView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/fondo_lista"
+            android:orientation="vertical"
+            android:paddingBottom="30dip" >
+
+            <RelativeLayout
+                android:id="@+id/orden_trabajo_mapa_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="40dip"
+                android:layout_marginRight="40dip"
+                android:layout_marginTop="30dip"
+                android:orientation="vertical" >
+
+                <TextView
+                    android:id="@+id/TextView1"
+                    android:layout_width="match_parent"
+                    android:layout_height="39dip"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentTop="true"
+                    android:background="@drawable/gradiente"
+                    android:gravity="center_vertical"
+                    android:paddingLeft="15dip"
+                    android:text="Mapa de Ubicacion de la empresa"
+                    android:textSize="9pt"
+                    android:textStyle="bold" />
+
+                <ImageView
+                    android:id="@+id/orden_trabajo_mapa_empresa"
+                    android:layout_width="match_parent"
+                    android:layout_height="395dip"
+                    android:layout_alignParentLeft="true"
+                    android:layout_below="@+id/TextView1"
+                    android:onClick="onClickMapsIntent" />
+
+                <ProgressBar
+                    android:id="@+id/cargadorMapa"
+                    style="?android:attr/progressBarStyleLarge"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:layout_centerVertical="true" />
+
+            </RelativeLayout>
+
+            <LinearLayout
+                android:id="@+id/orden_trabajo_falla_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="40dip"
+                android:layout_marginRight="40dip"
+                android:layout_marginTop="30dip"
+                android:orientation="vertical" >
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="39dip"
+                    android:background="@drawable/gradiente"
+                    android:gravity="center_vertical"
+                    android:paddingLeft="15dip"
+                    android:text="FALLA INFORMADA"
+                    android:textSize="9pt"
+                    android:textStyle="bold" />
+
+                <ScrollView
+                    android:id="@+id/orden_trabajo_scroll_descripcion_caso"
+                    android:layout_width="match_parent"
+                    android:layout_height="120dip"
+                    android:background="@android:color/white"
+                    android:padding="15dip" >
+
+                    <TextView
+                        android:id="@+id/orden_trabajo_descripcion_caso"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:text="@string/lorem_ipsum"
+                        android:textSize="8pt" />
+                </ScrollView>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/orden_trabajo_detalle"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="40dip"
+                android:layout_marginRight="40dip"
+                android:layout_marginTop="30dip"
+                android:orientation="vertical"
+                android:visibility="visible" >
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="39dip"
+                    android:background="@drawable/gradiente"
+                    android:gravity="center_vertical"
+                    android:paddingLeft="15dip"
+                    android:text="DETALLE"
+                    android:textSize="9pt"
+                    android:textStyle="bold" />
+
+                <FrameLayout
+                    android:id="@+id/layout_orden_trabajo_detalle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" >
+                </FrameLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/orden_trabajo_comentarios"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="40dip"
+                android:layout_marginRight="40dip"
+                android:layout_marginTop="30dip"
+                android:gravity="right"
+                android:orientation="vertical" >
+
+                <Button
+                    android:id="@+id/orden_trabajo_continuar"
+                    android:layout_width="200dip"
+                    android:layout_height="45dip"
+                    android:layout_gravity="right"
+                    android:layout_marginLeft="30dip"
+                    android:background="#219fd8"
+                    android:onClick="onClick"
+                    android:text="CONTINUAR"
+                    android:textColor="#fff"
+                    android:textSize="9pt"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+            <include layout="@layout/orden_trabajo_control_tecnico" />
+
+            <include layout="@layout/orden_trabajo_tipo_reparacion" />
+
+            <include layout="@layout/orden_trabajo_firma" />
+
+            <include layout="@layout/orden_trabajo_resumen" />
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>

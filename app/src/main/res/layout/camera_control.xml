@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:gravity="bottom"
+    android:orientation="vertical"
+    tools:ignore="PxUsage" >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="30dip"
+        android:layout_marginRight="30dip"
+        android:padding="30dip"
+        android:gravity="right"
+        android:orientation="horizontal" >
+
+        <Button
+            android:id="@+id/camera_main_finish"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_marginBottom="100dip"
+            android:text="@string/back_photo" />
+
+        <Button
+            android:id="@+id/camera_main_takepicture"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_marginBottom="100dip"
+            android:text="@string/take_photo" />
+
+        <ImageView
+            android:id="@+id/camera_main_preimage"
+            android:layout_width="134dip"
+            android:layout_height="206dip"
+            android:layout_marginLeft="60dip"
+            android:layout_alignTop="@+id/camera_main_finish"
+            android:layout_toRightOf="@+id/camera_main_finish"
+            android:background="@drawable/simple_border" />
+
+    </RelativeLayout>
+
+</LinearLayout>

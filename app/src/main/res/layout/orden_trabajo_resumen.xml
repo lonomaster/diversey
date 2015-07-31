@@ -1,0 +1,549 @@
+<merge xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <LinearLayout
+        android:id="@+id/orden_trabajo_vista_resumen"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical" >
+
+        <ScrollView
+            android:id="@+id/scrollView1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical" >
+
+                <LinearLayout
+                    android:id="@+id/orden_trabajo_detalle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="40dip"
+                    android:layout_marginRight="40dip"
+                    android:layout_marginTop="30dip"
+                    android:background="#ffffff"
+                    android:orientation="vertical" >
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="39dip"
+                        android:background="@drawable/gradiente"
+                        android:gravity="center_vertical"
+                        android:paddingLeft="15dip"
+                        android:text="DETALLE"
+                        android:textSize="9pt"
+                        android:textStyle="bold" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical" >
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="50dp"
+                            android:layout_marginBottom="15dp"
+                            android:layout_marginTop="15dp"
+                            android:gravity="center_vertical" >
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="15dp"
+                                android:text="Atividad o servicio"
+                                android:textSize="9pt"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:id="@+id/actividad_TextView"
+                                android:layout_width="180dp"
+                                android:layout_height="40dp"
+                                android:layout_marginLeft="10dp"
+                                android:layout_marginRight="15dp"
+                                android:background="@drawable/background_borde_negro_ins_gris"
+                                android:ems="10"
+                                android:gravity="center_vertical|center_horizontal"
+                                android:text="vacío"
+                                android:textColor="#333333"
+                                android:textColorHint="#a7a7a7"
+                                android:textSize="8pt" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentLeft="true"
+                                android:layout_marginLeft="10dp"
+                                android:text="Tipo servicio"
+                                android:textSize="9pt"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:id="@+id/tipo_servicio_TextView"
+                                android:layout_width="180dp"
+                                android:layout_height="40dp"
+                                android:layout_marginLeft="10dp"
+                                android:layout_marginRight="15dp"
+                                android:background="@drawable/background_borde_negro_ins_gris"
+                                android:ems="10"
+                                android:gravity="center_vertical|center_horizontal"
+                                android:text="vacío"
+                                android:textColor="#333333"
+                                android:textColorHint="#a7a7a7"
+                                android:textSize="8pt" />
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content" >
+                        </LinearLayout>
+
+                    </LinearLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/orden_trabajo_falla_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="40dip"
+                    android:layout_marginRight="40dip"
+                    android:layout_marginTop="30dip"
+                    android:orientation="vertical" >
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="39dip"
+                        android:background="@drawable/gradiente"
+                        android:gravity="center_vertical"
+                        android:paddingLeft="15dip"
+                        android:text="FALLA INFORMADA"
+                        android:textSize="9pt"
+                        android:textStyle="bold" />
+
+                    <ScrollView
+                        android:id="@+id/orden_trabajo_scroll_descripcion_caso"
+                        android:layout_width="match_parent"
+                        android:layout_height="120dip"
+                        android:background="@android:color/white"
+                        android:padding="15dip" >
+
+                        <TextView
+                            android:id="@+id/orden_trabajo_descripcion_falla"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:text="@string/lorem_ipsum"
+                            android:textSize="8pt" />
+                    </ScrollView>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/orden_trabajo_control_tecnico"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="40dip"
+                    android:layout_marginRight="40dip"
+                    android:layout_marginTop="30dip"
+                    android:background="#ffffff"
+                    android:orientation="vertical" >
+
+                    <TextView
+                        android:id="@+id/titulo_insumos_repuestos"
+                        android:layout_width="match_parent"
+                        android:layout_height="39dip"
+                        android:background="@drawable/gradiente"
+                        android:gravity="center_vertical"
+                        android:paddingLeft="15dip"
+                        android:text="CONTROL TÉCNICO"
+                        android:textSize="9pt"
+                        android:textStyle="bold" />
+
+                    <RelativeLayout
+                        android:id="@+id/RelativeLayout01"
+                        android:layout_width="fill_parent"
+                        android:layout_height="fill_parent"
+                        android:layout_marginBottom="15dp"
+                        android:layout_marginTop="15dp" >
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentLeft="true"
+                            android:layout_marginLeft="15dp"
+                            android:text="Diagnóstico"
+                            android:textSize="9pt"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/diagnostico_TextView"
+                            android:layout_width="400dp"
+                            android:layout_height="100dp"
+                            android:layout_alignParentLeft="true"
+                            android:layout_marginLeft="250dp"
+                            android:layout_marginRight="15dp"
+                            android:background="@drawable/background_borde_negro_ins_gris"
+                            android:ems="10"
+                            android:gravity="center_vertical|center_horizontal"
+                            android:text="vacío"
+                            android:textColor="#333333"
+                            android:textColorHint="#a7a7a7"
+                            android:textSize="8pt" />
+
+                    </RelativeLayout>
+
+                    <ImageView
+                        android:layout_width="fill_parent"
+                        android:layout_height="1dip"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp"
+                        android:layout_marginTop="15dip"
+                        android:src="@drawable/linea1" />
+
+                    <RelativeLayout
+                        android:id="@id/RelativeLayout01"
+                        android:layout_width="fill_parent"
+                        android:layout_height="fill_parent"
+                        android:layout_marginBottom="15dp"
+                        android:layout_marginTop="15dp" >
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentLeft="true"
+                            android:layout_marginLeft="15dp"
+                            android:text="Observación General"
+                            android:textSize="9pt"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/observacion_gral_TextView"
+                            android:layout_width="400dp"
+                            android:layout_height="100dp"
+                            android:layout_alignParentLeft="true"
+                            android:layout_marginLeft="250dp"
+                            android:layout_marginRight="15dp"
+                            android:background="@drawable/background_borde_negro_ins_gris"
+                            android:ems="10"
+                            android:gravity="center_vertical|center_horizontal"
+                            android:text="vacío"
+                            android:textColor="#333333"
+                            android:textColorHint="#a7a7a7"
+                            android:textSize="8pt" />
+
+                    </RelativeLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/orden_trabajo_maquinas"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="40dip"
+                    android:layout_marginRight="40dip"
+                    android:layout_marginTop="30dip"
+                    android:background="#ffffff"
+                    android:orientation="vertical" >
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="39dip"
+                        android:background="@drawable/gradiente"
+                        android:gravity="center_vertical"
+                        android:paddingLeft="15dip"
+                        android:text="MÁQUINAS"
+                        android:textSize="9pt"
+                        android:textStyle="bold" />
+
+                    <LinearLayout
+                        android:id="@+id/orden_trabajo_contenedor_maquinas_resumen"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="0dp"
+                        android:orientation="vertical" >
+                    </LinearLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/orden_trabajo_tipo_reparacion"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="40dip"
+                    android:layout_marginRight="40dip"
+                    android:layout_marginTop="30dip"
+                    android:background="#ffffff"
+                    android:orientation="vertical" >
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="39dip"
+                        android:background="@drawable/gradiente"
+                        android:gravity="center_vertical"
+                        android:paddingLeft="15dip"
+                        android:text="TIPO DE REPARACIÓN"
+                        android:textSize="9pt"
+                        android:textStyle="bold" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginTop="15dp"
+                        android:gravity="center_vertical"
+                        android:orientation="vertical" >
+
+                        <RadioGroup
+                            android:id="@+id/radioGroup_tipoFacturacion"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="15dp"
+                            android:orientation="horizontal"
+                            android:visibility="gone" >
+
+                            <RadioButton
+                                android:id="@+id/radio0"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:checked="true"
+                                android:text="Garantia"
+                                android:textColor="#a7a7a7" />
+
+                            <RadioButton
+                                android:id="@+id/radio1"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Facturada"
+                                android:textColor="#a7a7a7" />
+                        </RadioGroup>
+
+                         <RelativeLayout
+                             android:layout_width="400dp"
+                             android:layout_height="80dp" >
+
+                             <TextView
+                                 android:id="@+id/textView1"
+                                 android:layout_width="wrap_content"
+                                 android:layout_height="wrap_content"
+                                 android:layout_alignBaseline="@+id/horas_hombre_textview"
+                                 android:layout_alignBottom="@+id/horas_hombre_textview"
+                                 android:layout_marginLeft="21dp"
+                                 android:layout_toRightOf="@+id/horas_hombre_textview"
+                                 android:text=":"
+                                 android:textSize="14dp" />
+
+                             <TextView
+                                 android:id="@+id/minutos_hombre_textview"
+                                 android:layout_width="120dp"
+                                 android:layout_height="35dp"
+                                 android:layout_alignBaseline="@+id/textView1"
+                                 android:layout_alignBottom="@+id/textView1"
+                                 android:layout_marginLeft="29dp"
+                                 android:layout_toRightOf="@+id/textView1"
+                                 android:background="@drawable/background_borde_negro_ins_gris"
+                                 android:gravity="center_vertical|center_horizontal"
+                                 android:textColor="#333333"
+                                 android:textColorHint="#ccc"
+                                 android:textSize="8pt" />
+
+                             <TextView
+                                 android:id="@+id/horas_hombre_textview"
+                                 android:layout_width="120dp"
+                                 android:layout_height="35dp"
+                                 android:layout_alignLeft="@+id/textView2"
+                                 android:layout_alignParentBottom="true"
+                                 android:background="@drawable/background_borde_negro_ins_gris"
+                                 android:gravity="center_vertical|center_horizontal"
+                                 android:textColor="#333333"
+                                 android:textColorHint="#ccc"
+                                 android:textSize="8pt" />
+
+                             <TextView
+                                 android:id="@+id/textView2"
+                                 android:layout_width="wrap_content"
+                                 android:layout_height="wrap_content"
+                                 android:layout_above="@+id/horas_hombre_textview"
+                                 android:layout_alignParentLeft="true"
+                                 android:layout_marginLeft="23dp"
+                                 android:text="Hora"
+                                 android:textSize="8pt"
+                                 android:textStyle="bold" />
+
+                             <TextView
+                                 android:layout_width="wrap_content"
+                                 android:layout_height="wrap_content"
+                                 android:layout_alignBaseline="@+id/textView2"
+                                 android:layout_alignBottom="@+id/textView2"
+                                 android:layout_alignLeft="@+id/minutos_hombre_textview"
+                                 android:text="Minutos"
+                                 android:textSize="8pt"
+                                 android:textStyle="bold" />
+
+                             <TextView
+                                 android:id="@+id/textView3"
+                                 android:layout_width="wrap_content"
+                                 android:layout_height="wrap_content"
+                                 android:layout_alignParentTop="true"
+                                 android:layout_marginLeft="28dp"
+                                 android:layout_toRightOf="@+id/textView2"
+                                 android:text="Tiempo / Hombre"
+                                 android:textSize="8pt"
+                                 android:textStyle="bold" />
+
+                         </RelativeLayout>
+
+                        <ImageView
+                            android:layout_width="fill_parent"
+                            android:layout_height="1dip"
+                            android:layout_marginBottom="15dp"
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginRight="10dp"
+                            android:layout_marginTop="15dip"
+                            android:src="@drawable/linea1" />
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="15dp" >
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentLeft="true"
+                                android:layout_marginLeft="15dp"
+                                android:text="Observaciones finales"
+                                android:textSize="8pt"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:id="@+id/obs_finales_textview"
+                                android:layout_width="400dp"
+                                android:layout_height="100dp"
+                                android:layout_marginLeft="250dp"
+                                android:layout_marginRight="15dp"
+                                android:background="@drawable/background_borde_negro_ins_gris"
+                                android:gravity="center_vertical|center_horizontal"
+                                android:text="vacío"
+                                android:textColor="#333333"
+                                android:textColorHint="#ccc"
+                                android:textSize="8pt" />
+
+                        </RelativeLayout>
+                    </LinearLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/orden_trabajo_firma_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="40dip"
+                    android:layout_marginRight="40dip"
+                    android:layout_marginTop="30dip"
+                    android:background="#ffffff"
+                    android:orientation="vertical" >
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="39dip"
+                        android:background="@drawable/gradiente"
+                        android:gravity="center_vertical"
+                        android:paddingLeft="15dip"
+                        android:text="FIRMA"
+                        android:textSize="9pt"
+                        android:textStyle="bold" />
+
+                    <LinearLayout
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical" >
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="5dp"
+                            android:layout_marginLeft="15dp"
+                            android:layout_marginTop="15dp"
+                            android:text="Nombre"
+                            android:textColor="#a7a7a7"
+                            android:textSize="8pt"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/firma_nombre_TextView"
+                            android:layout_width="match_parent"
+                            android:layout_height="35dp"
+                            android:layout_marginLeft="15dp"
+                            android:layout_marginRight="15dp"
+                           android:background="@drawable/background_borde_negro_ins_gris"
+                            android:gravity="center_vertical|center_horizontal"
+                            android:ems="10"
+                            android:textColor="#333333"
+                            android:textSize="8pt" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="5dp"
+                            android:layout_marginLeft="15dp"
+                            android:layout_marginTop="15dp"
+                            android:text="Rut"
+                            android:textColor="#a7a7a7"
+                            android:textSize="8pt"
+                            android:textStyle="bold" />
+
+                       <TextView
+                            android:id="@+id/firma_rut_TextView"
+                            android:layout_width="match_parent"
+                            android:layout_height="35dp"
+                            android:layout_marginLeft="15dp"
+                            android:layout_marginRight="15dp"
+                            android:gravity="center_vertical|center_horizontal"
+                            android:background="@drawable/background_borde_negro_ins_gris"
+                            android:ems="10"
+                            
+                            android:textColor="#333333"
+                            android:textSize="8pt" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="5dp"
+                            android:layout_marginLeft="15dp"
+                            android:layout_marginTop="15dp"
+                            android:text="mail"
+                            android:textColor="#a7a7a7"
+                            android:textSize="8pt"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/firma_mail_TextView"
+                            android:layout_width="match_parent"
+                            android:layout_height="35dp"
+                            android:layout_marginLeft="15dp"
+                            android:layout_marginRight="15dp"
+                            android:gravity="center_vertical|center_horizontal"
+                            android:background="@drawable/background_borde_negro_ins_gris"
+                            android:ems="10"
+                           
+                            android:textColor="#333333"
+                            android:textSize="8pt" />
+
+                        <Button
+                            android:id="@+id/orden_volver"
+                            android:layout_width="200dp"
+                            android:layout_height="45dp"
+                            android:layout_gravity="center_horizontal"
+                            android:layout_marginBottom="20dp"
+                            android:layout_marginTop="20dp"
+                            android:background="#219fd8"
+                            android:onClick="onClick"
+                            android:text="VOLVER"
+                            android:textColor="#fff"
+                            android:textSize="8pt"
+                            android:textStyle="bold" />
+
+                    </LinearLayout>
+                </LinearLayout>
+            </LinearLayout>
+        </ScrollView>
+    </LinearLayout>
+
+</merge>

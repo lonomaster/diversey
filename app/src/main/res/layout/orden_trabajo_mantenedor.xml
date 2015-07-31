@@ -1,0 +1,258 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="#f0f0f0"
+    android:gravity="center_vertical"
+    android:orientation="vertical"
+    android:paddingBottom="20dip"
+    android:paddingLeft="10dip"
+    android:paddingRight="10dip"
+    android:paddingTop="15dip" >
+
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:stretchColumns="1,2" >
+
+        <TableRow
+            android:id="@+id/tableRow1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone" >
+
+            <LinearLayout
+                android:layout_column="1"
+                android:layout_marginTop="5dip"
+                android:orientation="horizontal" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Modelo Máquina:"
+                    android:textSize="9pt"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/orden_trabajo_maquina_modelo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dip"
+                    android:text="1111111111111"
+                    android:textSize="9pt" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_column="2"
+                android:layout_marginTop="5dip"
+                android:orientation="horizontal" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="N° Serie:"
+                    android:textSize="9pt"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/orden_trabajo_maquina_serie"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dip"
+                    android:text="1111111111111"
+                    android:textSize="9pt" />
+            </LinearLayout>
+        </TableRow>
+
+        <TableRow
+            android:id="@+id/tableRow2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone" >
+
+            <LinearLayout
+                android:layout_column="1"
+                android:layout_marginTop="5dip"
+                android:orientation="horizontal" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Cantidad:"
+                    android:textSize="9pt"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/orden_trabajo_cantidad"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dip"
+                    android:text="1111111111111"
+                    android:textSize="9pt" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_column="2"
+                android:layout_marginTop="5dip"
+                android:orientation="horizontal" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Codigo:"
+                    android:textSize="9pt"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/orden_trabajo_codigo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dip"
+                    android:text="1111111111111"
+                    android:textSize="9pt" />
+            </LinearLayout>
+        </TableRow>
+
+        <TableRow
+            android:id="@+id/tableRow3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" >
+
+            <LinearLayout
+                android:layout_column="1"
+                android:layout_marginTop="5dip"
+                android:gravity="center_vertical"
+                android:orientation="horizontal" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Tipo Mantención : "
+                    android:textSize="9pt"
+                    android:textStyle="bold" />
+                
+                <TextView
+                    android:id="@+id/actividad_servicio_textview"
+                    android:layout_width="150dp"
+                    android:layout_height="40dp"
+                    android:background="@drawable/background_borde_negro_ins_gris"
+                    android:ems="10"
+                    android:gravity="center_vertical|center_horizontal"
+                    android:textColor="#333333"
+                    android:textColorHint="#a7a7a7"
+                    android:textSize="8pt"
+                    android:visibility="gone" />
+
+                <Spinner
+                    android:id="@+id/orden_trabajo_tipo_mantencion"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dip"
+                    android:textSize="9pt"
+                    android:visibility="visible" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_column="2"
+                android:layout_marginTop="5dip"
+                android:gravity="center_vertical"
+                android:orientation="horizontal" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Tipo Servicio : "
+                    android:textSize="9pt"
+                    android:textStyle="bold" />
+                
+                <TextView
+                    android:id="@+id/tipo_facturacion_textview"
+                    android:layout_width="150dp"
+                    android:layout_height="40dp"
+                    android:background="@drawable/background_borde_negro_ins_gris"
+                    android:ems="10"
+                    android:gravity="center_vertical|center_horizontal"
+                    android:textColor="#333333"
+                    android:textColorHint="#a7a7a7"
+                    android:textSize="8pt"
+                    android:visibility="gone" />
+
+                <Spinner
+                    android:id="@+id/orden_trabajo_tipo_servicio"
+                    android:visibility="visible"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dip"
+                    android:text="1111111111111"
+                    android:textSize="9pt" />
+            </LinearLayout>
+        </TableRow>
+
+        <TableRow
+            android:id="@+id/tableRow4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone" >
+
+            <LinearLayout
+                android:layout_column="1"
+                android:layout_marginTop="5dip"
+                android:orientation="horizontal" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Horómetro"
+                    android:textSize="9pt"
+                    android:textStyle="bold" />
+
+                <EditText
+                    android:id="@+id/orden_trabajo_horometro"
+                    android:layout_width="50dip"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dip"
+                    android:background="#FFFFFF"
+                    android:inputType="number"
+                    android:textColor="#000000"
+                    android:textSize="9pt" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Hrs"
+                    android:textSize="8pt" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_column="2"
+                android:layout_marginTop="5dip"
+                android:orientation="horizontal" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Horas a facturar"
+                    android:textSize="9pt"
+                    android:textStyle="bold" />
+
+                <EditText
+                    android:id="@+id/orden_trabajo_horas_facturar"
+                    android:layout_width="50dip"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dip"
+                    android:background="#FFFFFF"
+                    android:inputType="number"
+                    android:textColor="#000000"
+                    android:textSize="9pt" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Hrs"
+                    android:textSize="8pt" />
+            </LinearLayout>
+        </TableRow>
+    </TableLayout>
+
+</LinearLayout>

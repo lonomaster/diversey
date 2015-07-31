@@ -1,0 +1,285 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/orden_trabajo_header"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/fondos"
+    android:orientation="vertical"
+    tools:ignore="PxUsage" >
+
+    <!-- Boton Volver header -->
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="75dip"
+        android:orientation="horizontal" >
+
+        <Button
+            android:id="@+id/button_back_listmap"
+            android:layout_width="80dip"
+            android:layout_height="30dip"
+            android:layout_marginLeft="40dip"
+            android:layout_marginTop="23dip"
+            android:background="@drawable/volver"
+            android:onClick="onClick" />
+
+        <ImageView
+            android:layout_width="75dip"
+            android:layout_height="76dip"
+            android:layout_marginLeft="565dip"
+            android:background="@drawable/logo_app"
+            android:onClick="onClick" />
+    </LinearLayout>
+    <!-- Lista elementos header -->
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="270dip"
+        android:orientation="vertical"
+        android:paddingBottom="3dip"
+        android:paddingLeft="40dip"
+        android:paddingRight="40dip"
+        android:paddingTop="23dip" >
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+
+            <TextView
+                android:id="@+id/orden_trabajo_nombre_sucursal"
+                android:layout_width="match_parent"
+                android:layout_height="40dip"
+                android:layout_marginTop="10dip"
+                android:gravity="center_vertical"
+                android:text="Nombre Sucursal"
+                android:textSize="14pt"
+                android:textStyle="bold" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dip"
+                android:orientation="horizontal" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:text="Site : "
+                    android:textSize="12pt"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/orden_trabajo_cliente_caso"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:textSize="12pt" />
+            </LinearLayout>
+<!--  
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dip"
+                android:orientation="horizontal" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:text="Dirección Local : "
+                    android:textSize="9pt"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/orden_trabajo_direccion_empresa"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:text="XXXXXXXX"
+                    android:textSize="9pt" />
+            </LinearLayout>
+            -->
+        </LinearLayout>
+        <!-- Separador header -->
+
+        <ImageView
+            android:layout_width="720dip"
+            android:layout_height="1dip"
+            android:layout_marginTop="15dip"
+            android:src="@drawable/linea1" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical" >
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dip"
+                    android:gravity="left"
+                    android:orientation="horizontal" >
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:text="Representante Legal : "
+                        android:textSize="9pt"
+                        android:visibility="gone"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/orden_trabajo_representante_legal"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:text="Juan Perez"
+                        android:visibility="gone"
+                        android:textSize="9pt" />
+                </LinearLayout>
+<!--  
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dip"
+                    android:orientation="horizontal" >
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:text="Rut Empresa : "
+                        android:textSize="9pt"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/orden_trabajo_rut_empresa"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:textSize="9pt" />
+                </LinearLayout>
+-->
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dip"
+                    android:orientation="horizontal" >
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:gravity="center_vertical"
+                        android:text="Fecha de Realización de OT : "
+                        android:textSize="12pt"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/orden_trabajo_fecha_realizacion_head"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:gravity="center_vertical"
+                        android:text="2013-04-22"
+                        android:textSize="12pt" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dip"
+                    android:orientation="horizontal" >
+                </LinearLayout>
+                 <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dip"
+                    android:orientation="horizontal" >
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:gravity="center_vertical"
+                        android:text="Máquina : "
+                        android:textSize="12pt"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/orden_trabajo_maquina_head"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:gravity="center_vertical"
+                        android:text="2013-04-22"
+                        android:textSize="12pt" />
+                </LinearLayout>
+                
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right|center_vertical"
+                android:gravity="right"
+                android:orientation="horizontal" >
+
+                <!--
+                        Button
+                        android:id="@+id/casocafe_contacto_fono"
+                        android:layout_width="34dip"
+                        android:layout_height="34dip"
+                        android:background="@drawable/boton_telefono"
+                        android:onClick="onClick" /
+                -->
+
+
+                <!--
+                    Button
+                    android:id="@+id/orden_trabajo_contacto_mail"
+                    android:layout_width="68dip"
+                    android:layout_height="68dip"
+                    android:layout_marginRight="15dip"
+                    android:background="@drawable/boton_mail"
+                    android:onClick="onClick" /
+                -->
+            </LinearLayout>
+        </LinearLayout>
+
+        <ImageView
+            android:layout_width="720dip"
+            android:layout_height="1dip"
+            android:layout_marginTop="15dip"
+            android:src="@drawable/linea1" />
+<!--  
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dip"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:text="Nota de Venta:"
+                android:textSize="9pt"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/orden_trabajo_nota_venta"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:text="XXXXXXXX"
+                android:textSize="9pt" />
+        </LinearLayout>
+        -->
+    </LinearLayout>
+
+</LinearLayout>
