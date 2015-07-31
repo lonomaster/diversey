@@ -61,13 +61,14 @@
                     android:layout_marginLeft="40dip"
                     android:src="@drawable/logo_diversey" />
                 <TextView
+                    android:id="@+id/title_company_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="120dip"
                     android:layout_marginTop="50dip"
                     android:text="Sistema Logística Diversey"
-                    android:textColor="#8bc4e7"
-                    android:textSize="12pt" />
+                    android:textColor="@color/accentColor"
+                    android:textSize="14pt" />
             </LinearLayout>
 
             <LinearLayout
@@ -87,7 +88,10 @@
 
                     <Button
                         android:id="@+id/showlist_todos"
+                        android:background="@android:color/holo_red_light"
                         android:layout_width="110dip"
+                        android:textColor="@color/white"
+                        android:text="Todos"
                         android:layout_height="match_parent"
                         android:onClick="showList" />
 

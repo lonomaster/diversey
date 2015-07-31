@@ -105,17 +105,11 @@ dialogC.show();
 
 		public StartLogin(Context c){
 			ctx = c;
-			progDailog = new ProgressDialog(ctx);
 
 		}
 
 		protected void onPreExecute() {
-			progDailog.setTitle("Conectando con servidor");
-			progDailog.setMessage("espera...");
-			progDailog.setIndeterminate(true);
-			progDailog.setCancelable(false);			
-			progDailog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-			progDailog.show();
+			dialogC.show();
 		}
 
 		protected Boolean doInBackground(String... urls) {
@@ -133,8 +127,7 @@ dialogC.show();
 
 		protected void onPostExecute(Boolean result) {
 			try {
-				progDailog.dismiss();
-				progDailog = null;
+				dialogC.dismiss();
 		    } catch (Exception e) {
 		        // nothing
 		    }

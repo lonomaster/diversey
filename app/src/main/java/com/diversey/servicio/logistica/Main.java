@@ -13,6 +13,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.ServiceConnection;
 import android.graphics.Bitmap;
+import android.graphics.Typeface;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.location.Criteria;
@@ -70,9 +71,9 @@ public class Main extends Activity {
 	private GeoPoint geoPoint_location = new GeoPoint(0, 0);
 	private String userId;
 
-	private ProgressDialog progDailog;
 	private AlertDialog dialogL;
 	private AlertDialog dialogR;
+	private AlertDialog dialogG;
 	Timer timer = null;
 	private LinearLayout layoutList;
 	private ListView listView1;
@@ -80,6 +81,9 @@ public class Main extends Activity {
 	private UserRecord u;
 	private int contadorRefresh = 0;
 	private static int count_upload = 0;
+	public Typeface BebasNeueRegular;
+	public Typeface BebasNeueLight;
+	public Typeface BebasNeueBold;
 
 
 
@@ -93,11 +97,34 @@ public class Main extends Activity {
 		AppParameters.createDirIfNotExists(AppParameters.applicationPath);
 
 		StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
-		StrictMode.setThreadPolicy(policy); 
+		StrictMode.setThreadPolicy(policy);
 
 		setContentView(R.layout.main);
-		dialogL = new SpotsDialog(Main.this, R.style.load);
 
+		BebasNeueLight = Typeface.createFromAsset(Main.this.getAssets(),
+				"BebasNeueLight.ttf");
+
+		BebasNeueRegular = Typeface.createFromAsset(Main.this.getAssets(),
+				"BebasNeueRegular.ttf");
+
+		BebasNeueBold = Typeface.createFromAsset(Main.this.getAssets(),
+				"BebasNeueBold.ttf");
+
+
+		/*styling*/
+		TextView title_company_name = (TextView) findViewById(R.id.title_company_name);
+		title_company_name.setTypeface(BebasNeueLight);
+
+
+
+
+
+
+
+
+
+		dialogL = new SpotsDialog(Main.this, R.style.load);
+		dialogG = new SpotsDialog(Main.this, R.style.get);
 		dialogR = new SpotsDialog(Main.this, R.style.refresh);
 		u.deleteAll(UserRecord.class);
 
@@ -110,7 +137,8 @@ public class Main extends Activity {
 
 		setButtons();
 		Button botTodos = (Button)findViewById(R.id.showlist_todos);
-		botTodos.setBackgroundResource(R.drawable.btn_todos_pressed);
+		//botTodos.setBackgroundResource(R.drawable.btn_todos_pressed);
+
 
 		TextView counterTv = (TextView)findViewById(R.id.upload_status);
 		Button refBut = (Button)findViewById(R.id.refresh);
@@ -154,7 +182,6 @@ public class Main extends Activity {
 
 		public StartMain(Context c){
 			ctx = c;
-			progDailog = new ProgressDialog(ctx);
 		}
 
 		protected void onPreExecute() {
@@ -238,12 +265,15 @@ public class Main extends Activity {
 
 	private void setButtons() {
 		Button botTodos = (Button)findViewById(R.id.showlist_todos);
-		botTodos.setBackgroundResource(R.drawable.btn_todos_disabled);
+		botTodos.setTypeface(BebasNeueBold);
+		//botTodos.setBackgroundResource(R.drawable.btn_todos_disabled);
 
 		Button botPendientes = (Button)findViewById(R.id.showlist_pendientes);
+		botPendientes.setTypeface(BebasNeueRegular);
 		botPendientes.setBackgroundResource(R.drawable.btn_pendientes_disabled);
 
 		Button botRealizados = (Button)findViewById(R.id.showlist_realizados);
+		botRealizados.setTypeface(BebasNeueRegular);
 		botRealizados.setBackgroundResource(R.drawable.btn_realizados_disabled);
 
 	}
@@ -429,12 +459,7 @@ public class Main extends Activity {
 		public OpenOt(Context c, UserRecord val, View v){
 			ctx = c;
 			user = val;
-			progDailog = new ProgressDialog(ctx);
-			progDailog.setTitle("Obteniendo información OT #" + user.idot + " ...");
-			progDailog.setMessage("por favor, espera...");
-			progDailog.setProgress(ProgressDialog.STYLE_SPINNER);
-			progDailog.setCancelable(false);
-			progDailog.show();
+			dialogG.show();
 			this.v = v;
 		}
 
@@ -502,7 +527,7 @@ public class Main extends Activity {
 			dumpIntent(nextScreen);
 			v.setClickable(true);
 			startActivityForResult(nextScreen, req_code);
-			progDailog.dismiss();
+			dialogG.dismiss();
 		}
 	}
 	
@@ -739,17 +764,16 @@ public class Main extends Activity {
 			// Detach our existing connection.
 			unbindService(mConnection);
 			mIsBound = false;
-			Log.i("Service","Unbinding.");
+			Log.i("Service", "Unbinding.");
 		}
 	}
 
 	@Override
 	protected void onDestroy() {
 		super.onDestroy();
-		 if (progDailog != null) {  
-			  progDailog.dismiss();  
-			  progDailog = null;  
-		  }		
+		dialogG.dismiss();
+		dialogL.dismiss();
+		dialogR.dismiss();
 		try {
 			doUnbindService();
 			stopService(new Intent(Main.this, OTService.class));
@@ -759,12 +783,14 @@ public class Main extends Activity {
 	}
 	
 	 protected void onStop() {  
-		  super.onStop();  
-		  if (progDailog != null) {  
-			  progDailog.dismiss();  
-			  progDailog = null;  
-		  } 
-		 } 
+		  super.onStop();
+
+		 dialogL.dismiss();
+		 dialogR.dismiss();
+		 dialogG.dismiss();
+
+
+	 }
 	
 
 	void sendOtsMessage(){

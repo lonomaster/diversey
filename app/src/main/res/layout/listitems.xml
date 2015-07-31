@@ -2,7 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/listitem_layout"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
     android:paddingBottom="15dip"
     android:paddingLeft="40dip"
     android:paddingRight="40dip"
@@ -24,10 +24,9 @@
         <ImageView
             android:id="@+id/list_estado"
             android:layout_width="10dip"
-            android:layout_height="match_parent"
+            android:layout_height="fill_parent"
             android:layout_marginLeft="10dip"
-            android:layout_marginRight="-10dip"
-            android:src="@android:color/black" />
+            android:layout_marginRight="-10dip"/>
 
         <LinearLayout
             android:id="@+id/list_inner_layout"

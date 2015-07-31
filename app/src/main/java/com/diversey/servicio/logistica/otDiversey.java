@@ -1967,10 +1967,10 @@ protected void RealizarAccion() {
 	{
 		AlertDialog alertDialog = new AlertDialog.Builder(this).create();
 		alertDialog.setTitle("Aviso...");
-		alertDialog.setMessage("No tiene conexi�n a Internet");
+		alertDialog.setMessage("No tiene conexión a Internet");
 		alertDialog.setButton("Aceptar", new DialogInterface.OnClickListener() {
 		public void onClick(DialogInterface dialog, int which) {
-		// aqu� puedes a�adir funciones
+
 		}
 		});
 		alertDialog.setIcon(android.R.drawable.ic_menu_info_details);
@@ -2057,7 +2057,7 @@ public void MensajeCodigoBlanco(){
 	
 	  new AlertDialog.Builder(otDiversey.this)
 	     .setTitle("Alerta")
-	     .setMessage("No se seleccin� el c�digo")
+	     .setMessage("No se seleccinó el código")
 	     .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
 	         public void onClick(DialogInterface dialog, int which) { 
 	        	 	 dialog.dismiss();

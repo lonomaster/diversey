@@ -79,16 +79,17 @@ public class UserItemAdapter extends ArrayAdapter<UserRecord> {
 				int st = Integer.valueOf(user.tipo_orden_id);
 				switch (st) {
 				case AppParameters.OT_PENDIENTE:
-					state.setImageResource(R.drawable.estadopendientes);
+					//state.setImageResource(R.drawable.estadopendientes);
+					state.setBackgroundColor(context.getResources().getColor(android.R.color.holo_red_light));
 					break;
 				case AppParameters.OT_EJECUCION:
-					state.setImageResource(R.drawable.estadoenejec);
+					state.setBackgroundColor(context.getResources().getColor(android.R.color.holo_orange_dark));
 					break;
 				case AppParameters.OT_REALIZADA:
-					state.setImageResource(R.drawable.estadorecibidos);
+					state.setBackgroundColor(context.getResources().getColor(android.R.color.holo_green_light));
 					break;
 				default:
-					state.setImageResource(android.R.color.black);
+					state.setBackgroundColor(context.getResources().getColor(android.R.color.background_dark));
 					break;
 				}
 			}
