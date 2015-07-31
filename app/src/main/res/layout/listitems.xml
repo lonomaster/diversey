@@ -73,6 +73,7 @@
                         android:orientation="horizontal" >
 
                         <TextView
+                            android:id="@+id/title_site"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="Site: "
@@ -83,7 +84,7 @@
                             android:id="@+id/list_nombre_empresa"
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
-                            android:text="test"
+                            android:text="Sin informaciòn"
                             android:maxLines="1"
                             android:singleLine="true"
                             android:scrollHorizontally="true"
@@ -96,6 +97,7 @@
                         android:orientation="horizontal" >
 
                         <TextView
+                            android:id="@+id/title_direccion"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="Dirección Empresa: "
@@ -108,8 +110,9 @@
                             android:layout_height="match_parent"
                             android:maxLines="1"
                             android:singleLine="true"
+                            android:text="Sin informaciòn"
                             android:scrollHorizontally="true"
-                             android:textSize="12pt"/>
+                            android:textSize="12pt"/>
                     </LinearLayout>
 
                     <LinearLayout
@@ -118,6 +121,7 @@
                         android:orientation="horizontal" >
 
                         <TextView
+                            android:id="@+id/title_contacto"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="Nombre Contacto: "
@@ -128,7 +132,7 @@
                             android:id="@+id/list_nombre_contacto"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:text="test"
+                            android:text="Sin informaciòn"
                            android:textSize="12pt" />
                     </LinearLayout>
                 </LinearLayout>
@@ -164,6 +168,7 @@
                 android:padding="3dip" >
 
                 <TextView
+                    android:id="@+id/title_ot_id"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:text="@string/numero_ot"
@@ -194,6 +199,7 @@
                     android:textSize="11pt" />
 
                 <TextView
+                    android:id="@+id/title_fecha"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_marginLeft="13dip"
