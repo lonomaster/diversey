@@ -101,6 +101,7 @@ public class Main extends Activity {
 
 		setContentView(R.layout.main);
 
+
 		BebasNeueLight = Typeface.createFromAsset(Main.this.getAssets(),
 				"BebasNeueLight.ttf");
 
@@ -111,6 +112,19 @@ public class Main extends Activity {
 				"BebasNeueBold.ttf");
 
 		/*styling*/
+
+		Button botTodos = (Button)findViewById(R.id.showlist_todos);
+		botTodos.setTypeface(BebasNeueBold);
+		botTodos.setBackgroundColor(getResources().getColor(R.color.gray_light));
+
+		Button botPendientes = (Button)findViewById(R.id.showlist_pendientes);
+		botPendientes.setTypeface(BebasNeueRegular);
+		botPendientes.setBackgroundColor(getResources().getColor(android.R.color.holo_red_dark));
+
+		Button botRealizados = (Button)findViewById(R.id.showlist_realizados);
+		botRealizados.setTypeface(BebasNeueRegular);
+		botRealizados.setBackgroundColor(getResources().getColor(android.R.color.holo_green_dark));
+
 		TextView title_company_name = (TextView) findViewById(R.id.title_company_name);
 		title_company_name.setTypeface(BebasNeueLight);
 
@@ -132,9 +146,7 @@ public class Main extends Activity {
 		Intent i = getIntent();
 		userId = i.getStringExtra("userid");
 
-		setButtons();
-		Button botTodos = (Button)findViewById(R.id.showlist_todos);
-		//botTodos.setBackgroundResource(R.drawable.btn_todos_pressed);
+
 
 
 		TextView counterTv = (TextView)findViewById(R.id.upload_status);
@@ -261,17 +273,18 @@ public class Main extends Activity {
 	}
 
 	private void setButtons() {
+
 		Button botTodos = (Button)findViewById(R.id.showlist_todos);
 		botTodos.setTypeface(BebasNeueBold);
-		botTodos.setBackgroundColor(R.color.gray_dark);
+		botTodos.setBackgroundColor(getResources().getColor(R.color.gray_dark));
 
 		Button botPendientes = (Button)findViewById(R.id.showlist_pendientes);
 		botPendientes.setTypeface(BebasNeueRegular);
-		botTodos.setBackgroundColor(android.R.color.holo_red_dark);
+		botPendientes.setBackgroundColor(getResources().getColor(android.R.color.holo_red_dark));
 
 		Button botRealizados = (Button)findViewById(R.id.showlist_realizados);
 		botRealizados.setTypeface(BebasNeueRegular);
-		botTodos.setBackgroundColor(android.R.color.holo_green_dark);
+		botRealizados.setBackgroundColor(getResources().getColor(android.R.color.holo_green_dark));
 
 	}
 
