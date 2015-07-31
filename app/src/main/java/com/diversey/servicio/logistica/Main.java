@@ -110,7 +110,6 @@ public class Main extends Activity {
 		BebasNeueBold = Typeface.createFromAsset(Main.this.getAssets(),
 				"BebasNeueBold.ttf");
 
-
 		/*styling*/
 		TextView title_company_name = (TextView) findViewById(R.id.title_company_name);
 		title_company_name.setTypeface(BebasNeueLight);
@@ -118,9 +117,7 @@ public class Main extends Activity {
 
 
 
-
-
-
+		/* END styling*/
 
 
 		dialogL = new SpotsDialog(Main.this, R.style.load);
