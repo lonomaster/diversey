@@ -153,10 +153,10 @@
 
                     <Button
                         android:id="@+id/list_showcase"
-                        android:layout_width="48dip"
-                        android:layout_height="48dip"
+                        android:layout_width="52dp"
+                        android:layout_height="52dp"
                         android:layout_marginLeft="58dip"
-                        android:background="@drawable/boton_detalle"
+                        android:background="@drawable/selector_btn_detalle"
                         android:onClick="onClick" />
                 </LinearLayout>
             </LinearLayout>

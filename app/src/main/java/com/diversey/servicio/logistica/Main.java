@@ -275,7 +275,7 @@ public class Main extends Activity {
 	private void setButtons() {
 
 		Button botTodos = (Button)findViewById(R.id.showlist_todos);
-		botTodos.setTypeface(BebasNeueBold);
+		botTodos.setTypeface(BebasNeueRegular);
 		botTodos.setBackgroundColor(getResources().getColor(R.color.gray_dark));
 
 		Button botPendientes = (Button)findViewById(R.id.showlist_pendientes);
@@ -339,15 +339,21 @@ public class Main extends Activity {
 		int tipoOt = 0;
 		if(v.getId() == R.id.showlist_pendientes){
 			tipoOt=2;
+			Button b = (Button) v;
 			v.setBackgroundColor(getResources().getColor(android.R.color.holo_red_light));
+			b.setTypeface(BebasNeueBold);
 		}
 		else if(v.getId() == R.id.showlist_realizados){
 			tipoOt=4;
+			Button b = (Button) v;
 			v.setBackgroundColor(getResources().getColor(android.R.color.holo_green_light));
+			b.setTypeface(BebasNeueBold);
 		}
 		else if(v.getId() == R.id.showlist_todos){
 			tipoOt=0;
+			Button b = (Button) v;
 			v.setBackgroundColor(getResources().getColor(R.color.gray_light));
+			b.setTypeface(BebasNeueBold);
 			//			Log.i("Refrescando","Todos...");
 		}
 		else if(v.getId() == R.id.refresh){

@@ -29,7 +29,7 @@
                     android:layout_height="48dip"
                     android:layout_marginLeft="710dip"
                     android:layout_marginTop="10dip"
-                    android:background="@android:drawable/ic_popup_sync"
+                    android:background="@drawable/selector_btn_refresh"
                     android:onClick="showList"
                     android:paddingLeft="25dip"
                     android:paddingTop="25dip" />
