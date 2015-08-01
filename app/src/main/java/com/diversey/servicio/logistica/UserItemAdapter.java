@@ -14,7 +14,6 @@ import android.widget.TextView;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 public class UserItemAdapter extends ArrayAdapter<UserRecord> {
@@ -29,7 +28,6 @@ public class UserItemAdapter extends ArrayAdapter<UserRecord> {
 		super(context, textViewResourceId, users);
 		this.context = context;
 		this.users = users;
-		Collections.reverse(this.users);
 
 		BebasNeueLight = Typeface.createFromAsset(context.getAssets(),
 				"BebasNeueLight.ttf");

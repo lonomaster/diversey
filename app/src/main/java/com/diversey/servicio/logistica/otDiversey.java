@@ -1956,7 +1956,7 @@ protected void RealizarAccion() {
 		VerificarInternet.Internet test = new VerificarInternet.Internet();
 		if(test.conexion(getApplicationContext()) == false){
 			progDailogGenera.dismiss();
-			AvisoError("Ocurrio un problema","Para acceder necesita una conexi�n a internet");		
+			AvisoError("Ocurrio un problema","Para acceder necesita una conexión a internet");
 		}else{
 			endOt();
 		}

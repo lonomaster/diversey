@@ -45,6 +45,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
@@ -80,7 +81,7 @@ public class Main extends Activity {
 	private List<UserRecord> usersNow;
 	private UserRecord u;
 	private int contadorRefresh = 0;
-	private static int count_upload = 0;
+	private static int count_ot_local = 10;
 	public Typeface BebasNeueRegular;
 	public Typeface BebasNeueLight;
 	public Typeface BebasNeueBold;
@@ -149,18 +150,13 @@ public class Main extends Activity {
 
 
 
-		TextView counterTv = (TextView)findViewById(R.id.upload_status);
-		Button refBut = (Button)findViewById(R.id.refresh);
-		//refBut.setClickable(false);
-
-		if(count_upload>0){
-			counterTv.setVisibility(View.VISIBLE);
-			counterTv.setText(Integer.toString(count_upload));
-			refBut.setVisibility(View.VISIBLE);
+		TextView counterOTlocal = (TextView)findViewById(R.id.ot_local);
+		if(count_ot_local>0){
+			counterOTlocal.setVisibility(View.VISIBLE);
+			counterOTlocal.setText(Integer.toString(count_ot_local));
 		}
 		else{
-			counterTv.setVisibility(View.GONE);
-			refBut.setVisibility(View.VISIBLE);
+			counterOTlocal.setVisibility(View.GONE);
 		}
 
 
@@ -216,6 +212,7 @@ public class Main extends Activity {
 				//users = processData.getData();
 
 				users  = UserRecord.listAll(UserRecord.class);
+				Collections.reverse(users);
 				Log.d("SugarSizeStart",String.valueOf(users.size()));
 				usersNow = new ArrayList<UserRecord>(users);
 
@@ -373,6 +370,7 @@ public class Main extends Activity {
 
 
 		List<UserRecord> users1 = UserRecord.listAll(UserRecord.class);
+		Collections.reverse(users1);
 		Log.d("SugarSizeNormal",String.valueOf(users1.size()));//processData.getData();
 		List<UserRecord> users2 = new ArrayList<UserRecord>();
 		ArrayAdapter<UserRecord> adapter = null;
@@ -426,6 +424,7 @@ public class Main extends Activity {
 					usersNow.clear();
 					//usersNow = processData.getData();
 					usersNow  = UserRecord.listAll(UserRecord.class);
+					Collections.reverse(usersNow);
 					Log.d("SugarSizeRefresh",String.valueOf(usersNow.size()));
 
 					usersNow = new ArrayList<UserRecord>(usersNow);
@@ -655,7 +654,6 @@ public class Main extends Activity {
 	class IncomingHandler extends Handler {
 
 		public void handleMessage(Message msg) {
-			TextView counterTv = (TextView)findViewById(R.id.upload_status);
 			Button b = (Button)findViewById(R.id.refresh);
 			switch (msg.what) {
 			case OTService.REFRESH_OTS:
@@ -664,18 +662,6 @@ public class Main extends Activity {
 				//b.setClickable(false);
 				break;
 			case OTService.COUNT_UPLOADS:
-				count_upload = msg.arg1;
-
-				if(count_upload>0){
-					counterTv.setVisibility(View.VISIBLE);
-					counterTv.setText(Integer.toString(count_upload));
-					//b.setClickable(false);
-					b.setVisibility(View.VISIBLE);
-				}
-				else{
-					counterTv.setVisibility(View.GONE);
-					b.setVisibility(View.VISIBLE);
-				}
 				break;
 			default:
 				super.handleMessage(msg);
