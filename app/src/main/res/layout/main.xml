@@ -18,40 +18,64 @@
             android:background="@drawable/fondos"
             android:orientation="vertical" >
 
-            <LinearLayout
-                android:layout_width="wrap_content"
+            <RelativeLayout
+                android:layout_width="fill_parent"
                 android:layout_height="75dip"
-                android:orientation="horizontal" >
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp">
+
+                <ImageView
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:background="@drawable/ic_login"
+                    android:id="@+id/imageView"
+                    android:layout_alignBottom="@+id/refresh"
+                    android:layout_toRightOf="@+id/relativeLayout" />
+
 
                 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:paddingLeft="25dip"
-                    android:layout_marginLeft="710dip"
-                    android:layout_marginTop="10dip"
-                    >
-                    <Button
-                        android:id="@+id/refresh"
-                        android:layout_width="52dip"
-                        android:layout_height="52dip"
-                        android:background="@drawable/selector_btn_refresh"
-                        android:onClick="showList"/>
-                    <TextView
-                        android:id="@+id/ot_local"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignTop="@id/refresh"
-                        android:layout_alignRight="@id/refresh"
-                        android:text="10"
-                        android:textColor="#FFF"
-                        android:textSize="12sp"
-                        android:textStyle="bold"
-                        android:background="@drawable/badget_circle"/>
+                    android:gravity="right"
+                    android:layout_gravity="right"
+                    android:id="@+id/relativeLayout">
+
                 </RelativeLayout>
 
+                <Button
+                    android:id="@+id/refresh"
+                    android:layout_width="52dip"
+                    android:layout_height="52dip"
+                    android:background="@drawable/selector_btn_refresh"
+                    android:onClick="showList"
+                    android:layout_centerVertical="true"
+                    android:layout_alignParentRight="true" />
+
+                <TextView
+                    android:id="@+id/ot_local"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="10"
+                    android:textColor="#FFF"
+                    android:textSize="12sp"
+                    android:textStyle="bold"
+                    android:background="@drawable/badget_circle"
+                    android:layout_alignTop="@+id/imageView"
+                    android:layout_alignParentRight="true" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:text="Name Lastname"
+                    android:textColor="@color/accentColor"
+                    android:layout_marginLeft="10dp"
+                    android:id="@+id/login"
+                    android:layout_centerVertical="true"
+                    android:layout_toRightOf="@+id/imageView" />
 
 
-            </LinearLayout>
+            </RelativeLayout>
 
             <LinearLayout
                 android:layout_width="wrap_content"

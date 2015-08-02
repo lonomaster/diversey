@@ -12,6 +12,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.ServiceConnection;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.Typeface;
 import android.graphics.drawable.BitmapDrawable;
@@ -47,12 +48,10 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 import java.util.Timer;
-import java.util.TimerTask;
 
 import dmax.dialog.SpotsDialog;
 
@@ -132,6 +131,11 @@ public class Main extends Activity {
 
 		TextView title_company_name = (TextView) findViewById(R.id.title_company_name);
 		title_company_name.setTypeface(BebasNeueLight);
+
+		SharedPreferences prefe=getSharedPreferences("datosDiversey",Login.MODE_PRIVATE);
+
+		TextView login = (TextView) findViewById(R.id.login);
+		login.setText(prefe.getString("usernameDiversey", ""));
 
 
 
