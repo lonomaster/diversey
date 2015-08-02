@@ -13,6 +13,8 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.ServiceConnection;
 import android.content.SharedPreferences;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.Typeface;
 import android.graphics.drawable.BitmapDrawable;
@@ -136,6 +138,12 @@ public class Main extends Activity {
 
 		TextView login = (TextView) findViewById(R.id.login);
 		login.setText(prefe.getString("usernameDiversey", ""));
+
+		TextView version = (TextView) findViewById(R.id.version);
+
+		int versionCode = BuildConfig.VERSION_CODE;
+
+		version.setText("Version "+String.valueOf(versionCode));
 
 
 

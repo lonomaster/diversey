@@ -88,15 +88,30 @@
                     android:layout_height="100dip"
                     android:layout_marginLeft="40dip"
                     android:src="@drawable/logo_diversey" />
-                <TextView
-                    android:id="@+id/title_company_name"
+
+                <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="120dip"
-                    android:layout_marginTop="50dip"
-                    android:text="Sistema Logística Diversey"
-                    android:textColor="@color/accentColor"
-                    android:textSize="14pt" />
+                    android:orientation="vertical" >
+                    <TextView
+                        android:id="@+id/title_company_name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="120dip"
+                        android:layout_marginTop="50dip"
+                        android:text="Sistema Logística Diversey"
+                        android:textColor="@color/accentColor"
+                        android:textSize="14pt" />
+                    <TextView
+                        android:id="@+id/version"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="120dip"
+                        android:textColor="@color/gray_dark"
+                        android:textSize="8pt" />
+
+                </LinearLayout>
+
             </LinearLayout>
 
             <LinearLayout
