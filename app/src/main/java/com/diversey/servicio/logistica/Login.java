@@ -7,6 +7,7 @@ import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Typeface;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -109,6 +110,15 @@ dialogC.show();
 					Thread.sleep(2000);
 					nextScreen.putExtra("username",uname);
 					nextScreen.putExtra("userid",uid);
+
+					SharedPreferences preferencias=getSharedPreferences("datosDiversey",Login.MODE_PRIVATE);
+					SharedPreferences.Editor editor=preferencias.edit();
+					editor.putString("usernameDiversey", uname);
+					editor.putString("useridDiversey", uid);
+					editor.commit();
+
+
+
 				} catch (Exception e) {;} 
 				startActivity(nextScreen);
 				finish(); 

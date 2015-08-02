@@ -77,6 +77,7 @@ public class Main extends Activity {
 	private AlertDialog dialogL;
 	private AlertDialog dialogR;
 	private AlertDialog dialogG;
+	private AlertDialog dialogS;
 	Timer timer = null;
 	private LinearLayout layoutList;
 	private ListView listView1;
@@ -141,6 +142,7 @@ public class Main extends Activity {
 		dialogL = new SpotsDialog(Main.this, R.style.load);
 		dialogG = new SpotsDialog(Main.this, R.style.get);
 		dialogR = new SpotsDialog(Main.this, R.style.refresh);
+		dialogS = new SpotsDialog(Main.this, R.style.sync);
 		u.deleteAll(UserRecord.class, "status = ?", "false");
 
 		layoutList = (LinearLayout)findViewById(R.id.list_layout);
@@ -185,6 +187,21 @@ public void onResume(){
 	else{
 		counterOTlocal.setVisibility(View.GONE);
 	}
+	List<UserRecord> ots  = Select.from(UserRecord.class)
+			.orderBy("idot Desc").list();
+	ArrayAdapter<UserRecord> adapter1 = new UserItemAdapter(Main.this,R.layout.listitems, ots);
+	listView1 = (ListView)findViewById(R.id.mylist1);
+	listView1.setAdapter(adapter1);
+	adapter1.notifyDataSetChanged();
+
+	listView1.invalidate();
+
+
+	setButtons();
+	Button botTodos = (Button)findViewById(R.id.showlist_todos);
+	botTodos.setTypeface(BebasNeueBold);
+	botTodos.setBackgroundColor(getResources().getColor(R.color.gray_light));
+
 	super.onResume();
 }
 
@@ -266,14 +283,14 @@ public void onResume(){
 
 			}
 
-			if(isNetworkAvailable()){
+			/*if(isNetworkAvailable()){
 				final Handler handler = new Handler();
 				handler.postDelayed(new Runnable() {public void run() {sendOtsMessage();}}, 250);
 			}
 			else{
 				timer = new Timer();
 				timer.scheduleAtFixedRate(new TimerTask(){ public void run() {sendOtsMessage();}}, 250, 1000);
-			}
+			}*/
 
 		}
 	}
@@ -365,7 +382,6 @@ public void onResume(){
 		else if(v.getId() == R.id.refresh){
 
 					Log.i("Refrescando", "...");
-			Boolean status = true;
            // if(contadorRefresh == 50){
 			VerificarInternet.Internet test = new VerificarInternet.Internet();
 			if(test.conexion(getApplicationContext()) == false){
@@ -380,6 +396,7 @@ public void onResume(){
 				alertDialog.setIcon(android.R.drawable.ic_menu_info_details);
 				alertDialog.show();
 			}else{
+				dialogS.show();
 				List<UserRecord> OTsLocal  = UserRecord.find(UserRecord.class, "status = ?", "true");
 				int count = 0;
 				for (int i =0; i< OTsLocal.size(); i++) {
@@ -403,16 +420,16 @@ public void onResume(){
 					if(AppParameters.postData(ot, "actualizar")){
 						UserRecord u =	OTsLocal.get(i);
 						u.status = "false";
-						status = true && status;
+						u.save();
 						count++;
 					}
 
-					else {
-						status = false;
-					}
+
 				}
 
-			  if(status) {
+				dialogS.dismiss();
+
+			  if(count == OTsLocal.size()) {
 					RefreshOts rfot = new RefreshOts(v.getContext());
 					rfot.execute("");
 				}
@@ -429,6 +446,20 @@ public void onResume(){
 					alertDialog.show();
 				}
 
+			}
+
+			TextView counterOTlocal = (TextView)findViewById(R.id.ot_local);
+
+			List<UserRecord> OTsLocal  = UserRecord.find(UserRecord.class, "status = ?", "true");
+
+			count_ot_local = OTsLocal.size();
+
+			if(count_ot_local>0){
+				counterOTlocal.setVisibility(View.VISIBLE);
+				counterOTlocal.setText(Integer.toString(count_ot_local));
+			}
+			else{
+				counterOTlocal.setVisibility(View.GONE);
 			}
 
 			//contadorRefresh = 0;
@@ -847,6 +878,7 @@ public void onResume(){
 		dialogG.dismiss();
 		dialogL.dismiss();
 		dialogR.dismiss();
+		dialogS.dismiss();
 		try {
 			doUnbindService();
 			stopService(new Intent(Main.this, OTService.class));
@@ -861,6 +893,7 @@ public void onResume(){
 		 dialogL.dismiss();
 		 dialogR.dismiss();
 		 dialogG.dismiss();
+		 dialogS.dismiss();
 
 
 	 }

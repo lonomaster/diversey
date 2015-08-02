@@ -2053,7 +2053,7 @@ public void onBackPressedEndot(String title, String mensaje, final boolean inser
 	         public void onClick(DialogInterface dialog, int which) { 
 	        	 if(insertado){
 			          dialog.dismiss();
-			          finish();
+					  finish();
 	        	 }else{
 	        		 dialog.dismiss();
 	        	 }
