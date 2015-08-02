@@ -1767,9 +1767,6 @@ public class otDiversey extends Activity implements OnTouchListener{
 	public void endOt(){
 		terminarOt();
 
-		sp.edit().putString("json_imagenes", json_imagenes.toString()).commit(); //así se guarda
-		sp.edit().putString("json_imagenes_qr", json_imagenes_qr.toString()).commit(); //así se guarda
-
 		List<UserRecord> users  = UserRecord.find(UserRecord.class, "idot = ?", idOT);
 
 		for (int i =0; i< users.size(); i++){
@@ -1777,7 +1774,23 @@ public class otDiversey extends Activity implements OnTouchListener{
 			break;
 		}
 
-		try {		
+		sp.edit().putString("json_imagenes", json_imagenes.toString()).commit(); //así se guarda
+		sp.edit().putString("json_imagenes_qr", json_imagenes_qr.toString()).commit(); //así se guarda
+
+		u.json_imagenes = json_imagenes.toString();
+		u.json_imagenes_qr = json_imagenes_qr.toString();
+
+
+
+		try {
+
+			JSONArray jsonimagenes = new JSONArray(json_imagenes.toString());
+			JSONArray jsonimagenes_qr = new JSONArray(json_imagenes_qr.toString());
+
+			datosOT.put("json_imagenes", jsonimagenes);
+			datosOT.put("json_imagenes_qr", jsonimagenes_qr);
+
+
 			//sobre la OT
 			datosOT.put("orden_trabajo_id", idOT);
 
@@ -1860,8 +1873,7 @@ public class otDiversey extends Activity implements OnTouchListener{
 
 		Log.i("FIN OT", "Json = " + datosOT.toString());
 
-		u.save();
-		Log.d("SugarUpdate",u.toString());
+
 
 		//
 		Intent it = new Intent();
@@ -1876,21 +1888,27 @@ public class otDiversey extends Activity implements OnTouchListener{
 			//bl.putString("json-datos", datosOT.toString());
 			it.putExtras(bl);
 			Log.i("Data: ", "INTENT PUTEXTRAS CONSTRUIDO !!! OK !!!");
-			setResult(Main.CASO_HIGIENE,it);
+			setResult(Main.CASO_HIGIENE, it);
 			Log.i("Data: ", "setResult CONSTRUIDO !!! OK !!!");
 			finishActivity(Main.CASO_HIGIENE);
 			Log.i("Data: ", "finishActivity !!! OK !!!");
 			progDailogGenera.dismiss();
 			progDailogGenera = null;
 			//AvisoExito("�xito", "Los datos se ingresaron \ncorrectamente");
-			onBackPressedEndot("�xito", "La OT fue guardada exitosamente.", true);
+			onBackPressedEndot("Éxito", "La OT fue enviada exitosamente.", true);
 		
 			Log.i("Data: ", "onBackPressed !!! OK !!!");
 			Log.i("Base de datos", "true");
+			u.save();
+			Log.d("SugarServidor", u.toString());
 		}else{
 			progDailogGenera.dismiss();
 			progDailogGenera = null;
-			onBackPressedEndot("Error", "El Servidor indica que no ha podido recibir la OT. Verifique su conexi�n a Internet e intente nuevamente.", false);
+			u.status = "true";
+			u.allJsonOT = datosOT.toString();
+			u.save();
+			Log.d("SugarLocal", u.toString());
+			onBackPressedEndot("Sin conexión a internet", "Se ha almacendado localmente la OT, para su posterior sincronización con el servidor.", true);
 			Log.i("Base de datos", "false");
 		}
 	}
@@ -1951,15 +1969,8 @@ public class otDiversey extends Activity implements OnTouchListener{
 
 protected void RealizarAccion() {
 
-		
-		Log.i("Accion", "Aceptar reporte");
-		VerificarInternet.Internet test = new VerificarInternet.Internet();
-		if(test.conexion(getApplicationContext()) == false){
-			progDailogGenera.dismiss();
-			AvisoError("Ocurrio un problema","Para acceder necesita una conexión a internet");
-		}else{
-			endOt();
-		}
+
+	endOt();
 	}
 	
 @SuppressWarnings("deprecation")

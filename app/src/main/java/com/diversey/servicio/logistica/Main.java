@@ -40,7 +40,9 @@ import android.widget.Toast;
 import android.widget.ToggleButton;
 
 import com.google.android.maps.GeoPoint;
+import com.orm.query.Select;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -81,11 +83,12 @@ public class Main extends Activity {
 	private List<UserRecord> usersNow;
 	private UserRecord u;
 	private int contadorRefresh = 0;
-	private static int count_ot_local = 10;
+	private static int count_ot_local = 0;
 	public Typeface BebasNeueRegular;
 	public Typeface BebasNeueLight;
 	public Typeface BebasNeueBold;
 
+	public JSONObject ot;
 
 
 	private ArrayList<String> lastOTid = new ArrayList<String>();
@@ -138,7 +141,7 @@ public class Main extends Activity {
 		dialogL = new SpotsDialog(Main.this, R.style.load);
 		dialogG = new SpotsDialog(Main.this, R.style.get);
 		dialogR = new SpotsDialog(Main.this, R.style.refresh);
-		u.deleteAll(UserRecord.class);
+		u.deleteAll(UserRecord.class, "status = ?", "false");
 
 		layoutList = (LinearLayout)findViewById(R.id.list_layout);
 
@@ -146,18 +149,6 @@ public class Main extends Activity {
 
 		Intent i = getIntent();
 		userId = i.getStringExtra("userid");
-
-
-
-
-		TextView counterOTlocal = (TextView)findViewById(R.id.ot_local);
-		if(count_ot_local>0){
-			counterOTlocal.setVisibility(View.VISIBLE);
-			counterOTlocal.setText(Integer.toString(count_ot_local));
-		}
-		else{
-			counterOTlocal.setVisibility(View.GONE);
-		}
 
 
 		/*Mapa*/
@@ -179,6 +170,24 @@ public class Main extends Activity {
 
 	}
 
+@Override
+public void onResume(){
+	TextView counterOTlocal = (TextView)findViewById(R.id.ot_local);
+
+	List<UserRecord> OTsLocal  = UserRecord.find(UserRecord.class, "status = ?", "true");
+
+	count_ot_local = OTsLocal.size();
+
+	if(count_ot_local>0){
+		counterOTlocal.setVisibility(View.VISIBLE);
+		counterOTlocal.setText(Integer.toString(count_ot_local));
+	}
+	else{
+		counterOTlocal.setVisibility(View.GONE);
+	}
+	super.onResume();
+}
+
 	private class StartMain extends AsyncTask <String, String, Boolean> {
 
 		private ProgressDialog progDailog;
@@ -198,7 +207,7 @@ public class Main extends Activity {
 			progDailog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
 			progDailog.show();*/
 			dialogL.show();
-			startService(new Intent(Main.this, OTService.class));
+			//startService(new Intent(Main.this, OTService.class));
 		}
 
 		protected Boolean doInBackground(String... urls) {
@@ -211,8 +220,8 @@ public class Main extends Activity {
 				}
 				//users = processData.getData();
 
-				users  = UserRecord.listAll(UserRecord.class);
-				Collections.reverse(users);
+				users  = Select.from(UserRecord.class)
+						.orderBy("idot Desc").list();
 				Log.d("SugarSizeStart",String.valueOf(users.size()));
 				usersNow = new ArrayList<UserRecord>(users);
 
@@ -356,10 +365,72 @@ public class Main extends Activity {
 		else if(v.getId() == R.id.refresh){
 
 					Log.i("Refrescando", "...");
-
+			Boolean status = true;
            // if(contadorRefresh == 50){
-			RefreshOts rfot = new RefreshOts(v.getContext());
-			rfot.execute("");
+			VerificarInternet.Internet test = new VerificarInternet.Internet();
+			if(test.conexion(getApplicationContext()) == false){
+				AlertDialog alertDialog = new AlertDialog.Builder(this).create();
+				alertDialog.setTitle("Sin conexión a internet");
+				alertDialog.setMessage("Para sincronizar necesita de una conexión a internet");
+				alertDialog.setButton("Aceptar", new DialogInterface.OnClickListener() {
+					public void onClick(DialogInterface dialog, int which) {
+
+					}
+				});
+				alertDialog.setIcon(android.R.drawable.ic_menu_info_details);
+				alertDialog.show();
+			}else{
+				List<UserRecord> OTsLocal  = UserRecord.find(UserRecord.class, "status = ?", "true");
+				int count = 0;
+				for (int i =0; i< OTsLocal.size(); i++) {
+
+					Log.d("OTLocal",OTsLocal.get(i).idot);
+					Log.d("OTLocal",OTsLocal.get(i).tipo_orden_id);
+					Log.d("OTLocal",OTsLocal.get(i).json_imagenes);
+					Log.d("OTLocal",OTsLocal.get(i).json_imagenes_qr);
+
+					try {
+						ot = new JSONObject(OTsLocal.get(i).allJsonOT);
+						JSONArray json_imagenes = new JSONArray(OTsLocal.get(i).json_imagenes);
+						JSONArray json_imagenes_qr = new JSONArray(OTsLocal.get(i).json_imagenes_qr);
+
+						ot.put("json_imagenes", json_imagenes);
+						ot.put("json_imagenes_qr", json_imagenes_qr);
+					} catch (JSONException e) {
+						e.printStackTrace();
+					}
+
+					if(AppParameters.postData(ot, "actualizar")){
+						UserRecord u =	OTsLocal.get(i);
+						u.status = "false";
+						status = true && status;
+						count++;
+					}
+
+					else {
+						status = false;
+					}
+				}
+
+			  if(status) {
+					RefreshOts rfot = new RefreshOts(v.getContext());
+					rfot.execute("");
+				}
+				else{
+					AlertDialog alertDialog = new AlertDialog.Builder(this).create();
+					alertDialog.setTitle("Error de sincronización");
+					alertDialog.setMessage("Solo se ha sincronizado " + String.valueOf(count) + " de " + String.valueOf(OTsLocal.size()));
+					alertDialog.setButton("Aceptar", new DialogInterface.OnClickListener() {
+						public void onClick(DialogInterface dialog, int which) {
+
+						}
+					});
+					alertDialog.setIcon(android.R.drawable.ic_menu_info_details);
+					alertDialog.show();
+				}
+
+			}
+
 			//contadorRefresh = 0;
             //}else{
             //	Log.i("contadorrefresh", Integer.toString(contadorRefresh));
@@ -369,8 +440,8 @@ public class Main extends Activity {
 
 
 
-		List<UserRecord> users1 = UserRecord.listAll(UserRecord.class);
-		Collections.reverse(users1);
+		List<UserRecord> users1 = Select.from(UserRecord.class)
+				.orderBy("idot Desc").list();
 		Log.d("SugarSizeNormal",String.valueOf(users1.size()));//processData.getData();
 		List<UserRecord> users2 = new ArrayList<UserRecord>();
 		ArrayAdapter<UserRecord> adapter = null;
@@ -416,15 +487,15 @@ public class Main extends Activity {
 
 		protected Boolean doInBackground(String... urls) {
 			if(isNetworkAvailable()){
-				u.deleteAll(UserRecord.class);
+				u.deleteAll(UserRecord.class, "status = ?", "false");
 				String readDb = processData.readDbFeed(	AppParameters.url+userId);
 				if(processData.getJson(readDb)){
 					Log.i("Descargando OTs", "...");
 
 					usersNow.clear();
 					//usersNow = processData.getData();
-					usersNow  = UserRecord.listAll(UserRecord.class);
-					Collections.reverse(usersNow);
+					usersNow  = Select.from(UserRecord.class)
+							.orderBy("idot Desc").list();
 					Log.d("SugarSizeRefresh",String.valueOf(usersNow.size()));
 
 					usersNow = new ArrayList<UserRecord>(usersNow);

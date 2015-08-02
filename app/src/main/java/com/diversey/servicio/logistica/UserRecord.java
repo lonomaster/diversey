@@ -50,6 +50,10 @@ public String idot;
 	public String comentarios;
 	public String json_maq;
 	public String partes_usadas;
+	public String json_imagenes;
+	public String json_imagenes_qr;
+	public String status; // status pendiente
+	public String allJsonOT;
 	
 	public UserRecord(String nombre, String direccion) {
 		this("0", "0", nombre, "0", direccion, "", "","","","","", "","", "", "","", "","","","","","","","","","","","","","","");
@@ -98,6 +102,8 @@ public String idot;
 		this.comentarios = comentarios;
 		this.json_maq = maquinas;
 		this.partes_usadas = partes_usadas;
+		this.status = "false";
+		this.allJsonOT = "";
 	}
 	
 	public UserRecord(String fromJSONString){

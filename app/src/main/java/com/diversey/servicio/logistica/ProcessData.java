@@ -142,10 +142,19 @@ public class ProcessData{
 
 				);
 				data.add(userRecord);
-				userRecord.save();
-				Log.i("creacion ot records", "id: "+jsonObject.getString("id")	+"/"+ jsonObject.getString("tipo_mantencion")+ ":");
+				List<UserRecord> OTsLocal  = UserRecord.find(UserRecord.class, "status = ?", "true");
+				Boolean s = true;
+				for (int j =0; j< OTsLocal.size(); j++) {
+					if(jsonObject.getString("id").equals(OTsLocal.get(j).idot)){
+						s = false;
+						break;
+					}
+				}
+				if(s)userRecord.save();
+
+				Log.i("creacion ot records", "id: " + jsonObject.getString("id") + "/" + jsonObject.getString("tipo_mantencion")+ ":");
 			}
-			Collections.sort((List<UserRecord>)data,new CustomComparator());
+			Collections.sort((List<UserRecord>) data, new CustomComparator());
 			return true;
 		} catch (Exception e) {
 			e.printStackTrace();
