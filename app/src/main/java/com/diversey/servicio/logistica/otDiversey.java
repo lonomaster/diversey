@@ -75,21 +75,11 @@ import jp.sourceforge.qrcode.util.DebugCanvas;
 
 public class otDiversey extends Activity implements OnTouchListener{
 
-	public SharedPreferences sp;
 	public final static int NUMBER_PICTURES = 3;
+	static final int REQUEST_TAKE_PHOTO = 1;
+	static final int REQUEST_TAKE_QR = 2;
+	public SharedPreferences sp;
 	public int flag_pictures = 1;
-
-	private Intent diverseyIntent;
-	private View headerLayout;
-	private View mantenedorLayout;
-	private String idOT;
-	private JSONObject datosOT;
-	private String comentarioGeneral;
-	private EditText comentarioGeneralEt;
-	private String latitudTecnico,longitudTecnico,idTecnico,descripcion,latitud,longitud;
-	private DrawingView dragFirma = null;
-	private String pathFirma = "";
-
 	//Datos de la OT
 	public String string_qr;
 	public String nombre_imagen;
@@ -106,44 +96,61 @@ public class otDiversey extends Activity implements OnTouchListener{
 	public String minutosHombre="";
 	public int minutosTrabajados;
 	public Button activarBuscar;
-
 	public String rut_receptor="";
 	public String nombre_receptor="";
 	public String mail_receptor="";
 	public String horas_hombre="";
 	public String nombreCodigofinal = "";
-	boolean pulsarBotonEditarPieza = false;
 	public int num_maquinas;
-
-	List<String> list_piezas = new ArrayList<String>();
 	public String horometro = "";
-	public String horasFact = ""; 
+	public String horasFact = "";
 	public String Nombre_de_maquinas="";
 	public  UserRecord u;
-	//Datos maquinas
-
 	public JSONArray json_partes_usadas;
 	public String json_maq_back_string;
 	public JSONArray json_maquinas = new JSONArray();
 	public JSONArray jsonArray_maquinas_back;
-	//public JSONObject json_imagenes = new JSONObject();
-
 	public JSONArray json_imagenes = new JSONArray();
 	public JSONArray json_imagenes_qr = new JSONArray();
-
 	public JSONObject json_images_qr = new JSONObject();
-
 	public JSONObject id_maquina;
-	//public JSONObject json_piezas;
-
 	//referencias
 	public ImageView imageViewImagen1;
-	
-	ProgressDialog progDailogGenera;
-	
-	ProgressBar progresoMapa;
-	
 	public boolean listo = false;
+	//Datos maquinas
+	boolean pulsarBotonEditarPieza = false;
+	List<String> list_piezas = new ArrayList<String>();
+	ProgressDialog progDailogGenera;
+	ProgressBar progresoMapa;
+	//public JSONObject json_imagenes = new JSONObject();
+	Bitmap bitmap_scaled;
+	String mCurrentPhotoPath;
+	private Intent diverseyIntent;
+	private View headerLayout;
+	//public JSONObject json_piezas;
+	private View mantenedorLayout;
+	private String idOT;
+	private JSONObject datosOT;
+	private String comentarioGeneral;
+	private EditText comentarioGeneralEt;
+	private String latitudTecnico,longitudTecnico,idTecnico,descripcion,latitud,longitud;
+	private DrawingView dragFirma = null;
+	private String pathFirma = "";
+
+	public static void dumpIntent(Intent i){
+
+	    Bundle bundle = i.getExtras();
+	    if (bundle != null) {
+	        Set<String> keys = bundle.keySet();
+	        Iterator<String> it = keys.iterator();
+	        Log.e("key intent","Dumping Intent start");
+	        while (it.hasNext()) {
+	            String key = it.next();
+	            Log.e("key intent","[" + key + "=" + bundle.get(key)+"]");
+	        }
+	        Log.e("key intent","Dumping Intent end");
+	    }
+	}
 
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -152,6 +159,9 @@ public class otDiversey extends Activity implements OnTouchListener{
 
 		sp = PreferenceManager.getDefaultSharedPreferences(this); //instancia en onCreate
 		diverseyIntent = getIntent();
+
+		sp.edit().putString("screen_state", "PRE_OT");
+
 		Log.i("Recibidos:",diverseyIntent.toString());
 		Log.i("ENTRA AL ONCREATE:","ONCREATE !!!!!!please!!");
 
@@ -173,32 +183,32 @@ public class otDiversey extends Activity implements OnTouchListener{
 		longitud = diverseyIntent.getStringExtra("longitud");
 		if(isNetworkAvailable()){
 			String url = "http://maps.googleapis.com/maps/api/staticmap?center="+lat+","+lon+"&zoom=15&size=360x198&scale=2&maptype=roadmap&markers=icon:"+AppParameters.pin+"%7C"+lat+","+lon+"&sensor=true";
-			
+
 
 			Picasso.with(otDiversey.this).load(url).skipMemoryCache().into(staticMap, new Callback() {
-				
+
 				public void onSuccess() {
 					// TODO Auto-generated method stub
 					progresoMapa.setVisibility(View.GONE);
 				}
-				
+
 				public void onError() {
 					// TODO Auto-generated method stub
-					
+
 				}
 			});
-			
-			
+
+
 		}
 		else{
 			staticMap.setBackgroundColor(Color.GRAY);
 		}
-		
+
 		json_maq_back_string = diverseyIntent.getStringExtra("json_maquinas");
 
 		//PicassoTools.clearCache(Picasso.with(otDiversey.this));
 		try {
-			Log.i("Crear Json de maquinas OT", json_maq_back_string);
+			Log.i("Crear Json maq OT", json_maq_back_string);
 			jsonArray_maquinas_back = new JSONArray(json_maq_back_string);
 		} catch (JSONException e) {
 			// TODO Auto-generated catch block
@@ -216,7 +226,7 @@ public class otDiversey extends Activity implements OnTouchListener{
 		TextView descripcionTvw = (TextView)findViewById(R.id.orden_trabajo_descripcion_caso);
 		descripcionTvw.setText(descripcion);
 
-	
+
 
 		String tipoOT =  diverseyIntent.getStringExtra("tipo_ot");
 
@@ -238,7 +248,7 @@ public class otDiversey extends Activity implements OnTouchListener{
 			LinearLayout resumenLayout = (LinearLayout)findViewById(R.id.orden_trabajo_vista_resumen);
 			resumenLayout.setVisibility(View.GONE);
 
-			
+
 			num_maquinas = jsonArray_maquinas_back.length();
 			Log.i("NUMERO MAQ", "N maq : "+ Integer.toString(num_maquinas));
 			for(int i=0; i < num_maquinas; i++){
@@ -345,7 +355,7 @@ public class otDiversey extends Activity implements OnTouchListener{
 			textViewDescFalla.setText(diverseyIntent.getStringExtra("descripcion").toString());
 			textViewDiagnostico.setText(diverseyIntent.getStringExtra("diagnostico").toString());
 			textViewObsGeneral.setText(diverseyIntent.getStringExtra("obs_general").toString());
-			// transformar los minutos 
+			// transformar los minutos
 			int datos_tiempo_obtenido = Integer.parseInt(diverseyIntent.getStringExtra("horas_hombre").toString());
 			int minuto = datos_tiempo_obtenido%60 ;
 			int hora = datos_tiempo_obtenido/60;
@@ -406,9 +416,6 @@ public class otDiversey extends Activity implements OnTouchListener{
 
 			}
 
-
-
-
 		}
 		completeHeader(R.id.layout_orden_trabajo_header);
 	}
@@ -432,8 +439,8 @@ public class otDiversey extends Activity implements OnTouchListener{
 		//TextView rutTvw = (TextView)headerLayout.findViewById(R.id.orden_trabajo_rut_empresa);
 		//TextView direccionTvw = (TextView)headerLayout.findViewById(R.id.orden_trabajo_direccion_empresa);
 		TextView nombreMaquina = (TextView)headerLayout.findViewById(R.id.orden_trabajo_maquina_head);
-		
-		
+
+
 		nomSucTvw.setText(nombreSucursal);
 		clienteTvw.setText(cliente);
 		fechaRealizTvw.setText(fecha_realizacion);
@@ -458,7 +465,7 @@ public class otDiversey extends Activity implements OnTouchListener{
 
 		//TextView tipoServicioTvw = (TextView)mantenedorLayout.findViewById(R.id.actividad_servicio_textview);
 		//TextView tipoMantencionTvw = (TextView)mantenedorLayout.findViewById(R.id.tipo_facturacion_textview);
-		
+
 		TextView modelomaquinaTvw = (TextView)mantenedorLayout.findViewById(R.id.orden_trabajo_maquina_modelo);
 		TextView nroSerieTvw = (TextView)mantenedorLayout.findViewById(R.id.orden_trabajo_maquina_serie);
 		TextView cantidadTvw = (TextView)mantenedorLayout.findViewById(R.id.orden_trabajo_cantidad);
@@ -466,7 +473,7 @@ public class otDiversey extends Activity implements OnTouchListener{
 
 		//tipoServicioTvw.setText(tipo_servicio);
 		//tipoMantencionTvw.setText(tipo_mantencion);
-		
+
 		modelomaquinaTvw.setText(modelo_maquina);
 		nroSerieTvw.setText(nro_serie);
 		cantidadTvw.setText(cantidad);
@@ -479,18 +486,18 @@ public class otDiversey extends Activity implements OnTouchListener{
 
 		ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(inflater.getContext(),R.layout.item_spinner, list);
 		dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-		
+
 		Spinner spinServicio = (Spinner) findViewById(R.id.orden_trabajo_tipo_mantencion);
 		spinServicio.setAdapter(dataAdapter);
 
-		
+
 		List<String> list1 = new ArrayList<String>();
 		list1.add("Facturado");
 		list1.add("Garantia");
 
 		ArrayAdapter<String> dataAdapter1 = new ArrayAdapter<String>(inflater.getContext(),R.layout.item_spinner, list1);
 		dataAdapter1.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-		
+
 		Spinner spinTipoServicio = (Spinner) findViewById(R.id.orden_trabajo_tipo_servicio);
 		spinTipoServicio.setAdapter(dataAdapter1);
 
@@ -533,11 +540,11 @@ public class otDiversey extends Activity implements OnTouchListener{
 
 		TextView textViewID = (TextView) mylinear.findViewById(R.id.id_maquina_hidden);
 		textViewID.setText(id_modelo);
-		
+
 		TextView textVieCodigo = (TextView)mylinear.findViewById(R.id.textview_campos_codigo);
 		textVieCodigo.setText(codigo_maquina);
 
-		layout.addView(mylinear);     
+		layout.addView(mylinear);
 	}
 
 	public void completeMaquinasResumen (String nombre_modelo, String id_modelo, String string_qr, JSONArray partes_usadas){
@@ -568,12 +575,12 @@ public class otDiversey extends Activity implements OnTouchListener{
 			JSONObject json_pieza_temp= new JSONObject();
 			LinearLayout linearContenedor_piezas= (LinearLayout) mylinear.findViewById(R.id.orden_trabajo_piezas_dinamicas_resumen);
 
-			int id2 = R.layout.orden_trabajo_pieza_parte_resumen;//layout del producto a agregar	
+			int id2 = R.layout.orden_trabajo_pieza_parte_resumen;//layout del producto a agregar
 
 			LinearLayout mylinearPieza = (LinearLayout) inflater.inflate(id2, null, false);
 
 			LinearLayout.LayoutParams params2 = new LinearLayout.LayoutParams(LayoutParams.FILL_PARENT, LayoutParams.WRAP_CONTENT);
-			params2.topMargin = 15; 
+			params2.topMargin = 15;
 			params2.gravity = Gravity.RIGHT;
 			//params.height = 50;
 			mylinear.setLayoutParams(params2);
@@ -611,7 +618,7 @@ public class otDiversey extends Activity implements OnTouchListener{
 		/*TextView textViewID = (TextView) mylinear.findViewById(R.id.id_maquina_hidden);
 		textViewID.setText(id_modelo);*/
 
-		layout.addView(mylinear);     
+		layout.addView(mylinear);
 	}
 
 	private boolean isNetworkAvailable() {
@@ -635,16 +642,20 @@ public class otDiversey extends Activity implements OnTouchListener{
 			break;
 		case R.id.orden_trabajo_generar_reporte:
 			//comentarioGeneral = comentarioGeneralEt.getText().toString();
-						
+
 			PreguntaAccion("Aviso","�Esta Seguro que desea generar el reporte?");
-					
+
 			//setResult(Main.CASO_HIGIENE);
-			
+
 			//finishActivity(Main.CASO_HIGIENE);
 			//finish();
 			break;
 
-		case R.id.orden_trabajo_continuar:
+
+			case R.id.orden_trabajo_continuar:
+
+
+			sp.edit().putString("screen_state", "WORK_OT").commit();
 
 			SimpleDateFormat s = new SimpleDateFormat("ddMMyyyyhhmmss");
 			fecha_inicio_ejecucion = s.format(new Date());
@@ -677,6 +688,11 @@ public class otDiversey extends Activity implements OnTouchListener{
 			comentLayout.setVisibility(View.GONE);
 
 			break;
+
+
+
+
+
 		case R.id.orden_trabajo_borrar_firma:
 			if(dragFirma!=null)
 				dragFirma.clearScreen();
@@ -756,12 +772,12 @@ public class otDiversey extends Activity implements OnTouchListener{
 
 		LinearLayout contenedorPiezas = (LinearLayout) contenedorMaquina.findViewById(R.id.orden_trabajo_piezas_dinamicas);//del contenedor de maquinas, se obtiene el contendor de piezas
 
-		int id = R.layout.orden_trabajo_pieza_parte_item;//layout del producto a agregar	
+		int id = R.layout.orden_trabajo_pieza_parte_item;//layout del producto a agregar
 
 		LinearLayout mylinear = (LinearLayout) inflater.inflate(id, null, false);
 
 		LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LayoutParams.FILL_PARENT, LayoutParams.WRAP_CONTENT);
-		params.topMargin = 15; 
+		params.topMargin = 15;
 		params.gravity = Gravity.RIGHT;
 		//params.height = 50;
 		mylinear.setLayoutParams(params);
@@ -807,29 +823,29 @@ public class otDiversey extends Activity implements OnTouchListener{
 		list12.add("Opcion6");
 		list12.add("Opcion7");*/
 
-		
+
 		ArrayAdapter<String> dataAdapter1 = new ArrayAdapter<String>(inflater.getContext(),R.layout.item_spinner_piezas, list12);
 		dataAdapter1.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-		
+
 		ArrayAdapter<String> dataAdapter2 = new ArrayAdapter<String>(inflater.getContext(),R.layout.item_spinner_piezas, listCodigo);
 		dataAdapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
 		final Spinner spinNombrePieza = (Spinner) mylinear.findViewById(R.id.orden_trabajo_spinner_nombre);
 		spinNombrePieza.setAdapter(dataAdapter1);
-		
+
 		final TextView textoPrecio = (TextView)mylinear.findViewById(R.id.textViewPrecio);
 		final AutoCompleteTextView spinCodigoPieza = (AutoCompleteTextView) mylinear.findViewById(R.id.orden_trabajo_autoCompletado_codigo);
 		spinCodigoPieza.setAdapter(dataAdapter2);
 		spinCodigoPieza.setEnabled(false);
-		
+
 		activarBuscar = (Button)mylinear.findViewById(R.id.orden_trabajo_boton_busqueda);
-		
+
 		spinCodigoPieza.setOnFocusChangeListener(new OnFocusChangeListener() {
-			
+
 			public void onFocusChange(View v, boolean hasFocus) {
 				// TODO Auto-generated method stub
 				if(!(hasFocus)){
-					
+
 					if((!(listCodigo.contains(spinCodigoPieza.getText().toString()))) && (!list12.contains("vacio"))){
 						//Toast.makeText(getBaseContext(), "No se encuentra el codigo ", Toast.LENGTH_LONG).show();
 						MensajeCodigoBlanco();
@@ -840,41 +856,41 @@ public class otDiversey extends Activity implements OnTouchListener{
 				}
 			}
 		});
-		
-	
+
+
 		activarBuscar.setBackgroundDrawable(getResources().getDrawable(R.drawable.btn_busqueda_inactive));
 		activarBuscar.setOnClickListener(new OnClickListener() {
-			
+
 			public void onClick(View v) {
 
 				if(pulsarBotonEditarPieza){
 					spinCodigoPieza.setEnabled(false);
 					activarBuscar.setBackgroundDrawable(getResources().getDrawable(R.drawable.btn_busqueda_inactive));
 					pulsarBotonEditarPieza = false;
-					
+
 				}else{
 					spinCodigoPieza.setEnabled(true);
 					activarBuscar.setBackgroundDrawable(getResources().getDrawable(R.drawable.btn_busqueda_active));
 					pulsarBotonEditarPieza = true;
 					spinCodigoPieza.setText("");
 				}
-					
-				
+
+
 			}
 		});
-		
+
 		if(list12.contains("vacio")){
 			activarBuscar.setVisibility(View.GONE);
 		}else{
 			activarBuscar.setVisibility(View.VISIBLE);
 		}
-		
+
 
 		spinCodigoPieza.setOnItemClickListener(new OnItemClickListener() {
-			
-	
+
+
      public void onItemClick(AdapterView<?> arg0, View parentView, int arg2, long arg3) {
-			
+
     	 Toast.makeText(getBaseContext(), arg0.getItemAtPosition(arg2)+" y position "+ Integer.toString(arg2), Toast.LENGTH_LONG).show();
     	 nombreCodigofinal = arg0.getItemAtPosition(arg2).toString();
 		spinCodigoPieza.setEnabled(false);
@@ -912,7 +928,7 @@ public class otDiversey extends Activity implements OnTouchListener{
 						id_seleccionado = json_array_partes_temp.getJSONObject(x).getString("id");
 					}
 
-				}	
+				}
 
 			} catch (JSONException e) {
 				// TODO Auto-generated catch block
@@ -933,18 +949,18 @@ public class otDiversey extends Activity implements OnTouchListener{
 		textoPrecio.setText(precio_seleccionado);
 		//textviewIdPieza.setText(id_seleccionado);
 		//spinerviewCodigo.setText(codigo_seleccionado);
-	
+
 		//textviewCodigo.setText(codigo_seleccionado);
 		//textviewPrecio.setText(precio_seleccionado);
-		
+
 			            }
-			
+
 			        });
 
-		
+
 		spinNombrePieza.setOnItemSelectedListener(new OnItemSelectedListener() {
 
-			public void onItemSelected(AdapterView<?> parentView, View selectedItemView, 
+			public void onItemSelected(AdapterView<?> parentView, View selectedItemView,
 					int position, long id) {
 				//Toast.makeText(parentView.getContext(), "Has seleccionado " +
 					//	parentView.getItemAtPosition(position).toString(), Toast.LENGTH_LONG).show();
@@ -980,7 +996,7 @@ public class otDiversey extends Activity implements OnTouchListener{
 								id_seleccionado = json_array_partes_temp.getJSONObject(x).getString("id");
 							}
 
-						}	
+						}
 
 					} catch (JSONException e) {
 						// TODO Auto-generated catch block
@@ -998,7 +1014,7 @@ public class otDiversey extends Activity implements OnTouchListener{
 
 				textviewIdPieza.setText(id_seleccionado);
 				spinerviewCodigo.setText(codigo_seleccionado);
-			
+
 				//textviewCodigo.setText(codigo_seleccionado);
 				textviewPrecio.setText(precio_seleccionado);
 
@@ -1007,10 +1023,10 @@ public class otDiversey extends Activity implements OnTouchListener{
 			public void onNothingSelected(AdapterView<?> parentView) {
 
 			}
-		}); 
-		
+		});
+
 		//spiner fin
-		contenedorPiezas.addView(mylinear); 
+		contenedorPiezas.addView(mylinear);
 		contenedorPiezas.requestFocus();
 	}
 
@@ -1030,9 +1046,9 @@ public class otDiversey extends Activity implements OnTouchListener{
 
 	//Devuelve el string del QR entregado en un bitmap
 	public String decodeQR(Bitmap image) {
-		QRCodeDecoder decoder = new QRCodeDecoder(); 
+		QRCodeDecoder decoder = new QRCodeDecoder();
 		DebugCanvas canvas = new QRCanvas();
-		QRCodeDecoder.setCanvas(canvas);	
+		QRCodeDecoder.setCanvas(canvas);
 		String qrResultString = null;
 		try {
 			qrResultString = new String(decoder.decode(new QRBitmap(image)));
@@ -1054,10 +1070,6 @@ public class otDiversey extends Activity implements OnTouchListener{
 		else
 			return "No se reconoce QR";
 	}
-
-	static final int REQUEST_TAKE_PHOTO = 1;
-	static final int REQUEST_TAKE_QR = 2;
-	Bitmap bitmap_scaled;
 
 	private void dispatchTakeQrIntent(){
 		Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
@@ -1145,10 +1157,10 @@ public class otDiversey extends Activity implements OnTouchListener{
 //				.getWidth()));
 //		Bitmap bitmap_scaled = Bitmap.createScaledBitmap(bitmap_rotated, 100, nh,
 //				true);
-		
+
 		 File file = new File(mCurrentPhotoPath);
 		 Bitmap srcBmp1 = ElunVal.decodeSampledBitmapFromFile(file.getAbsolutePath(), 800, 800);
-		
+
         try {
             ExifInterface exif = new ExifInterface(file.getAbsolutePath());
             int orientation = exif.getAttributeInt(ExifInterface.TAG_ORIENTATION, 1);
@@ -1423,8 +1435,6 @@ public class otDiversey extends Activity implements OnTouchListener{
 
 	}
 
-	String mCurrentPhotoPath;
-
 	private File createImageFile() throws IOException {
 		// Create an image file name
 		String imageFileName = null;
@@ -1482,7 +1492,7 @@ public class otDiversey extends Activity implements OnTouchListener{
 		/* Figure out which way needs to be reduced less */
 		int scaleFactor = 1;
 		if ((targetW > 0) || (targetH > 0)) {
-			scaleFactor = Math.min(photoW/targetW, photoH/targetH);	
+			scaleFactor = Math.min(photoW/targetW, photoH/targetH);
 		}
 
 		/* Set bitmap options to scale the image decode target */
@@ -1497,81 +1507,6 @@ public class otDiversey extends Activity implements OnTouchListener{
 		Log.i("final del escalado", "with"+" "+ bitmap_scaled.getWidth());
 		/* Associate the Bitmap to the ImageView */
 
-	}
-
-	private class TakeQR extends AsyncTask <String, String, Boolean> {
-
-		private ProgressDialog progDailog;
-		private Context ctx;
-		private ArrayList<UserRecord> users;
-		private Bitmap bitmapQR;
-
-		public TakeQR(Context c, Bitmap bitmap){
-			ctx = c;
-			bitmapQR = bitmap;
-
-		}
-
-		protected void onPreExecute() {
-
-
-		}
-
-		protected Boolean doInBackground(String... urls) {
-
-
-			if(bitmapQR== null){
-				Log.i("bitmapQR","NULLLL!!!!!!!!!!!!");
-			}else {
-				Log.i("bitmapQR","OKKKKKK!!!!!!!!!!!!");
-			}
-
-			string_qr = decodeQR(bitmapQR);
-
-			if (string_qr == "No se reconoce QR"){
-
-				LinearLayout contenedorQR = (LinearLayout) v_temp.getParent().getParent();//linearlayout de la maquina
-
-				if(contenedorQR== null){
-					Log.i("contenedorQR","NULLLL!!!!!!!!!!!!");
-				}else {
-					Log.i("contenedorQR","OKKKKKK!!!!!!!!!!!!");
-				}
-				TextView textView_string_qr = (TextView) contenedorQR.findViewById(R.id.textView_string_qr);
-				textView_string_qr.setText("Intente nuevamente");
-
-				ImageView imageViewQr = (ImageView) contenedorQR.findViewById(R.id.orden_trabajo_imageview_qr);
-
-				if(imageViewQr== null){
-					Log.i("imageViewQr","NULLLL!!!!!!!!!!!!");
-				}else {
-					Log.i("imageViewQr","OKKKKKK!!!!!!!!!!!!");
-				}
-
-				imageViewQr.setImageBitmap(bitmapQR);
-				imageViewQr.requestFocus();
-			}else{
-				LinearLayout contenedorQR = (LinearLayout) v_temp.getParent().getParent();//linearlayout de la maquina
-
-				TextView textView_string_qr = (TextView) contenedorQR.findViewById(R.id.textView_string_qr);
-				textView_string_qr.setText(string_qr);
-
-				ImageView imageViewQr = (ImageView) contenedorQR.findViewById(R.id.orden_trabajo_imageview_qr);
-				imageViewQr.setImageBitmap(bitmapQR);
-				imageViewQr.requestFocus();
-
-			}
-
-
-
-
-			return true;
-		}
-
-		protected void onPostExecute(Boolean result) {
-
-
-		}
 	}
 
 	public String BitMapToString(Bitmap bitmap){
@@ -1684,7 +1619,7 @@ public class otDiversey extends Activity implements OnTouchListener{
 			TextView textViewID = (TextView)maquinaX.findViewById(R.id.id_maquina_hidden);
 			String Id_maquina=textViewID.getText().toString();
 
-			Log.i("Iteracion del for maquina",Integer.toString(x));
+			Log.i("Iteracion FOR maquina",Integer.toString(x));
 			int childcountX = maquinaX.getChildCount();
 			int id_maquinaX = maquinaX.getId();		
 			//Log.i("Id producto desde getId(backend)",Integer.toString(id_maquinaX));
@@ -1762,7 +1697,6 @@ public class otDiversey extends Activity implements OnTouchListener{
 		Log.i("json_maquinas : ",json_maquinas.toString());
 
 	}
-
 
 	public void endOt(){
 		terminarOt();
@@ -1913,49 +1847,34 @@ public class otDiversey extends Activity implements OnTouchListener{
 		}
 	}
 	
-	public static void dumpIntent(Intent i){
-
-	    Bundle bundle = i.getExtras();
-	    if (bundle != null) {
-	        Set<String> keys = bundle.keySet();
-	        Iterator<String> it = keys.iterator();
-	        Log.e("key intent","Dumping Intent start");
-	        while (it.hasNext()) {
-	            String key = it.next();
-	            Log.e("key intent","[" + key + "=" + bundle.get(key)+"]");
-	        }
-	        Log.e("key intent","Dumping Intent end");
-	    }
-	}
-
 	private void PreguntaAccion(String title, String mensaje) {
-		
+
 		  new AlertDialog.Builder(otDiversey.this)
 		     .setTitle(title.toString())
 		     .setMessage(mensaje.toString())
 		     .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
-		         public void onClick(DialogInterface dialog, int which) { 
+		         public void onClick(DialogInterface dialog, int which) {
 		          dialog.dismiss();
-		          
+
 		          progDailogGenera = new ProgressDialog(otDiversey.this);
 		          progDailogGenera.setTitle("Generando OT");
 		          progDailogGenera.setMessage("por favor, espera...");
 		          progDailogGenera.show();
-		          
+
 		          Handler espera = new Handler();
 		          espera.postDelayed(new Runnable() {
-					
+
 					public void run() {
 						 RealizarAccion();
-						
+
 					}
 				}, 1500);
-		         
-		      
+
+
 		         }
 		      })
 		     .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
-		   
+
 		   public void onClick(DialogInterface dialog, int which) {
 		    // TODO Auto-generated method stub
 		    dialog.dismiss();
@@ -1964,18 +1883,17 @@ public class otDiversey extends Activity implements OnTouchListener{
 		  })
 		     .setIcon(android.R.drawable.ic_dialog_alert)
 		     .show();
-		
+
 	}
 
-protected void RealizarAccion() {
+	protected void RealizarAccion() {
 
 
 	endOt();
 	}
-	
+
 @SuppressWarnings("deprecation")
-	public void AvisoError(String title, String Mensaje)
-	{
+	public void AvisoError(String title, String Mensaje) {
 		AlertDialog alertDialog = new AlertDialog.Builder(this).create();
 		alertDialog.setTitle("Aviso...");
 		alertDialog.setMessage("No tiene conexión a Internet");
@@ -1987,11 +1905,11 @@ protected void RealizarAccion() {
 		alertDialog.setIcon(android.R.drawable.ic_menu_info_details);
 		alertDialog.show();
 	}
-
-public synchronized boolean uploadDataThr(final JSONObject ot) {
+	
+	public synchronized boolean uploadDataThr(final JSONObject ot) {
 
 			/*String string_base64_bitmap = sp.getString("string_base64_bitmap", "null"); //así se asigna
-			
+
 			try {
 				ot.put("string_base64_bitmap", string_base64_bitmap);
 			} catch (JSONException e1) {
@@ -2005,7 +1923,7 @@ public synchronized boolean uploadDataThr(final JSONObject ot) {
 				e.printStackTrace();
 			}
 			int numero_imgs = nombres_imagenes.length();
-			
+
 			for (int i =0; i<numero_imgs;i++){
 				try {
 					String nombre_img = nombres_imagenes.getString(i);
@@ -2015,42 +1933,41 @@ public synchronized boolean uploadDataThr(final JSONObject ot) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-				
+
 			}
 			*/
-			
+
 			try {
 				JSONArray json_imagenes = new JSONArray(sp.getString("json_imagenes", "null"));
 				JSONArray json_imagenes_qr = new JSONArray(sp.getString("json_imagenes_qr", "null"));
-				
+
 				ot.put("json_imagenes", json_imagenes);
 				ot.put("json_imagenes_qr", json_imagenes_qr);
 			} catch (JSONException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			
-			
+
+
 				if(AppParameters.postData(ot, "actualizar")){
 				Log.i("actualizando", "Enviar a utilizar");
 					//otPendientes--;
 				listo = true;
 				return true;
 			}
-			
+
 	return false;
 	//otPendientes++;
-	
+
 }
 
+	public void onBackPressedEndot(String title, String mensaje, final boolean insertado){
 
-public void onBackPressedEndot(String title, String mensaje, final boolean insertado){
-	
 	  new AlertDialog.Builder(otDiversey.this)
 	     .setTitle(title.toString())
 	     .setMessage(mensaje.toString())
 	     .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
-	         public void onClick(DialogInterface dialog, int which) { 
+	         public void onClick(DialogInterface dialog, int which) {
 	        	 if(insertado){
 			          dialog.dismiss();
 					  finish();
@@ -2059,26 +1976,156 @@ public void onBackPressedEndot(String title, String mensaje, final boolean inser
 	        	 }
 	         }
 	      })
-	    
+
 	     .setIcon(android.R.drawable.ic_dialog_alert)
 	     .show();
 	 }
 
-public void MensajeCodigoBlanco(){
-	
+	@Override
+	public void onBackPressed(){
+
+		Toast.makeText(getApplicationContext(), " Press Back again to Exit ", Toast.LENGTH_SHORT).show();
+
+		//sp.edit().putString("screen_state", "WORK_OT");
+
+		sp.getString("screen_state","");
+
+		Log.i("onBackPressed","STATE : " + sp.getString("screen_state", ""));
+		if (sp.getString("screen_state","").equalsIgnoreCase("WORK_OT")) {
+
+			sp.edit().putString("screen_state", "WORK_OT");
+
+			//SimpleDateFormat s = new SimpleDateFormat("ddMMyyyyhhmmss");
+			//fecha_inicio_ejecucion = s.format(new Date());
+
+			LinearLayout controlTecnico = (LinearLayout)findViewById(R.id.orden_trabajo_control_tecnico);
+			controlTecnico.setVisibility(View.GONE);
+
+			LinearLayout tipoReparacion = (LinearLayout)findViewById(R.id.orden_trabajo_tipo_reparacion);
+			tipoReparacion.setVisibility(View.GONE);
+
+			LinearLayout firmaLayout = (LinearLayout)findViewById(R.id.orden_trabajo_firma_layout);
+			firmaLayout.setVisibility(View.GONE);
+
+			LinearLayout layoutMaquinas = (LinearLayout)findViewById(R.id.orden_trabajo_maquinas);
+			layoutMaquinas.setVisibility(View.GONE);
+
+			LinearLayout layoutDetalle = (LinearLayout)findViewById(R.id.orden_trabajo_detalle);
+			layoutDetalle.setVisibility(View.GONE);
+
+			RelativeLayout mapaLayout = (RelativeLayout)findViewById(R.id.orden_trabajo_mapa_layout);
+			mapaLayout.setVisibility(View.VISIBLE);
+
+			LinearLayout fallaLayout = (LinearLayout)findViewById(R.id.orden_trabajo_falla_layout);
+			fallaLayout.setVisibility(View.VISIBLE);
+
+			LinearLayout detalleLayout = (LinearLayout)findViewById(R.id.orden_trabajo_detalle);
+			detalleLayout.setVisibility(View.VISIBLE);
+
+			LinearLayout comentLayout = (LinearLayout)findViewById(R.id.orden_trabajo_comentarios);
+			comentLayout.setVisibility(View.VISIBLE);
+
+			sp.edit().putString("screen_state", "PRE_OT");
+
+
+		}else if(sp.getString("screen_state","").equalsIgnoreCase("PRE_OT")){
+
+
+			super.onBackPressed();
+		}
+
+	}
+
+	public void MensajeCodigoBlanco(){
+
 	  new AlertDialog.Builder(otDiversey.this)
 	     .setTitle("Alerta")
 	     .setMessage("No se seleccinó el código")
 	     .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
-	         public void onClick(DialogInterface dialog, int which) { 
+	         public void onClick(DialogInterface dialog, int which) {
 	        	 	 dialog.dismiss();
-	        	 
+
 	         }
 	      })
-	    
+
 	     .setIcon(android.R.drawable.ic_dialog_alert)
 	     .show();
 	 }
+
+	private class TakeQR extends AsyncTask <String, String, Boolean> {
+
+		private ProgressDialog progDailog;
+		private Context ctx;
+		private ArrayList<UserRecord> users;
+		private Bitmap bitmapQR;
+
+		public TakeQR(Context c, Bitmap bitmap){
+			ctx = c;
+			bitmapQR = bitmap;
+
+		}
+
+		protected void onPreExecute() {
+
+
+		}
+
+		protected Boolean doInBackground(String... urls) {
+
+
+			if(bitmapQR== null){
+				Log.i("bitmapQR","NULLLL!!!!!!!!!!!!");
+			}else {
+				Log.i("bitmapQR","OKKKKKK!!!!!!!!!!!!");
+			}
+
+			string_qr = decodeQR(bitmapQR);
+
+			if (string_qr == "No se reconoce QR"){
+
+				LinearLayout contenedorQR = (LinearLayout) v_temp.getParent().getParent();//linearlayout de la maquina
+
+				if(contenedorQR== null){
+					Log.i("contenedorQR","NULLLL!!!!!!!!!!!!");
+				}else {
+					Log.i("contenedorQR","OKKKKKK!!!!!!!!!!!!");
+				}
+				TextView textView_string_qr = (TextView) contenedorQR.findViewById(R.id.textView_string_qr);
+				textView_string_qr.setText("Intente nuevamente");
+
+				ImageView imageViewQr = (ImageView) contenedorQR.findViewById(R.id.orden_trabajo_imageview_qr);
+
+				if(imageViewQr== null){
+					Log.i("imageViewQr","NULLLL!!!!!!!!!!!!");
+				}else {
+					Log.i("imageViewQr","OKKKKKK!!!!!!!!!!!!");
+				}
+
+				imageViewQr.setImageBitmap(bitmapQR);
+				imageViewQr.requestFocus();
+			}else{
+				LinearLayout contenedorQR = (LinearLayout) v_temp.getParent().getParent();//linearlayout de la maquina
+
+				TextView textView_string_qr = (TextView) contenedorQR.findViewById(R.id.textView_string_qr);
+				textView_string_qr.setText(string_qr);
+
+				ImageView imageViewQr = (ImageView) contenedorQR.findViewById(R.id.orden_trabajo_imageview_qr);
+				imageViewQr.setImageBitmap(bitmapQR);
+				imageViewQr.requestFocus();
+
+			}
+
+
+
+
+			return true;
+		}
+
+		protected void onPostExecute(Boolean result) {
+
+
+		}
+	}
 
 
 

@@ -99,7 +99,7 @@ public class UserItemAdapter extends ArrayAdapter<UserRecord> {
 
 			//Picasso.with(context).setIndicatorsEnabled(true);
 
-			username.setTypeface(BebasNeueRegular);
+			username.setTypeface(BebasNeueBold);
 			username.setText(user.nombre);
 
 			title_site.setTypeface(BebasNeueBold);
