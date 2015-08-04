@@ -114,6 +114,12 @@ public class otDiversey extends Activity implements OnTouchListener{
 	public JSONArray json_imagenes_qr = new JSONArray();
 	public JSONObject json_images_qr = new JSONObject();
 	public JSONObject id_maquina;
+
+	public JSONArray series;
+	public ArrayList<String> arrayList;
+	public String idSerieSelected = "";
+	public int idSelected = 0;
+
 	//referencias
 	public ImageView imageViewImagen1;
 	public boolean listo = false;
@@ -136,6 +142,12 @@ public class otDiversey extends Activity implements OnTouchListener{
 	private String latitudTecnico,longitudTecnico,idTecnico,descripcion,latitud,longitud;
 	private DrawingView dragFirma = null;
 	private String pathFirma = "";
+
+	TextView textViewMod;
+	TextView textViewID;
+	TextView textVieCodigo;
+	TextView textVieDescripcion;
+
 
 	public static void dumpIntent(Intent i){
 
@@ -162,7 +174,7 @@ public class otDiversey extends Activity implements OnTouchListener{
 
 		sp.edit().putString("screen_state", "PRE_OT");
 
-		Log.i("Recibidos:",diverseyIntent.toString());
+		Log.i("Recibidos:", diverseyIntent.toString());
 		Log.i("ENTRA AL ONCREATE:","ONCREATE !!!!!!please!!");
 
 
@@ -258,6 +270,7 @@ public class otDiversey extends Activity implements OnTouchListener{
 				String id_modelo = "";
 				String codigo_maquina= "";
 				String serie = "";
+				String series = "";
 				String descripcion = "";
 
 				try {
@@ -270,18 +283,19 @@ public class otDiversey extends Activity implements OnTouchListener{
 					}
 					id_modelo  = maquina_i.getString("id");
 					codigo_maquina = maquina_i.getString("codigo");
-					/*
+
 					serie = maquina_i.getString("serie");
+					series = maquina_i.getString("series");
 					descripcion= maquina_i.getString("descripcion");
-					*/
+
 
 				} catch (JSONException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 
-				//completeMaquinas(nombre_modelo,id_modelo,codigo_maquina,serie,descripcion);
-				completeMaquinas(nombre_modelo,id_modelo,codigo_maquina);
+				completeMaquinas(nombre_modelo,id_modelo,codigo_maquina,serie,series,descripcion);
+				//completeMaquinas(nombre_modelo,id_modelo,codigo_maquina);
 
 			}
 
@@ -516,14 +530,14 @@ public class otDiversey extends Activity implements OnTouchListener{
 		comentarioRealizadoView.setText(comentarios);
 	}
 
-	public void completeMaquinas (String nombre_modelo, String id_modelo, String codigo_maquina){
+	public void completeMaquinas (String nombre_modelo, String id_modelo, String codigo_maquina, String serie_maquina,String series_maquina, String descripcion_maquina){
 
 		ViewGroup layout = (ViewGroup) findViewById(R.id.orden_trabajo_contenedor_maquinas);//layout padre de los productos
 		LayoutInflater inflater = LayoutInflater.from(this);//layout de tipo inflater
 
 		int id = R.layout.orden_trabajo_maquina_dinamica;//layout del producto a agregar
 
-		LinearLayout mylinear = (LinearLayout) inflater.inflate(id, null, false);
+		final LinearLayout mylinear = (LinearLayout) inflater.inflate(id, null, false);
 		//RelativeLayout relativeLayout = (RelativeLayout) inflater.inflate(id, null, false);
 
 		LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LayoutParams.FILL_PARENT, LayoutParams.WRAP_CONTENT);
@@ -535,14 +549,68 @@ public class otDiversey extends Activity implements OnTouchListener{
 
 		//Log.i("Id boton",Integer.toString(boton.getId()));
 
-		TextView textViewMod = (TextView) mylinear.findViewById(R.id.textview_modelo_maquina);
+		textViewMod = (TextView) mylinear.findViewById(R.id.textview_modelo_maquina);
 		textViewMod.setText(nombre_modelo);
 
-		TextView textViewID = (TextView) mylinear.findViewById(R.id.id_maquina_hidden);
+		textViewID = (TextView) mylinear.findViewById(R.id.id_maquina_hidden);
 		textViewID.setText(id_modelo);
 
-		TextView textVieCodigo = (TextView)mylinear.findViewById(R.id.textview_campos_codigo);
+		textVieCodigo = (TextView)mylinear.findViewById(R.id.textview_campos_codigo);
 		textVieCodigo.setText(codigo_maquina);
+
+		try {
+			series = new JSONArray(series_maquina);
+			arrayList = new ArrayList<String>();
+
+			for(int i=0; i<series.length();i++){
+				JSONObject obj = series.getJSONObject(i);
+				arrayList.add(obj.getString("serie"));
+				Log.d("SerieJSON", obj.getString("serie") + " = " + serie_maquina + " ---->" + obj.getString("id"));
+				if(serie_maquina.equals(obj.getString("serie"))){idSelected = i; idSerieSelected = obj.getString("serie");
+				}
+				Log.d("SerieJSON", idSerieSelected);
+			}
+
+			ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(inflater.getContext(),R.layout.item_spinner_maquinas, arrayList);
+			dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+			final Spinner spinSerieMaquina = (Spinner) mylinear.findViewById(R.id.spinner_serie);
+			spinSerieMaquina.setAdapter(dataAdapter);
+			spinSerieMaquina.setSelection(idSelected);
+			spinSerieMaquina.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+				public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+					try {
+						JSONObject o = series.getJSONObject(i);
+						idSerieSelected = o.getString("serie");
+						textViewMod = (TextView) mylinear.findViewById(R.id.textview_modelo_maquina);
+						textViewMod.setText(o.getString("nombre"));
+						textVieDescripcion = (TextView)mylinear.findViewById(R.id.textview_descripcion);
+						textVieDescripcion.setText(o.getString("descripcion"));
+						textViewID = (TextView) mylinear.findViewById(R.id.id_maquina_hidden);
+						textViewID.setText(o.getString("id"));
+						textVieCodigo = (TextView)mylinear.findViewById(R.id.textview_campos_codigo);
+						textVieCodigo.setText(o.getString("codigo"));
+						Log.d("SeriesSelected", idSerieSelected);
+					} catch (JSONException e) {
+						e.printStackTrace();
+					}
+
+
+				}
+
+				public void onNothingSelected(AdapterView<?> adapterView) {
+					return;
+				}
+			});
+
+
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
+
+
+		textVieDescripcion = (TextView)mylinear.findViewById(R.id.textview_descripcion);
+		textVieDescripcion.setText(descripcion_maquina);
 
 		layout.addView(mylinear);
 	}

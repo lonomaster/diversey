@@ -85,13 +85,12 @@
                 android:textColor="#fff"
                 android:textStyle="bold" />
 
-            <TextView
-                android:id="@+id/textview_serie"
-                android:layout_width="150dp"
-                android:layout_height="wrap_content"
-                android:text="@string/nodata"
-                android:textColor="#fff"
-                android:textSize="9pt" />
+            <Spinner
+                android:id="@+id/spinner_serie"
+                android:layout_width="160dp"
+                android:layout_height="40dp"
+                android:layout_marginLeft="15dp"
+                android:tag="dfgdf" />
 
             <TextView
                 android:id="@+id/id_maquina_hidden_serie"
