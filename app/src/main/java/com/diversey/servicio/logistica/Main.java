@@ -83,13 +83,14 @@ public class Main extends Activity {
 	private LinearLayout layoutList;
 	private ListView listView1;
 	private List<UserRecord> usersNow;
+	private List<UserRecord> usersResume;
 	private UserRecord u;
 	private int contadorRefresh = 0;
 	private static int count_ot_local = 0;
 	public Typeface BebasNeueRegular;
 	public Typeface BebasNeueLight;
 	public Typeface BebasNeueBold;
-
+	public int tipoOt = 0;
 	public JSONObject ot;
 
 
@@ -199,20 +200,54 @@ public void onResume(){
 	else{
 		counterOTlocal.setVisibility(View.GONE);
 	}
-	List<UserRecord> ots  = Select.from(UserRecord.class)
-			.orderBy("idot Desc").list();
-	ArrayAdapter<UserRecord> adapter1 = new UserItemAdapter(Main.this,R.layout.listitems, ots);
-	listView1 = (ListView)findViewById(R.id.mylist1);
-	listView1.setAdapter(adapter1);
-	adapter1.notifyDataSetChanged();
-
-	listView1.invalidate();
 
 
 	setButtons();
-	Button botTodos = (Button)findViewById(R.id.showlist_todos);
-	botTodos.setTypeface(BebasNeueBold);
-	botTodos.setBackgroundColor(getResources().getColor(R.color.gray_light));
+	if(tipoOt==2){
+		Button b = (Button) findViewById(R.id.showlist_pendientes);
+		b.setBackgroundColor(getResources().getColor(android.R.color.holo_red_light));
+		b.setTypeface(BebasNeueBold);
+	}
+	else if(tipoOt==4){
+		Button b = (Button) findViewById(R.id.showlist_realizados);
+		b.setBackgroundColor(getResources().getColor(android.R.color.holo_green_light));
+		b.setTypeface(BebasNeueBold);
+	}
+	else if(tipoOt==0){
+		Button b = (Button) findViewById(R.id.showlist_todos);
+		b.setBackgroundColor(getResources().getColor(R.color.gray_light));
+		b.setTypeface(BebasNeueBold);
+		//			Log.i("Refrescando","Todos...");
+	}
+
+	List<UserRecord> users1 = Select.from(UserRecord.class)
+			.orderBy("idot Desc").list();
+	Log.d("SugarSizeNormal",String.valueOf(users1.size()));//processData.getData();
+	List<UserRecord> users2 = new ArrayList<UserRecord>();
+	ArrayAdapter<UserRecord> adapter = null;
+
+
+	if(tipoOt==0){
+		adapter = new UserItemAdapter(this,R.layout.listitems, users1);
+		usersResume = new ArrayList<UserRecord>(users1);
+	}
+	else{
+		for(UserRecord user: users1){
+			//				Log.i("User (orden):",user.tipo_orden_id + Integer.toString(tipoOt));
+			if(Integer.parseInt(user.tipo_orden_id)==tipoOt){
+				users2.add(user);
+			}
+		}
+		adapter = new UserItemAdapter(this,R.layout.listitems, users2);
+		usersResume = new ArrayList<UserRecord>(users2);
+	}
+
+	otList =  (ListView) findViewById(R.id.mylist1);
+	otList.setAdapter(adapter);
+	adapter.notifyDataSetChanged();
+
+	otList.invalidate();
+
 
 	super.onResume();
 }
@@ -371,7 +406,6 @@ public void onResume(){
 
 		setButtons();
 
-		int tipoOt = 0;
 		if(v.getId() == R.id.showlist_pendientes){
 			tipoOt=2;
 			Button b = (Button) v;
