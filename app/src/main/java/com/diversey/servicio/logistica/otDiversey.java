@@ -415,6 +415,8 @@ public class otDiversey extends Activity implements OnTouchListener{
 
 		String tipoOT =  diverseyIntent.getStringExtra("tipo_ot");
 
+		Log.d("LogOtEstado",tipoOT);
+
 		if(tipoOT.equals("2")){//2 pendiente
 			staticMap.requestFocus();
 			completeMantenedor(R.id.layout_orden_trabajo_detalle);
@@ -1074,12 +1076,13 @@ public class otDiversey extends Activity implements OnTouchListener{
 		for(i = 0; i < jsonArray_maquinas_back.length(); i++){
 			try {
 				String value = jsonArray_maquinas_back.getJSONObject(i).getString("id");
-				if(id_maq == value){
+				if(id_maq.equals(value)){
 					JSONArray json_array_partes = jsonArray_maquinas_back.getJSONObject(i).getJSONArray("json_piezas");
 					if(json_array_partes.length()== 0){
 						list12.add("vacio");
 						listCodigo.add("vacio");
 					}
+					Log.i("LIST ADD",json_array_partes.toString());
 
 					for(x = 0; x < json_array_partes.length(); x++){
 						String nombre_parte = json_array_partes.getJSONObject(x).getString("nombre");
@@ -1090,6 +1093,7 @@ public class otDiversey extends Activity implements OnTouchListener{
 					}
 					break;
 				}
+				else Log.i("LIST ADD","No id "+value+"="+id_maq);
 			} catch (JSONException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

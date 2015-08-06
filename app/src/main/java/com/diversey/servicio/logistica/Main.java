@@ -231,6 +231,7 @@ public class Main extends Activity {
 	}
 	List<UserRecord> ots  = Select.from(UserRecord.class)
 			.orderBy("idot Desc").list();
+	usersNow = new ArrayList<UserRecord>(ots);
 	ArrayAdapter<UserRecord> adapter1 = new UserItemAdapter(Main.this,R.layout.listitems, ots);
 	listView1 = (ListView)findViewById(R.id.mylist1);
 	listView1.setAdapter(adapter1);
@@ -355,7 +356,7 @@ public class Main extends Activity {
 					Log.d("OTLocal",OTsLocal.get(i).idot);
 					Log.d("OTLocal",OTsLocal.get(i).tipo_orden_id);
 					Log.d("OTLocal",OTsLocal.get(i).json_imagenes);
-					Log.d("OTLocal",OTsLocal.get(i).json_imagenes_qr);
+					Log.d("OTLocal", OTsLocal.get(i).json_imagenes_qr);
 
 					try {
 						ot = new JSONObject(OTsLocal.get(i).allJsonOT);
@@ -374,28 +375,21 @@ public class Main extends Activity {
 						u.save();
 						count++;
 					}
+					else{
+						UserRecord u =	OTsLocal.get(i);
+						u.status = "false";
+						u.save();
+						count++;
+					}
 
 
 				}
 
 				dialogS.dismiss();
 
-			  if(count == OTsLocal.size()) {
+
 					RefreshOts rfot = new RefreshOts(v.getContext());
 					rfot.execute("");
-				}
-				else{
-					AlertDialog alertDialog = new AlertDialog.Builder(this).create();
-					alertDialog.setTitle("Error de sincronización");
-					alertDialog.setMessage("Solo se ha sincronizado " + String.valueOf(count) + " de " + String.valueOf(OTsLocal.size()));
-					alertDialog.setButton("Aceptar", new DialogInterface.OnClickListener() {
-						public void onClick(DialogInterface dialog, int which) {
-
-						}
-					});
-					alertDialog.setIcon(android.R.drawable.ic_menu_info_details);
-					alertDialog.show();
-				}
 
 			}
 
@@ -639,7 +633,7 @@ public class Main extends Activity {
 
 		Log.i("Enviando mensaje a servicio", lastOTid.toString() + "|" + userId);
 		sendMessageToService(OTService.MSG_SET_OT_LIST,lastOTid);
-		sendMessageToService(OTService.MSG_SET_HEADER_STRING,userId);
+		sendMessageToService(OTService.MSG_SET_HEADER_STRING, userId);
 		return;
 	}
 
