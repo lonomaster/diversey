@@ -176,9 +176,7 @@ public class Main extends Activity {
 		int versionCode = BuildConfig.VERSION_CODE;
 
 		version.setText("Version "+String.valueOf(versionCode));
-
-
-
+		
 
 		/* END styling*/
 
