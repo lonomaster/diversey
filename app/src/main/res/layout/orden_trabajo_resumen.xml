@@ -49,6 +49,7 @@
                             android:gravity="center_vertical" >
 
                             <TextView
+                                android:id="@+id/title_actividad"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginLeft="15dp"
@@ -64,6 +65,7 @@
                                 android:layout_marginRight="15dp"
                                 android:background="@drawable/background_borde_negro_ins_gris"
                                 android:ems="10"
+                                android:paddingLeft="5dp"
                                 android:gravity="center_vertical|center_horizontal"
                                 android:text="vacío"
                                 android:textColor="#333333"
@@ -71,6 +73,7 @@
                                 android:textSize="8pt" />
 
                             <TextView
+                                android:id="@+id/title_tipo_Servicio"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_alignParentLeft="true"
@@ -87,6 +90,7 @@
                                 android:layout_marginRight="15dp"
                                 android:background="@drawable/background_borde_negro_ins_gris"
                                 android:ems="10"
+                                android:paddingLeft="5dp"
                                 android:gravity="center_vertical|center_horizontal"
                                 android:text="vacío"
                                 android:textColor="#333333"
@@ -113,6 +117,7 @@
                     android:orientation="vertical" >
 
                     <TextView
+                        android:id="@+id/title_falla_informada"
                         android:layout_width="match_parent"
                         android:layout_height="39dip"
                         android:background="@drawable/gradiente"
@@ -271,9 +276,11 @@
                     android:layout_marginRight="40dip"
                     android:layout_marginTop="30dip"
                     android:background="#ffffff"
-                    android:orientation="vertical" >
+                    android:orientation="vertical"
+                    android:visibility="visible">
 
                     <TextView
+                        android:id="@+id/title_tipo"
                         android:layout_width="match_parent"
                         android:layout_height="39dip"
                         android:background="@drawable/gradiente"
@@ -368,6 +375,7 @@
                                  android:textStyle="bold" />
 
                              <TextView
+                                 android:id="@+id/title_minutos"
                                  android:layout_width="wrap_content"
                                  android:layout_height="wrap_content"
                                  android:layout_alignBaseline="@+id/textView2"
@@ -405,6 +413,7 @@
                             android:layout_marginBottom="15dp" >
 
                             <TextView
+                                android:id="@+id/title_obs_finales"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_alignParentLeft="true"
@@ -441,6 +450,7 @@
                     android:orientation="vertical" >
 
                     <TextView
+                        android:id="@+id/title_firma"
                         android:layout_width="match_parent"
                         android:layout_height="39dip"
                         android:background="@drawable/gradiente"
@@ -456,6 +466,7 @@
                         android:orientation="vertical" >
 
                         <TextView
+                            android:id="@+id/title_name"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginBottom="5dp"
@@ -479,6 +490,7 @@
                             android:textSize="8pt" />
 
                         <TextView
+                            android:id="@+id/title_rut"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginBottom="5dp"
@@ -503,6 +515,7 @@
                             android:textSize="8pt" />
 
                         <TextView
+                            android:id="@+id/title_mail"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginBottom="5dp"
@@ -522,7 +535,6 @@
                             android:gravity="center_vertical|center_horizontal"
                             android:background="@drawable/background_borde_negro_ins_gris"
                             android:ems="10"
-                           
                             android:textColor="#333333"
                             android:textSize="8pt" />
 

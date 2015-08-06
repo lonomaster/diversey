@@ -60,40 +60,71 @@ import dmax.dialog.SpotsDialog;
 
 public class Main extends Activity {
 
-	private static final int FINISH_ALERT = 0;
-
 	public static final int CASO_CAFE = 100;
 	public static final int CASO_PLAGAS = 200;
 	public static final int CASO_HIGIENE = 300;
 	public static final int CASO_4 = 400;
-
+	private static final int FINISH_ALERT = 0;
+	private static int count_ot_local = 0;
+	final Messenger mMessenger = new Messenger(new IncomingHandler());
 	public boolean is_on_map = false;
-	private ProcessData processData; 
+	public Typeface BebasNeueRegular;
+	public Typeface BebasNeueLight;
+	public Typeface BebasNeueBold;
+	public JSONObject ot;
+	Timer timer = null;
+	Messenger mService = null;
+	boolean mIsBound;
+	private ProcessData processData;
 	private LocationManager locationManager;
 	private ListView otList;
 	private LinearLayout listLayout ;
 	private GeoPoint geoPoint_location = new GeoPoint(0, 0);
 	private String userId;
-
 	private AlertDialog dialogL;
 	private AlertDialog dialogR;
 	private AlertDialog dialogG;
 	private AlertDialog dialogS;
-	Timer timer = null;
 	private LinearLayout layoutList;
 	private ListView listView1;
 	private List<UserRecord> usersNow;
 	private UserRecord u;
 	private int contadorRefresh = 0;
-	private static int count_ot_local = 0;
-	public Typeface BebasNeueRegular;
-	public Typeface BebasNeueLight;
-	public Typeface BebasNeueBold;
-
-	public JSONObject ot;
-
-
 	private ArrayList<String> lastOTid = new ArrayList<String>();
+	private ServiceConnection mConnection = new ServiceConnection() {
+		public void onServiceConnected(ComponentName className, IBinder service) {
+			mService = new Messenger(service);
+			Log.i("Service","Attached.");
+			try {
+				Message msg = Message.obtain(null, OTService.MSG_REGISTER_CLIENT);
+				msg.replyTo = mMessenger;
+				mService.send(msg);
+			} catch (RemoteException e) {
+				// In this case the service has crashed before we could even do anything with it
+			}
+		}
+
+		public void onServiceDisconnected(ComponentName className) {
+			// This is called when the connection with the service has been unexpectedly disconnected - process crashed.
+			mService = null;
+			Log.i("Service","Disconnected.");
+		}
+	};
+
+	public static void dumpIntent(Intent i){
+
+	    Bundle bundle = i.getExtras();
+	    if (bundle != null) {
+	        Set<String> keys = bundle.keySet();
+	        Iterator<String> it = keys.iterator();
+	        Log.e("key intent", "Dumping Intent start");
+	        while (it.hasNext()) {
+	            String key = it.next();
+	            Log.e("key intent","[" + key + "=" + bundle.get(key)+"]");
+	        }
+	        Log.e("key intent","Dumping Intent end");
+	    }
+	}
 
 	/** Called when the activity is first created. */
 	@Override
@@ -138,6 +169,7 @@ public class Main extends Activity {
 
 		TextView login = (TextView) findViewById(R.id.login);
 		login.setText(prefe.getString("usernameDiversey", ""));
+		login.setTypeface(BebasNeueRegular);
 
 		TextView version = (TextView) findViewById(R.id.version);
 
@@ -184,8 +216,8 @@ public class Main extends Activity {
 
 	}
 
-@Override
-public void onResume(){
+	@Override
+	public void onResume(){
 	TextView counterOTlocal = (TextView)findViewById(R.id.ot_local);
 
 	List<UserRecord> OTsLocal  = UserRecord.find(UserRecord.class, "status = ?", "true");
@@ -208,7 +240,6 @@ public void onResume(){
 
 	listView1.invalidate();
 
-
 	setButtons();
 	Button botTodos = (Button)findViewById(R.id.showlist_todos);
 	botTodos.setTypeface(BebasNeueBold);
@@ -216,96 +247,6 @@ public void onResume(){
 
 	super.onResume();
 }
-
-	private class StartMain extends AsyncTask <String, String, Boolean> {
-
-		private ProgressDialog progDailog;
-		private Context ctx;
-		private List<UserRecord> users;
-
-		public StartMain(Context c){
-			ctx = c;
-		}
-
-		protected void onPreExecute() {
-			/*progDailog.setTitle("Descargando datos");
-			progDailog.setMessage("por favor, espera...");
-			progDailog.setIndeterminate(false);
-			progDailog.setCancelable(false);
-			progDailog.setMax(1);
-			progDailog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
-			progDailog.show();*/
-			dialogL.show();
-			//startService(new Intent(Main.this, OTService.class));
-		}
-
-		protected Boolean doInBackground(String... urls) {
-			try{
-				if(isNetworkAvailable()){
-					processData = new ProcessData(AppParameters.url+userId);
-				}
-				else{
-					processData = new ProcessData();
-				}
-				//users = processData.getData();
-
-				users  = Select.from(UserRecord.class)
-						.orderBy("idot Desc").list();
-				Log.d("SugarSizeStart",String.valueOf(users.size()));
-				usersNow = new ArrayList<UserRecord>(users);
-
-				int total = usersNow.size();
-				int avance = 0;
-				//progDailog.setMax(total);
-				for(UserRecord user: users){
-					//progDailog.setProgress(avance);
-					avance++;
-				}
-
-				lastOTid.clear();
-
-				for(UserRecord user: users){
-
-
-					lastOTid.add(user.idot);
-
-					Log.d("SugarLastID",""+user.toString());
-				}
-			}
-			catch (Exception e) {
-
-			}
-			doBindService();
-			return true;
-		}
-
-		protected void onPostExecute(Boolean result) {
-			ArrayAdapter<UserRecord> adapter1 = new UserItemAdapter(ctx,R.layout.listitems, users);
-			listView1 = (ListView)findViewById(R.id.mylist1);
-			listView1.setAdapter(adapter1);
-			adapter1.notifyDataSetChanged();
-
-			listView1.invalidate();
-
-			try {
-				dialogL.dismiss();
-				//progDailog.dismiss();
-				//progDailog = null;
-			} catch (Exception e) {
-
-			}
-
-			/*if(isNetworkAvailable()){
-				final Handler handler = new Handler();
-				handler.postDelayed(new Runnable() {public void run() {sendOtsMessage();}}, 250);
-			}
-			else{
-				timer = new Timer();
-				timer.scheduleAtFixedRate(new TimerTask(){ public void run() {sendOtsMessage();}}, 250, 1000);
-			}*/
-
-		}
-	}
 
 	private void setButtons() {
 
@@ -338,11 +279,11 @@ public void onResume(){
 
 	public void toggleClick(View view) {
 		ToggleButton b = (ToggleButton) view;
-		ActionBar a = getActionBar(); 
+		ActionBar a = getActionBar();
 		String s = (String) b.getText();
 		a.setSubtitle(s);
 	}
-
+	
 	public void onClick(View v) {
 		centerToPosition();
 
@@ -513,8 +454,289 @@ public void onResume(){
 
 	}
 
+	public boolean isNetworkAvailable() {
+		ConnectivityManager cm = (ConnectivityManager)getSystemService(Context.CONNECTIVITY_SERVICE);
+		NetworkInfo networkInfo = cm.getActiveNetworkInfo();
+
+		if(timer!=null){
+			timer.cancel();
+			timer.purge();
+		}
+		return (networkInfo != null);
+	}
+
+	@Override
+	public void onBackPressed() {
+		showDialog(FINISH_ALERT);
+
+	}
+
+	@Override
+	protected Dialog onCreateDialog(int id) {
+		switch (id) {
+		case FINISH_ALERT:
+			// Create out AlterDialog
+			Builder builder = new AlertDialog.Builder(this);
+			Drawable icon = getResources().getDrawable(R.drawable.logo_app);
+			Bitmap d = ((BitmapDrawable)icon).getBitmap();
+			Bitmap bitmapOrig = Bitmap.createScaledBitmap(d, 30, 30, false);
+			icon = new BitmapDrawable(bitmapOrig);
+			builder.setIcon(icon);
+			builder.setTitle("Servicio Logística Diversey");
+			builder.setMessage("Deseas terminar esta aplicación?");
+			builder.setCancelable(true);
+			builder.setPositiveButton("Si!", new OkOnClickListener());
+			builder.setNegativeButton("No!", new CancelOnClickListener());
+
+			AlertDialog dialog = builder.create();
+			dialog.show();
+		}
+		return super.onCreateDialog(id);
+	}
+
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		sendMessageToService(OTService.DO_REFRESH_OTS, 1);
+		if(data!=null){
+			if(resultCode == Main.CASO_CAFE || resultCode == Main.CASO_HIGIENE){
+				processOTData(data.getExtras());
+				Button b = (Button)findViewById(R.id.showlist_todos);
+				b.performClick();
+			}
+			else if(resultCode == Main.CASO_PLAGAS){
+
+			}
+		}
+		return;
+
+	}
+
+	private void processOTData(Bundle bl) {
+		JSONObject datos1 = null;
+
+		try {
+			datos1 = new JSONObject(bl.getString("json-datos"));
+
+			if(datos1!=null){
+				String st = datos1.getString("tipo_orden_id");
+				String otid = datos1.getString("orden_trabajo_id");
+
+				processData.setData(otid,st);
+				//sendMessageToService(OTService.MSG_SET_OT_UPDATE,datos1.toString());
+
+			}
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
+
+	}
+
+	@Override
+	protected void onSaveInstanceState(Bundle outState) {
+		super.onSaveInstanceState(outState);
+		//	        outState.putString("textStatus", textStatus.getText().toString());
+		//	        outState.putString("textIntValue", textIntValue.getText().toString());
+		//	        outState.putString("textStrValue", textStrValue.getText().toString());
+	}
+
+	@SuppressWarnings("unused")
+	private void restoreMe(Bundle state) {
+		if (state!=null) {
+			Log.i("Service","textStatus");
+			Log.i("Service","textIntValue");
+			Log.i("Service", "textStrValue");
+		}
+	}
+
+	@SuppressWarnings("unused")
+	private void CheckIfServiceIsRunning() {
+		//If the service is running when the activity starts, we want to automatically bind to it.
+		if (OTService.isRunning()) {
+			doBindService();
+		}
+	}
+
+	@SuppressWarnings("unchecked")
+	private void sendMessageToService(int tipo, Object val) {
+		if (mIsBound) {
+			if (mService != null) {
+				try {
+					Message msg = Message.obtain(null, tipo);
+					Bundle bl = new Bundle();
+					if(tipo==OTService.MSG_SET_OT_LIST){
+						bl.putStringArrayList("arr", (ArrayList<String>)val);
+					}
+					else if(tipo==OTService.MSG_SET_OT_UPDATE){
+						bl.putString("ot", (String) val);
+					}
+					else if(tipo==OTService.MSG_SET_HEADER_STRING){
+						bl.putString("str", (String)val);
+					}
+					else if(tipo==OTService.DO_REFRESH_OTS){
+						bl.putInt("status", (Integer)val);
+					}
+
+					msg.setData(bl);
+
+					msg.replyTo = mMessenger;
+					mService.send(msg);
+					Log.i("Main snd:",msg.toString());
+				} catch (RemoteException e) {
+				}
+			}
+		}
+	}
+
+	void doBindService() {
+		bindService(new Intent(this, OTService.class), mConnection, Context.BIND_AUTO_CREATE);
+		mIsBound = true;
+		Log.i("Service","Binding.");
+	}
+
+	void doUnbindService() {
+		if (mIsBound) {
+			// If we have received the service, and hence registered with it, then now is the time to unregister.
+			if (mService != null) {
+				try {
+					Message msg = Message.obtain(null, OTService.MSG_UNREGISTER_CLIENT);
+					msg.replyTo = mMessenger;
+					mService.send(msg);
+				} catch (RemoteException e) {
+					// There is nothing special we need to do if the service has crashed.
+				}
+			}
+			// Detach our existing connection.
+			unbindService(mConnection);
+			mIsBound = false;
+			Log.i("Service", "Unbinding.");
+		}
+	}
+	
+	@Override
+	protected void onDestroy() {
+		super.onDestroy();
+		dialogG.dismiss();
+		dialogL.dismiss();
+		dialogR.dismiss();
+		dialogS.dismiss();
+		try {
+			doUnbindService();
+			stopService(new Intent(Main.this, OTService.class));
+		} catch (Throwable t) {
+			Log.e("MainActivity", "Failed to unbind from the service", t);
+		}
+	}
+	
+	 protected void onStop() {
+		  super.onStop();
+
+		 dialogL.dismiss();
+		 dialogR.dismiss();
+		 dialogG.dismiss();
+		 dialogS.dismiss();
+
+	 }
+
+	void sendOtsMessage(){
+
+		Log.i("Enviando mensaje a servicio", lastOTid.toString() + "|" + userId);
+		sendMessageToService(OTService.MSG_SET_OT_LIST,lastOTid);
+		sendMessageToService(OTService.MSG_SET_HEADER_STRING,userId);
+		return;
+	}
+
+	private class StartMain extends AsyncTask <String, String, Boolean> {
+
+		private ProgressDialog progDailog;
+		private Context ctx;
+		private List<UserRecord> users;
+
+		public StartMain(Context c){
+			ctx = c;
+		}
+
+		protected void onPreExecute() {
+			/*progDailog.setTitle("Descargando datos");
+			progDailog.setMessage("por favor, espera...");
+			progDailog.setIndeterminate(false);
+			progDailog.setCancelable(false);
+			progDailog.setMax(1);
+			progDailog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
+			progDailog.show();*/
+			dialogL.show();
+			//startService(new Intent(Main.this, OTService.class));
+		}
+
+		protected Boolean doInBackground(String... urls) {
+			try{
+				if(isNetworkAvailable()){
+					processData = new ProcessData(AppParameters.url+userId);
+				}
+				else{
+					processData = new ProcessData();
+				}
+				//users = processData.getData();
+
+				users  = Select.from(UserRecord.class)
+						.orderBy("idot Desc").list();
+				Log.d("SugarSizeStart",String.valueOf(users.size()));
+				usersNow = new ArrayList<UserRecord>(users);
+
+				int total = usersNow.size();
+				int avance = 0;
+				//progDailog.setMax(total);
+				for(UserRecord user: users){
+					//progDailog.setProgress(avance);
+					avance++;
+				}
+
+				lastOTid.clear();
+
+				for(UserRecord user: users){
+
+
+					lastOTid.add(user.idot);
+
+					Log.d("SugarLastID",""+user.toString());
+				}
+			}
+			catch (Exception e) {
+
+			}
+			doBindService();
+			return true;
+		}
+
+		protected void onPostExecute(Boolean result) {
+			ArrayAdapter<UserRecord> adapter1 = new UserItemAdapter(ctx,R.layout.listitems, users);
+			listView1 = (ListView)findViewById(R.id.mylist1);
+			listView1.setAdapter(adapter1);
+			adapter1.notifyDataSetChanged();
+
+			listView1.invalidate();
+
+			try {
+				dialogL.dismiss();
+				//progDailog.dismiss();
+				//progDailog = null;
+			} catch (Exception e) {
+
+			}
+
+			/*if(isNetworkAvailable()){
+				final Handler handler = new Handler();
+				handler.postDelayed(new Runnable() {public void run() {sendOtsMessage();}}, 250);
+			}
+			else{
+				timer = new Timer();
+				timer.scheduleAtFixedRate(new TimerTask(){ public void run() {sendOtsMessage();}}, 250, 1000);
+			}*/
+
+		}
+	}
+
 	private class RefreshOts extends AsyncTask <String, String, Boolean> {
-		
+
 		private Context ctx;
 
 		public RefreshOts(Context c){
@@ -543,7 +765,7 @@ public void onResume(){
 
 					usersNow = new ArrayList<UserRecord>(usersNow);
 					lastOTid.clear();
-					
+
 
 					int total = usersNow.size();
 					int avance = 0;
@@ -593,30 +815,30 @@ public void onResume(){
 		}
 
 		protected void onPreExecute() {
-			
+
 			v.setClickable(false);
 
 		}
 
 		protected Boolean doInBackground(String... userid) {
-					
+
 			nextScreen = new Intent(ctx, otDiversey.class);
 			req_code = Main.CASO_HIGIENE;
 
 			nextScreen.putExtra("fecha_realizacion", user.fecha_ejecucion);
 
 			nextScreen.putExtra("json_maquinas", user.json_maq);
-			
+
 			nextScreen.putExtra("tipo_ot",user.tipo_orden_id);
 			nextScreen.putExtra("tipo_mantencion",user.tipo_mantencion);
 			nextScreen.putExtra("tipo_servicio",user.tipo_servicio);
-			
+
 			nextScreen.putExtra("descripcion",user.descripcion);//falla informada
 			nextScreen.putExtra("diagnostico",user.diagnostico);
 			nextScreen.putExtra("obs_general",user.obs_general);
 			nextScreen.putExtra("horas_hombre",user.horas_hombre);
 			nextScreen.putExtra("obs_finales",user.obs_finales);
-			
+
 			nextScreen.putExtra("idOT",user.idot);
 			nextScreen.putExtra("nombreOT",user.nombre);
 			nextScreen.putExtra("id_tecnico",userId);
@@ -624,14 +846,14 @@ public void onResume(){
 
 			nextScreen.putExtra("rut", user.rut);
 			nextScreen.putExtra("direccion", user.direccion);
-			
+
 			nextScreen.putExtra("firma_nombre", user.firma_nombre);
 			nextScreen.putExtra("firma_mail", user.firma_mail);
 			nextScreen.putExtra("firma_rut", user.firma_rut);
-			
+
 			nextScreen.putExtra("correo_contacto", user.correo_contacto);
 			nextScreen.putExtra("descripcion", user.descripcion);
-			
+
 			nextScreen.putExtra("modelo_maquina", user.modelo_maquina);
 			nextScreen.putExtra("nro_serie", user.nro_serie);
 			nextScreen.putExtra("cantidad", user.cantidad);
@@ -640,7 +862,7 @@ public void onResume(){
 
 			nextScreen.putExtra("latitud", user.latitud);
 			nextScreen.putExtra("longitud", user.longitud);
-			
+
 			nextScreen.putExtra("partes_usadas", user.partes_usadas);
 
 			float tec_lon = (float) ((float) (geoPoint_location.getLongitudeE6())/1E6);
@@ -660,46 +882,6 @@ public void onResume(){
 		}
 	}
 	
-	public boolean isNetworkAvailable() {
-		ConnectivityManager cm = (ConnectivityManager)getSystemService(Context.CONNECTIVITY_SERVICE);
-		NetworkInfo networkInfo = cm.getActiveNetworkInfo();
-
-		if(timer!=null){
-			timer.cancel();
-			timer.purge();
-		}
-		return (networkInfo != null);
-	} 
-
-	@Override
-	public void onBackPressed() {
-		showDialog(FINISH_ALERT);
-
-	}
-
-	@Override
-	protected Dialog onCreateDialog(int id) {
-		switch (id) {
-		case FINISH_ALERT:
-			// Create out AlterDialog
-			Builder builder = new AlertDialog.Builder(this);
-			Drawable icon = getResources().getDrawable(R.drawable.logo_app);
-			Bitmap d = ((BitmapDrawable)icon).getBitmap();
-			Bitmap bitmapOrig = Bitmap.createScaledBitmap(d, 30, 30, false);
-			icon = new BitmapDrawable(bitmapOrig);
-			builder.setIcon(icon);
-			builder.setTitle("Servicio Logística Diversey");
-			builder.setMessage("Deseas terminar esta aplicación?");
-			builder.setCancelable(true);
-			builder.setPositiveButton("Si!", new OkOnClickListener());
-			builder.setNegativeButton("No!", new CancelOnClickListener());
-
-			AlertDialog dialog = builder.create();
-			dialog.show();
-		}
-		return super.onCreateDialog(id);
-	}
-
 	private final class CancelOnClickListener implements
 	DialogInterface.OnClickListener {
 		public void onClick(DialogInterface dialog, int which) {
@@ -707,7 +889,7 @@ public void onResume(){
 					Toast.LENGTH_LONG).show();
 		}
 	}
-
+	
 	private final class OkOnClickListener implements
 	DialogInterface.OnClickListener {
 		public void onClick(DialogInterface dialog, int which) {
@@ -720,49 +902,6 @@ public void onResume(){
 			finish();
 		}
 	}
-
-	@Override
-	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-		sendMessageToService(OTService.DO_REFRESH_OTS, 1);
-		if(data!=null){
-			if(resultCode == Main.CASO_CAFE || resultCode == Main.CASO_HIGIENE){
-				processOTData(data.getExtras());
-				Button b = (Button)findViewById(R.id.showlist_todos);
-				b.performClick();
-			}
-			else if(resultCode == Main.CASO_PLAGAS){
-
-			}
-		}
-		return;
-
-	}
-
-	private void processOTData(Bundle bl) {
-		JSONObject datos1 = null;
-
-		try {
-			datos1 = new JSONObject(bl.getString("json-datos"));
-
-			if(datos1!=null){
-				String st = datos1.getString("tipo_orden_id");
-				String otid = datos1.getString("orden_trabajo_id");
-
-				processData.setData(otid,st);
-				//sendMessageToService(OTService.MSG_SET_OT_UPDATE,datos1.toString());
-
-			}
-		} catch (JSONException e) {
-			e.printStackTrace();
-		}
-
-	}
-
-
-	Messenger mService = null;
-	boolean mIsBound;
-
-	final Messenger mMessenger = new Messenger(new IncomingHandler());
 
 	@SuppressLint("HandlerLeak")
 	class IncomingHandler extends Handler {
@@ -781,156 +920,6 @@ public void onResume(){
 				super.handleMessage(msg);
 			}
 		}
-	}
-	private ServiceConnection mConnection = new ServiceConnection() {
-		public void onServiceConnected(ComponentName className, IBinder service) {
-			mService = new Messenger(service);
-			Log.i("Service","Attached.");
-			try {
-				Message msg = Message.obtain(null, OTService.MSG_REGISTER_CLIENT);
-				msg.replyTo = mMessenger;
-				mService.send(msg);
-			} catch (RemoteException e) {
-				// In this case the service has crashed before we could even do anything with it
-			}
-		}
-
-		public void onServiceDisconnected(ComponentName className) {
-			// This is called when the connection with the service has been unexpectedly disconnected - process crashed.
-			mService = null;
-			Log.i("Service","Disconnected.");
-		}
-	};
-
-
-	@Override
-	protected void onSaveInstanceState(Bundle outState) {
-		super.onSaveInstanceState(outState);
-		//	        outState.putString("textStatus", textStatus.getText().toString());
-		//	        outState.putString("textIntValue", textIntValue.getText().toString());
-		//	        outState.putString("textStrValue", textStrValue.getText().toString());
-	}
-	
-	@SuppressWarnings("unused")
-	private void restoreMe(Bundle state) {
-		if (state!=null) {
-			Log.i("Service","textStatus");
-			Log.i("Service","textIntValue");
-			Log.i("Service", "textStrValue");
-		}
-	}
-	
-	@SuppressWarnings("unused")
-	private void CheckIfServiceIsRunning() {
-		//If the service is running when the activity starts, we want to automatically bind to it.
-		if (OTService.isRunning()) {
-			doBindService();
-		}
-	}
-
-	@SuppressWarnings("unchecked")
-	private void sendMessageToService(int tipo, Object val) {
-		if (mIsBound) {
-			if (mService != null) {
-				try {
-					Message msg = Message.obtain(null, tipo);
-					Bundle bl = new Bundle();
-					if(tipo==OTService.MSG_SET_OT_LIST){
-						bl.putStringArrayList("arr", (ArrayList<String>)val);
-					}
-					else if(tipo==OTService.MSG_SET_OT_UPDATE){
-						bl.putString("ot", (String) val);
-					}
-					else if(tipo==OTService.MSG_SET_HEADER_STRING){
-						bl.putString("str", (String)val);
-					}
-					else if(tipo==OTService.DO_REFRESH_OTS){
-						bl.putInt("status", (Integer)val);
-					}
-
-					msg.setData(bl);
-
-					msg.replyTo = mMessenger;
-					mService.send(msg);
-					Log.i("Main snd:",msg.toString());
-				} catch (RemoteException e) {
-				}
-			}
-		}
-	}
-
-
-	void doBindService() {
-		bindService(new Intent(this, OTService.class), mConnection, Context.BIND_AUTO_CREATE);
-		mIsBound = true;
-		Log.i("Service","Binding.");
-	}
-	void doUnbindService() {
-		if (mIsBound) {
-			// If we have received the service, and hence registered with it, then now is the time to unregister.
-			if (mService != null) {
-				try {
-					Message msg = Message.obtain(null, OTService.MSG_UNREGISTER_CLIENT);
-					msg.replyTo = mMessenger;
-					mService.send(msg);
-				} catch (RemoteException e) {
-					// There is nothing special we need to do if the service has crashed.
-				}
-			}
-			// Detach our existing connection.
-			unbindService(mConnection);
-			mIsBound = false;
-			Log.i("Service", "Unbinding.");
-		}
-	}
-
-	@Override
-	protected void onDestroy() {
-		super.onDestroy();
-		dialogG.dismiss();
-		dialogL.dismiss();
-		dialogR.dismiss();
-		dialogS.dismiss();
-		try {
-			doUnbindService();
-			stopService(new Intent(Main.this, OTService.class));
-		} catch (Throwable t) {
-			Log.e("MainActivity", "Failed to unbind from the service", t);
-		}
-	}
-	
-	 protected void onStop() {  
-		  super.onStop();
-
-		 dialogL.dismiss();
-		 dialogR.dismiss();
-		 dialogG.dismiss();
-		 dialogS.dismiss();
-
-
-	 }
-	
-
-	void sendOtsMessage(){
-	
-		Log.i("Enviando mensaje a servicio", lastOTid.toString() + "|" + userId);
-		sendMessageToService(OTService.MSG_SET_OT_LIST,lastOTid);
-		sendMessageToService(OTService.MSG_SET_HEADER_STRING,userId);
-		return;
-	}
-	public static void dumpIntent(Intent i){
-
-	    Bundle bundle = i.getExtras();
-	    if (bundle != null) {
-	        Set<String> keys = bundle.keySet();
-	        Iterator<String> it = keys.iterator();
-	        Log.e("key intent", "Dumping Intent start");
-	        while (it.hasNext()) {
-	            String key = it.next();
-	            Log.e("key intent","[" + key + "=" + bundle.get(key)+"]");
-	        }
-	        Log.e("key intent","Dumping Intent end");
-	    }
 	}
 
 

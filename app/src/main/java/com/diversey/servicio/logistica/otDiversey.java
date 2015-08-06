@@ -13,6 +13,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.Matrix;
+import android.graphics.Typeface;
 import android.media.ExifInterface;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -55,6 +56,7 @@ import com.squareup.picasso.Picasso;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.w3c.dom.Text;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -148,6 +150,10 @@ public class otDiversey extends Activity implements OnTouchListener{
 	TextView textVieCodigo;
 	TextView textVieDescripcion;
 
+	public Typeface fontRegular;
+	public Typeface fontLight;
+	public Typeface fontBold;
+
 
 	public static void dumpIntent(Intent i){
 
@@ -177,6 +183,178 @@ public class otDiversey extends Activity implements OnTouchListener{
 		Log.i("Recibidos:", diverseyIntent.toString());
 		Log.i("ENTRA AL ONCREATE:","ONCREATE !!!!!!please!!");
 
+		fontLight = Typeface.createFromAsset(otDiversey.this.getAssets(),
+				"BebasNeueLight.ttf");
+
+		fontRegular = Typeface.createFromAsset(otDiversey.this.getAssets(),
+				"BebasNeueRegular.ttf");
+
+		fontBold = Typeface.createFromAsset(otDiversey.this.getAssets(),
+				"BebasNeueBold.ttf");
+
+
+		/*styling*/
+
+		//Mapa
+
+		TextView title_mapa_ubicacion = (TextView)findViewById(R.id.title_mapa_ubicacion);
+		title_mapa_ubicacion.setTypeface(fontBold);
+
+		TextView title_falla_informada = (TextView)findViewById(R.id.title_falla_informada);
+		title_falla_informada.setTypeface(fontBold);
+
+		TextView orden_trabajo_descripcion_caso = (TextView)findViewById(R.id.orden_trabajo_descripcion_caso);
+		orden_trabajo_descripcion_caso.setTypeface(fontRegular);
+
+		//Control tecnico
+		TextView titulo_insumos_repuestos = (TextView)findViewById(R.id.titulo_insumos_repuestos);
+		titulo_insumos_repuestos.setTypeface(fontBold);
+
+		TextView title_diagnostico = (TextView)findViewById(R.id.title_diagnostico);
+		title_diagnostico.setTypeface(fontBold);
+
+		TextView title_obs_general = (TextView)findViewById(R.id.title_obs_general);
+		title_obs_general.setTypeface(fontBold);
+
+		TextView title_maquinas = (TextView)findViewById(R.id.title_maquinas);
+		title_maquinas.setTypeface(fontBold);
+
+		TextView title_detalle = (TextView)findViewById(R.id.title_detalle);
+		title_detalle.setTypeface(fontBold);
+
+		TextView title_accesorios = (TextView)findViewById(R.id.title_accesorios);
+		title_accesorios.setTypeface(fontBold);
+
+		EditText asdasd_editText = (EditText)findViewById(R.id.asdasd_editText);
+		asdasd_editText.setTypeface(fontRegular);
+
+		EditText insumos_numero_editText = (EditText)findViewById(R.id.insumos_numero_editText);
+		insumos_numero_editText.setTypeface(fontBold);
+
+		EditText dasdas_editText = (EditText)findViewById(R.id.dasdas_editText);
+		dasdas_editText.setTypeface(fontRegular);
+
+		TextView title_trabajo_realizado = (TextView)findViewById(R.id.title_trabajo_realizado);
+		title_trabajo_realizado.setTypeface(fontBold);
+
+		//Tipo reparacion
+
+		TextView title_tipo = (TextView)findViewById(R.id.title_tipo);
+		title_tipo.setTypeface(fontBold);
+
+		TextView title_hora_hombre = (TextView)findViewById(R.id.title_hora_hombre);
+		title_hora_hombre.setTypeface(fontBold);
+
+		EditText horas_hombre_editText_hh = (EditText)findViewById(R.id.horas_hombre_editText_hh);
+		horas_hombre_editText_hh.setTypeface(fontRegular);
+
+		EditText minutos_hombre_editText_mm = (EditText)findViewById(R.id.minutos_hombre_editText_mm);
+		minutos_hombre_editText_mm.setTypeface(fontRegular);
+
+		TextView title_obs_final = (TextView)findViewById(R.id.title_obs_final);
+		title_obs_final.setTypeface(fontBold);
+
+		TextView obs_finales_editText = (TextView)findViewById(R.id.obs_finales_editText);
+		obs_finales_editText.setTypeface(fontRegular);
+
+
+		TextView textView3 = (TextView)findViewById(R.id.textView3);
+		textView3.setTypeface(fontBold);
+
+		TextView textView2 = (TextView)findViewById(R.id.textView2);
+		textView2.setTypeface(fontBold);
+
+		TextView title_minutos = (TextView)findViewById(R.id.title_minutos);
+		title_minutos.setTypeface(fontBold);
+
+		TextView horas_hombre_textview = (TextView)findViewById(R.id.horas_hombre_textview);
+		horas_hombre_textview.setTypeface(fontRegular);
+
+		TextView minutos_hombre_textview = (TextView)findViewById(R.id.minutos_hombre_textview);
+		minutos_hombre_textview.setTypeface(fontRegular);
+
+		TextView title_obs_finales = (TextView)findViewById(R.id.title_obs_finales);
+		title_obs_finales.setTypeface(fontBold);
+
+		TextView obs_finales_textview = (TextView)findViewById(R.id.obs_finales_textview);
+		obs_finales_textview.setTypeface(fontRegular);
+
+
+		//firma
+
+		TextView title_firma = (TextView)findViewById(R.id.title_firma);
+		title_firma.setTypeface(fontBold);
+
+		TextView title_name = (TextView)findViewById(R.id.title_name);
+		title_name.setTypeface(fontBold);
+
+		EditText firma_nombre_editText = (EditText)findViewById(R.id.firma_nombre_editText);
+		firma_nombre_editText.setTypeface(fontRegular);
+
+		EditText firma_rut_editText = (EditText)findViewById(R.id.firma_rut_editText);
+		firma_rut_editText.setTypeface(fontRegular);
+
+		EditText firma_mail_editText = (EditText)findViewById(R.id.firma_mail_editText);
+		firma_mail_editText.setTypeface(fontRegular);
+
+		TextView firma_nombre_TextView = (TextView)findViewById(R.id.firma_nombre_TextView);
+		firma_nombre_TextView.setTypeface(fontRegular);
+
+		TextView title_rut = (TextView)findViewById(R.id.title_rut);
+		title_rut.setTypeface(fontRegular);
+
+		TextView firma_rut_TextView = (TextView)findViewById(R.id.firma_rut_TextView);
+		firma_rut_TextView.setTypeface(fontRegular);
+
+		TextView title_mail = (TextView)findViewById(R.id.title_mail);
+		title_mail.setTypeface(fontBold);
+
+		TextView firma_mail_TextView = (TextView)findViewById(R.id.firma_mail_TextView);
+		firma_mail_TextView.setTypeface(fontRegular);
+
+		Button orden_trabajo_generar_reporte = (Button)findViewById(R.id.orden_trabajo_generar_reporte);
+		orden_trabajo_generar_reporte.setTypeface(fontBold);
+
+
+		//Falla informada
+
+		TextView orden_trabajo_descripcion_falla = (TextView)findViewById(R.id.orden_trabajo_descripcion_falla);
+		orden_trabajo_descripcion_falla.setTypeface(fontRegular);
+
+		//detalle
+
+		TextView title_actividad = (TextView)findViewById(R.id.title_actividad);
+		title_actividad.setTypeface(fontBold);
+
+		TextView actividad_TextView = (TextView)findViewById(R.id.actividad_TextView);
+		actividad_TextView.setTypeface(fontRegular);
+
+		TextView title_tipo_Servicio = (TextView)findViewById(R.id.title_tipo_Servicio);
+		title_tipo_Servicio.setTypeface(fontBold);
+
+		TextView tipo_servicio_TextView = (TextView)findViewById(R.id.tipo_servicio_TextView);
+		tipo_servicio_TextView.setTypeface(fontRegular);
+
+		TextView title_detalle_big = (TextView)findViewById(R.id.title_detalle_big);
+		title_detalle_big.setTypeface(fontBold);
+
+		Button orden_trabajo_continuar = (Button)findViewById(R.id.orden_trabajo_continuar);
+		orden_trabajo_continuar.setTypeface(fontBold);
+
+
+
+		//Mantenedor
+
+		//TextView title_mantencion = (TextView)findViewById(R.id.title_mantencion);
+		//title_mantencion.setTypeface(fontBold);
+
+		//TextView title_servicio2 = (TextView)findViewById(R.id.title_servicio2);
+		//title_servicio2.setTypeface(fontBold);
+
+		Spinner orden_trabajo_tipo_mantencion = (Spinner)findViewById(R.id.orden_trabajo_tipo_mantencion);
+		Spinner orden_trabajo_tipo_servicio = (Spinner)findViewById(R.id.orden_trabajo_tipo_servicio);
+
+		/*END styling*/
 
 		imageViewImagen1 = (ImageView) findViewById(R.id.orden_trabajo_imageview_img1);
 		ImageView staticMap = (ImageView) findViewById(R.id.orden_trabajo_mapa_empresa);
@@ -206,10 +384,8 @@ public class otDiversey extends Activity implements OnTouchListener{
 
 				public void onError() {
 					// TODO Auto-generated method stub
-
 				}
 			});
-
 
 		}
 		else{
@@ -230,15 +406,12 @@ public class otDiversey extends Activity implements OnTouchListener{
 		idOT = diverseyIntent.getStringExtra("idOT");
 		longitudTecnico = diverseyIntent.getStringExtra("longitud_tecnico");
 		latitudTecnico = diverseyIntent.getStringExtra("latitud_tecnico");
-
 		descripcion = diverseyIntent.getStringExtra("descripcion");
 
 		datosOT = new JSONObject();
 
 		TextView descripcionTvw = (TextView)findViewById(R.id.orden_trabajo_descripcion_caso);
 		descripcionTvw.setText(descripcion);
-
-
 
 		String tipoOT =  diverseyIntent.getStringExtra("tipo_ot");
 
@@ -259,7 +432,6 @@ public class otDiversey extends Activity implements OnTouchListener{
 
 			LinearLayout resumenLayout = (LinearLayout)findViewById(R.id.orden_trabajo_vista_resumen);
 			resumenLayout.setVisibility(View.GONE);
-
 
 			num_maquinas = jsonArray_maquinas_back.length();
 			Log.i("NUMERO MAQ", "N maq : "+ Integer.toString(num_maquinas));
@@ -283,11 +455,9 @@ public class otDiversey extends Activity implements OnTouchListener{
 					}
 					id_modelo  = maquina_i.getString("id");
 					codigo_maquina = maquina_i.getString("codigo");
-
 					serie = maquina_i.getString("serie");
 					series = maquina_i.getString("series");
 					descripcion= maquina_i.getString("descripcion");
-
 
 				} catch (JSONException e) {
 					// TODO Auto-generated catch block
@@ -308,6 +478,8 @@ public class otDiversey extends Activity implements OnTouchListener{
 			dragFirma = (DrawingView)findViewById(R.id.orden_trabajo_firma);
 			staticMap.requestFocus();
 		}
+
+
 		else if(tipoOT.equals("4")){//4 realizada
 			completeRealizado(R.id.layout_orden_trabajo_detalle);
 
@@ -341,7 +513,6 @@ public class otDiversey extends Activity implements OnTouchListener{
 			LinearLayout detalle2Layout = (LinearLayout)findViewById(R.id.orden_trabajo_detalle2);
 			detalle2Layout.setVisibility(View.GONE);
 
-
 			LinearLayout comentLayout = (LinearLayout)findViewById(R.id.orden_trabajo_comentarios);
 			comentLayout.setVisibility(View.GONE);
 
@@ -363,12 +534,12 @@ public class otDiversey extends Activity implements OnTouchListener{
 			TextView textViewFirmaRut = (TextView)findViewById(R.id.firma_rut_TextView);
 
 			//completar datos
-
 			textViewActividadServicio.setText(diverseyIntent.getStringExtra("tipo_mantencion").toString());
 			textViewTipoServicio.setText(diverseyIntent.getStringExtra("tipo_servicio").toString());
 			textViewDescFalla.setText(diverseyIntent.getStringExtra("descripcion").toString());
 			textViewDiagnostico.setText(diverseyIntent.getStringExtra("diagnostico").toString());
 			textViewObsGeneral.setText(diverseyIntent.getStringExtra("obs_general").toString());
+
 			// transformar los minutos
 			int datos_tiempo_obtenido = Integer.parseInt(diverseyIntent.getStringExtra("horas_hombre").toString());
 			int minuto = datos_tiempo_obtenido%60 ;
@@ -379,15 +550,14 @@ public class otDiversey extends Activity implements OnTouchListener{
 			textViewFirmaNombre.setText(diverseyIntent.getStringExtra("firma_nombre").toString());
 			textViewFirmaMail.setText(diverseyIntent.getStringExtra("firma_mail").toString());
 			textViewFirmaRut.setText(diverseyIntent.getStringExtra("firma_rut").toString());
-			//completar maquinas
 
+			//completar maquinas
 			try {
 				json_partes_usadas = new JSONArray(diverseyIntent.getStringExtra("partes_usadas"));
 			} catch (JSONException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-
 			int numItems = json_partes_usadas.length();
 
 			for (int i=0;i<numItems;i++){
@@ -418,16 +588,13 @@ public class otDiversey extends Activity implements OnTouchListener{
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-
 				try {
 					json_array_piezas = new JSONArray(string_piezas_temp);
 				} catch (JSONException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-
 				completeMaquinasResumen(nombre_maquina_temp, id_maquina_temp, string_qr_temp, json_array_piezas);
-
 			}
 
 		}
@@ -450,16 +617,26 @@ public class otDiversey extends Activity implements OnTouchListener{
 		TextView clienteTvw = (TextView)headerLayout.findViewById(R.id.orden_trabajo_cliente_caso);
 		TextView fechaRealizTvw = (TextView)headerLayout.findViewById(R.id.orden_trabajo_fecha_realizacion_head);
 		TextView repLegalTvw = (TextView)headerLayout.findViewById(R.id.orden_trabajo_representante_legal);
-		//TextView rutTvw = (TextView)headerLayout.findViewById(R.id.orden_trabajo_rut_empresa);
-		//TextView direccionTvw = (TextView)headerLayout.findViewById(R.id.orden_trabajo_direccion_empresa);
 		TextView nombreMaquina = (TextView)headerLayout.findViewById(R.id.orden_trabajo_maquina_head);
 
+		TextView title_site = (TextView)headerLayout.findViewById(R.id.title_site);
+		TextView title_fecha = (TextView)headerLayout.findViewById(R.id.title_fecha);
+		TextView title_maquina = (TextView)headerLayout.findViewById(R.id.title_maquina);
+
+		title_site.setTypeface(fontBold);
+		title_fecha.setTypeface(fontBold);
+		title_maquina.setTypeface(fontBold);
 
 		nomSucTvw.setText(nombreSucursal);
+		nomSucTvw.setTypeface(fontBold);
 		clienteTvw.setText(cliente);
+		clienteTvw.setTypeface(fontRegular);
 		fechaRealizTvw.setText(fecha_realizacion);
+		fechaRealizTvw.setTypeface(fontRegular);
 		repLegalTvw.setText(repLegal);
+		repLegalTvw.setTypeface(fontRegular);
 		nombreMaquina.setText(Nombre_de_maquinas);
+		nombreMaquina.setTypeface(fontRegular);
 		//rutTvw.setText(rut);
 		//direccionTvw.setText(direccion);
 	}
@@ -501,6 +678,12 @@ public class otDiversey extends Activity implements OnTouchListener{
 		ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(inflater.getContext(),R.layout.item_spinner, list);
 		dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
+		TextView title_mantencion = (TextView)mantenedorLayout.findViewById(R.id.title_mantencion);
+		title_mantencion.setTypeface(fontBold);
+
+		TextView title_servicio2 = (TextView)mantenedorLayout.findViewById(R.id.title_servicio2);
+		title_servicio2.setTypeface(fontBold);
+
 		Spinner spinServicio = (Spinner) findViewById(R.id.orden_trabajo_tipo_mantencion);
 		spinServicio.setAdapter(dataAdapter);
 
@@ -514,7 +697,6 @@ public class otDiversey extends Activity implements OnTouchListener{
 
 		Spinner spinTipoServicio = (Spinner) findViewById(R.id.orden_trabajo_tipo_servicio);
 		spinTipoServicio.setAdapter(dataAdapter1);
-
 
 	}
 
@@ -549,14 +731,29 @@ public class otDiversey extends Activity implements OnTouchListener{
 
 		//Log.i("Id boton",Integer.toString(boton.getId()));
 
+
+		TextView title_modelo_maquina = (TextView) mylinear.findViewById(R.id.title_modelo_maquina);
+		title_modelo_maquina.setTypeface(fontBold);
+
+		TextView title_codigo = (TextView) mylinear.findViewById(R.id.title_codigo);
+		title_codigo.setTypeface(fontBold);
+
+		TextView title_serie = (TextView) mylinear.findViewById(R.id.title_serie);
+		title_serie.setTypeface(fontBold);
+
+		TextView title_descripcion = (TextView) mylinear.findViewById(R.id.title_descripcion);
+		title_descripcion.setTypeface(fontBold);
+
 		textViewMod = (TextView) mylinear.findViewById(R.id.textview_modelo_maquina);
 		textViewMod.setText(nombre_modelo);
+		textViewMod.setTypeface(fontRegular);
 
 		textViewID = (TextView) mylinear.findViewById(R.id.id_maquina_hidden);
 		textViewID.setText(id_modelo);
 
 		textVieCodigo = (TextView)mylinear.findViewById(R.id.textview_campos_codigo);
 		textVieCodigo.setText(codigo_maquina);
+		textVieCodigo.setTypeface(fontRegular);
 
 		try {
 			series = new JSONArray(series_maquina);
@@ -594,8 +791,6 @@ public class otDiversey extends Activity implements OnTouchListener{
 					} catch (JSONException e) {
 						e.printStackTrace();
 					}
-
-
 				}
 
 				public void onNothingSelected(AdapterView<?> adapterView) {
@@ -608,9 +803,28 @@ public class otDiversey extends Activity implements OnTouchListener{
 			e.printStackTrace();
 		}
 
+		TextView textview_descripcion = (TextView)mylinear.findViewById(R.id.textview_descripcion);
+		textview_descripcion.setText(descripcion_maquina);
+		textview_descripcion.setTypeface(fontRegular);
 
-		textVieDescripcion = (TextView)mylinear.findViewById(R.id.textview_descripcion);
-		textVieDescripcion.setText(descripcion_maquina);
+		TextView title_captura_imagen = (TextView)mylinear.findViewById(R.id.title_captura_imagen);
+		title_captura_imagen.setTypeface(fontBold);
+
+		Button tomar_imagen = (Button)mylinear.findViewById(R.id.tomar_imagen);
+		tomar_imagen.setTypeface(fontBold);
+
+		TextView title_qr = (TextView)mylinear.findViewById(R.id.title_qr);
+		title_qr.setTypeface(fontBold);
+
+		Button tomar_qr = (Button)mylinear.findViewById(R.id.tomar_qr);
+		tomar_qr.setTypeface(fontBold);
+
+		TextView textView_string_qr = (TextView)mylinear.findViewById(R.id.textView_string_qr);
+		textView_string_qr.setTypeface(fontRegular);
+
+		//agregar pieza
+		Button button1 = (Button)mylinear.findViewById(R.id.button1);
+		button1.setTypeface(fontBold);
 
 		layout.addView(mylinear);
 	}
@@ -630,7 +844,6 @@ public class otDiversey extends Activity implements OnTouchListener{
 
 		TextView textViewMod = (TextView) mylinear.findViewById(R.id.textview_modelo_maquina_resumen);
 		textViewMod.setText(nombre_modelo);
-
 
 
 
@@ -742,6 +955,8 @@ public class otDiversey extends Activity implements OnTouchListener{
 
 			LinearLayout layoutDetalle = (LinearLayout)findViewById(R.id.orden_trabajo_detalle);
 			layoutDetalle.setVisibility(View.VISIBLE);
+
+
 
 			RelativeLayout mapaLayout = (RelativeLayout)findViewById(R.id.orden_trabajo_mapa_layout);
 			mapaLayout.setVisibility(View.GONE);
@@ -881,16 +1096,6 @@ public class otDiversey extends Activity implements OnTouchListener{
 			}
 
 		}
-
-		/*	list12.add("Vacio");
-		list12.add("Opcion1");
-		list12.add("Opcion2");
-		list12.add("Opcion3");
-		list12.add("Opcion4");
-		list12.add("Opcion5");
-		list12.add("Opcion6");
-		list12.add("Opcion7");*/
-
 
 		ArrayAdapter<String> dataAdapter1 = new ArrayAdapter<String>(inflater.getContext(),R.layout.item_spinner_piezas, list12);
 		dataAdapter1.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -1302,7 +1507,7 @@ public class otDiversey extends Activity implements OnTouchListener{
 						json_temp.put("foto_1", foto_base_64);
 						//json_imagenes.put(NombreMaquina + "img_" + "1_" + "base_64", foto_base_64);
 						json_imagenes.put(json_temp);
-						Log.i("Json_imagenes put primera vez","id_maquina : "+ id_maquina + "/ foto_1");
+						Log.i("Json_img put 1","id_maquina : "+ id_maquina + "/ foto_1");
 
 					}else{
 
@@ -2059,6 +2264,7 @@ public class otDiversey extends Activity implements OnTouchListener{
 		sp.getString("screen_state","");
 
 		Log.i("onBackPressed","STATE : " + sp.getString("screen_state", ""));
+		//Volver a vista preot
 		if (sp.getString("screen_state","").equalsIgnoreCase("WORK_OT")) {
 
 			sp.edit().putString("screen_state", "WORK_OT");
@@ -2093,11 +2299,9 @@ public class otDiversey extends Activity implements OnTouchListener{
 			LinearLayout comentLayout = (LinearLayout)findViewById(R.id.orden_trabajo_comentarios);
 			comentLayout.setVisibility(View.VISIBLE);
 
-			sp.edit().putString("screen_state", "PRE_OT");
-
+			sp.edit().putString("screen_state", "PRE_OT").commit();
 
 		}else if(sp.getString("screen_state","").equalsIgnoreCase("PRE_OT")){
-
 
 			super.onBackPressed();
 		}
@@ -2194,7 +2398,6 @@ public class otDiversey extends Activity implements OnTouchListener{
 
 		}
 	}
-
 
 
 	}

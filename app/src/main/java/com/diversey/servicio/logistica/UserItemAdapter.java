@@ -57,10 +57,6 @@ public class UserItemAdapter extends ArrayAdapter<UserRecord> {
 		Log.d("SugarContent", user.toString());
 		if (user != null) {
 
-
-
-
-
 			TextView title_site = (TextView) v.findViewById(R.id.title_site);
 			TextView username = (TextView) v.findViewById(R.id.list_nombre);
 			TextView razonSocial = (TextView) v.findViewById(R.id.list_nombre_empresa);
@@ -68,11 +64,8 @@ public class UserItemAdapter extends ArrayAdapter<UserRecord> {
 			TextView contacto = (TextView) v.findViewById(R.id.list_nombre_contacto);
 			TextView title_contacto = (TextView) v.findViewById(R.id.title_contacto);
 
-
-
 			TextView direccion = (TextView) v.findViewById(R.id.list_direccion_empresa);
 			TextView title_direccion = (TextView) v.findViewById(R.id.title_direccion);
-
 
 			ImageView state = (ImageView) v.findViewById(R.id.list_estado);
 			ImageView logo = (ImageView)v.findViewById(R.id.list_avatar);
@@ -80,10 +73,7 @@ public class UserItemAdapter extends ArrayAdapter<UserRecord> {
 			TextView otId= (TextView) v.findViewById(R.id.list_numero_ot);
 			TextView title_ot_id= (TextView) v.findViewById(R.id.title_ot_id);
 
-
-
 			TextView title_fecha= (TextView) v.findViewById(R.id.title_fecha);
-
 
 			TextView fechaAsignacion= (TextView) v.findViewById(R.id.list_fecha_asignacion);
 			TextView fechaEjecucion= (TextView) v.findViewById(R.id.list_fecha_ejecucion);

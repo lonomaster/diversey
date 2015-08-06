@@ -16,6 +16,7 @@
             android:orientation="vertical" >
 
             <TextView
+                android:id="@+id/title_tipo"
                 android:layout_width="match_parent"
                 android:layout_height="39dip"
                 android:background="@drawable/gradiente"
@@ -33,6 +34,7 @@
                 android:gravity="center_vertical" >
 
                 <TextView
+                    android:id="@+id/title_hora_hombre"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="15dp"
@@ -95,6 +97,7 @@
                 android:layout_marginBottom="15dp" >
 
                 <TextView
+                    android:id="@+id/title_obs_final"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentLeft="true"
@@ -112,6 +115,7 @@
                     android:layout_marginRight="15dp"
                     android:background="@drawable/background_borde_negro_ins_gris"
                     android:ems="10"
+                    android:paddingLeft="5dp"
                     android:textColor="#333333"
                     android:textColorHint="#a7a7a7"
                     android:textSize="8pt" >

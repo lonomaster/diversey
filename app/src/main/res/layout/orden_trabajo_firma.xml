@@ -15,6 +15,7 @@
             android:orientation="vertical" >
 
             <TextView
+                android:id="@+id/title_firma"
                 android:layout_width="match_parent"
                 android:layout_height="39dip"
                 android:background="@drawable/gradiente"
@@ -52,6 +53,7 @@
                 </FrameLayout>
 
                 <TextView
+                    android:id="@+id/title_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="5dp"
@@ -70,11 +72,13 @@
                     android:layout_marginRight="15dp"
                     android:background="@drawable/background_borde_negro"
                     android:ems="10"
+                    android:paddingLeft="5dp"
                     android:textColor="#333333"
                     android:textSize="8pt" >
                 </EditText>
 
                 <TextView
+                    android:id="@+id/title_rut"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="5dp"
@@ -93,6 +97,7 @@
                     android:layout_marginRight="15dp"
                     android:background="@drawable/background_borde_negro"
                     android:ems="10"
+                    android:paddingLeft="5dp"
                     android:inputType="text"
                     android:numeric="integer"
                     android:textColor="#333333"
@@ -100,6 +105,7 @@
                 </EditText>
 
                 <TextView
+                    android:id="@+id/title_mail"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="5dp"
@@ -119,6 +125,7 @@
                     android:background="@drawable/background_borde_negro"
                     android:ems="10"
                     android:textColor="#333333"
+                    android:paddingLeft="5dp"
                     android:textSize="8pt" 
                     android:inputType="textWebEmailAddress">
                 </EditText>
@@ -129,11 +136,11 @@
                     android:layout_height="45dp"
                     android:layout_gravity="center_horizontal"
                     android:layout_marginTop="10dp"
-                    android:background="#219fd8"
+                    android:background="@drawable/selector_btn_celeste"
                     android:onClick="onClick"
                     android:text="GENERAR REPORTE"
                     android:textColor="#fff"
-                    android:textSize="8pt"
+                    android:textSize="9pt"
                     android:textStyle="bold" />
             </LinearLayout>
         </LinearLayout>

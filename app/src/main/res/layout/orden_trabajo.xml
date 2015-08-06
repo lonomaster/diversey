@@ -34,7 +34,7 @@
                 android:orientation="vertical" >
 
                 <TextView
-                    android:id="@+id/TextView1"
+                    android:id="@+id/title_mapa_ubicacion"
                     android:layout_width="match_parent"
                     android:layout_height="39dip"
                     android:layout_alignParentLeft="true"
@@ -51,7 +51,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="395dip"
                     android:layout_alignParentLeft="true"
-                    android:layout_below="@+id/TextView1"
+                    android:layout_below="@+id/title_mapa_ubicacion"
                     android:onClick="onClickMapsIntent" />
 
                 <ProgressBar
@@ -74,6 +74,7 @@
                 android:orientation="vertical" >
 
                 <TextView
+                    android:id="@+id/title_falla_informada"
                     android:layout_width="match_parent"
                     android:layout_height="39dip"
                     android:background="@drawable/gradiente"
@@ -110,6 +111,7 @@
                 android:visibility="visible" >
 
                 <TextView
+                    android:id="@+id/title_detalle_big"
                     android:layout_width="match_parent"
                     android:layout_height="39dip"
                     android:background="@drawable/gradiente"
@@ -118,6 +120,7 @@
                     android:text="DETALLE"
                     android:textSize="9pt"
                     android:textStyle="bold" />
+
 
                 <FrameLayout
                     android:id="@+id/layout_orden_trabajo_detalle"
@@ -142,7 +145,7 @@
                     android:layout_height="45dip"
                     android:layout_gravity="right"
                     android:layout_marginLeft="30dip"
-                    android:background="#219fd8"
+                    android:background="@drawable/selector_btn_celeste"
                     android:onClick="onClick"
                     android:text="CONTINUAR"
                     android:textColor="#fff"
