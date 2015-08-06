@@ -55,26 +55,27 @@
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
+            android:layout_marginLeft="15dp"
             android:layout_marginTop="30dp"
             android:gravity="center_vertical" >
 
             <TextView
-                android:layout_width="130dp"
+                android:id="@+id/title_nombre_pieza"
+                android:layout_width="150dp"
                 android:layout_height="wrap_content"
-                android:text="Nombre pieza :"
+                android:text="NOMBRE PIEZA :"
                 android:textSize="9pt" />
 
             <Spinner
                 android:id="@+id/orden_trabajo_spinner_nombre"
                 android:layout_width="160dp"
                 android:layout_height="40dp"
-                android:layout_marginLeft="15dp"
+                android:layout_marginLeft="10dp"
                 android:tag="dfgdf" />
 
             <TextView
-                android:id="@+id/CodigoTitulo"
-                android:layout_width="130dp"
+                android:id="@+id/title_codigo"
+                android:layout_width="100dp"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
                 android:text="Codigo :"
@@ -84,7 +85,8 @@
                 android:id="@+id/orden_trabajo_autoCompletado_codigo"
                 android:layout_width="160dp"
                 android:layout_height="40dp"
-                android:layout_marginLeft="15dp"
+                android:paddingLeft="5dp"
+                android:layout_marginLeft="5dp"
                 android:tag="dfgdf" />
             
                <Button
@@ -109,28 +111,31 @@
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginTop="10dp" >
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="15dp">
 
             <TextView
-                android:id="@+id/textView1"
-                android:layout_width="130dp"
+                android:id="@+id/title_cantidad"
+                android:layout_width="150dp"
                 android:layout_height="wrap_content"
-                android:text="Cantidad :"
+                android:text="CANTIDAD :"
                 android:textSize="9pt" />
 
             <EditText
                 android:id="@+id/editText_cantidad_pieza"
                 android:layout_width="160dp"
                 android:layout_height="40dp"
-                android:layout_marginLeft="15dp"
+                android:paddingLeft="5dp"
+                android:layout_marginLeft="10dp"
                 android:background="@drawable/background_borde_negro"
                 android:ems="10"
                 android:inputType="number" >
             </EditText>
 
             <TextView
-                android:layout_width="130dp"
+                android:id="@+id/title_precio"
+                android:layout_width="100dp"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
                 android:text="Precio c/u :"
@@ -140,20 +145,14 @@
                 android:id="@+id/textViewPrecio"
                 android:layout_width="160dp"
                 android:layout_height="40dp"
-                android:layout_marginLeft="10dp"
+                android:paddingLeft="5dp"
+                android:layout_marginLeft="5dp"
                 android:background="@drawable/background_borde_negro"
                 android:gravity="center_vertical|center_horizontal"
                 android:text="precio"
                 android:textSize="9pt" />
         </LinearLayout>
 
-        <ImageView
-            android:layout_width="fill_parent"
-            android:layout_height="1dip"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:layout_marginTop="15dip"
-            android:src="@drawable/linea1" />
     </LinearLayout>
 
 </LinearLayout>

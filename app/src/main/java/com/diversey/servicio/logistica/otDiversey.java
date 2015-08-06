@@ -3,6 +3,7 @@ package com.diversey.servicio.logistica;
 import android.app.ActionBar.LayoutParams;
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -14,6 +15,8 @@ import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.Matrix;
 import android.graphics.Typeface;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.media.ExifInterface;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -215,6 +218,12 @@ public class otDiversey extends Activity implements OnTouchListener{
 
 		TextView title_obs_general = (TextView)findViewById(R.id.title_obs_general);
 		title_obs_general.setTypeface(fontBold);
+
+		TextView diagnostico_editText = (TextView)findViewById(R.id.diagnostico_editText);
+		diagnostico_editText.setTypeface(fontRegular);
+
+		TextView  observacion_gral_editText= (TextView)findViewById(R.id.observacion_gral_editText);
+		observacion_gral_editText.setTypeface(fontRegular);
 
 		TextView title_maquinas = (TextView)findViewById(R.id.title_maquinas);
 		title_maquinas.setTypeface(fontBold);
@@ -1121,9 +1130,9 @@ public class otDiversey extends Activity implements OnTouchListener{
 
 			public void onFocusChange(View v, boolean hasFocus) {
 				// TODO Auto-generated method stub
-				if(!(hasFocus)){
+				if (!(hasFocus)) {
 
-					if((!(listCodigo.contains(spinCodigoPieza.getText().toString()))) && (!list12.contains("vacio"))){
+					if ((!(listCodigo.contains(spinCodigoPieza.getText().toString()))) && (!list12.contains("vacio"))) {
 						//Toast.makeText(getBaseContext(), "No se encuentra el codigo ", Toast.LENGTH_LONG).show();
 						MensajeCodigoBlanco();
 						activarBuscar.setBackgroundDrawable(getResources().getDrawable(R.drawable.btn_busqueda_active));
@@ -1140,12 +1149,12 @@ public class otDiversey extends Activity implements OnTouchListener{
 
 			public void onClick(View v) {
 
-				if(pulsarBotonEditarPieza){
+				if (pulsarBotonEditarPieza) {
 					spinCodigoPieza.setEnabled(false);
 					activarBuscar.setBackgroundDrawable(getResources().getDrawable(R.drawable.btn_busqueda_inactive));
 					pulsarBotonEditarPieza = false;
 
-				}else{
+				} else {
 					spinCodigoPieza.setEnabled(true);
 					activarBuscar.setBackgroundDrawable(getResources().getDrawable(R.drawable.btn_busqueda_active));
 					pulsarBotonEditarPieza = true;
@@ -1166,109 +1175,41 @@ public class otDiversey extends Activity implements OnTouchListener{
 		spinCodigoPieza.setOnItemClickListener(new OnItemClickListener() {
 
 
-     public void onItemClick(AdapterView<?> arg0, View parentView, int arg2, long arg3) {
+			public void onItemClick(AdapterView<?> arg0, View parentView, int arg2, long arg3) {
 
-    	 Toast.makeText(getBaseContext(), arg0.getItemAtPosition(arg2)+" y position "+ Integer.toString(arg2), Toast.LENGTH_LONG).show();
-    	 nombreCodigofinal = arg0.getItemAtPosition(arg2).toString();
-		spinCodigoPieza.setEnabled(false);
-		activarBuscar.setBackgroundDrawable(getResources().getDrawable(R.drawable.btn_busqueda_inactive));
-		Log.i("Codigo seleccionado", nombreCodigofinal);
-		String nombre_seleccionado = "";
-		String precio_seleccionado = "";
-		String id_seleccionado = "";
-		int posicionListaCodigo = 0;
-		for(int i=0;i<listCodigo.size();i++){
-			if(listCodigo.get(i).toString().equals(nombreCodigofinal)){
-				posicionListaCodigo = i;
-			}
-		}
-
-
-		for(int i=0; i < num_maquinas; i++){
-			try {
-				JSONArray json_array_partes_temp = jsonArray_maquinas_back.getJSONObject(i).getJSONArray("json_piezas");
-				Log.i("json_array_partes_temp .TOSTRING", json_array_partes_temp.toString());
-				int num_part = json_array_partes_temp.length();
-				Log.i("NUM MAQ:NUM PART",Integer.toString(num_maquinas)+ " : " + Integer.toString(num_part));
-
-				for(int x=0; x < num_part; x++){
-
-					String nombre_codigo = "";
-					nombre_codigo = (String)json_array_partes_temp.getJSONObject(x).getString("codigo").toString();
-					nombre_codigo= nombre_codigo.toLowerCase() + " ";
-					Log.i("FOR x"," pieza_seleccionada : " + nombreCodigofinal+"/" + "  " + "nompre_pieza : " + nombre_codigo+"/" );
-
-					if(nombre_codigo.equalsIgnoreCase(nombreCodigofinal)){
-						nombre_seleccionado = json_array_partes_temp.getJSONObject(x).getString("nombre");
-						Log.i("CODIGO SELECCIONADO", nombre_seleccionado+ "null");
-						precio_seleccionado = json_array_partes_temp.getJSONObject(x).getString("precio_unitario");
-						id_seleccionado = json_array_partes_temp.getJSONObject(x).getString("id");
-					}
-
-				}
-
-			} catch (JSONException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		}
-
-
-		//LinearLayout piezaly =  (LinearLayout)parentView.getParent().getParent();
-		//LinearLayout piezalyy =  (LinearLayout)parentView.getParent().getParent().getParent();
-		/*
-		AutoCompleteTextView spinerviewCodigo = (AutoCompleteTextView)piezaly.findViewById(R.id.orden_trabajo_autoCompletado_codigo);
-		TextView textviewPrecio = (TextView)piezaly.findViewById(R.id.textViewPrecio);
-		Spinner spinerNombre = (Spinner)piezaly.findViewById(R.id.orden_trabajo_spinner_nombre);
-		TextView textviewIdPieza = (TextView)piezalyy.findViewById(R.id.id_pieza_hidden);
-		*/
-		spinNombrePieza.setSelection(posicionListaCodigo);
-		textoPrecio.setText(precio_seleccionado);
-		//textviewIdPieza.setText(id_seleccionado);
-		//spinerviewCodigo.setText(codigo_seleccionado);
-
-		//textviewCodigo.setText(codigo_seleccionado);
-		//textviewPrecio.setText(precio_seleccionado);
-
-			            }
-
-			        });
-
-
-		spinNombrePieza.setOnItemSelectedListener(new OnItemSelectedListener() {
-
-			public void onItemSelected(AdapterView<?> parentView, View selectedItemView,
-					int position, long id) {
-				//Toast.makeText(parentView.getContext(), "Has seleccionado " +
-					//	parentView.getItemAtPosition(position).toString(), Toast.LENGTH_LONG).show();
-
-				//String pieza_seleccionada = parentView.getItemAtPosition(position).toString();
-				String pieza_seleccionada = "";
-				pieza_seleccionada = (String)((TextView)selectedItemView).getText().toString();
-				pieza_seleccionada = pieza_seleccionada.toLowerCase() + " ";
-
-				String codigo_seleccionado = "";
+				Toast.makeText(getBaseContext(), arg0.getItemAtPosition(arg2) + " y position " + Integer.toString(arg2), Toast.LENGTH_LONG).show();
+				nombreCodigofinal = arg0.getItemAtPosition(arg2).toString();
+				spinCodigoPieza.setEnabled(false);
+				activarBuscar.setBackgroundDrawable(getResources().getDrawable(R.drawable.btn_busqueda_inactive));
+				Log.i("Codigo seleccionado", nombreCodigofinal);
+				String nombre_seleccionado = "";
 				String precio_seleccionado = "";
 				String id_seleccionado = "";
+				int posicionListaCodigo = 0;
+				for (int i = 0; i < listCodigo.size(); i++) {
+					if (listCodigo.get(i).toString().equals(nombreCodigofinal)) {
+						posicionListaCodigo = i;
+					}
+				}
 
 
-				for(int i=0; i < num_maquinas; i++){
+				for (int i = 0; i < num_maquinas; i++) {
 					try {
 						JSONArray json_array_partes_temp = jsonArray_maquinas_back.getJSONObject(i).getJSONArray("json_piezas");
 						Log.i("json_array_partes_temp .TOSTRING", json_array_partes_temp.toString());
 						int num_part = json_array_partes_temp.length();
-						Log.i("NUM MAQ:NUM PART",Integer.toString(num_maquinas)+ " : " + Integer.toString(num_part));
+						Log.i("NUM MAQ:NUM PART", Integer.toString(num_maquinas) + " : " + Integer.toString(num_part));
 
-						for(int x=0; x < num_part; x++){
+						for (int x = 0; x < num_part; x++) {
 
-							String nombre_pieza = "";
-							nombre_pieza = (String)json_array_partes_temp.getJSONObject(x).getString("nombre").toString();
-							nombre_pieza= nombre_pieza.toLowerCase() + " ";
-							Log.i("FOR x"," pieza_seleccionada : " + pieza_seleccionada+"/" + "  " + "nompre_pieza : " + nombre_pieza+"/" );
+							String nombre_codigo = "";
+							nombre_codigo = (String) json_array_partes_temp.getJSONObject(x).getString("codigo").toString();
+							nombre_codigo = nombre_codigo.toLowerCase() + " ";
+							Log.i("FOR x", " pieza_seleccionada : " + nombreCodigofinal + "/" + "  " + "nompre_pieza : " + nombre_codigo + "/");
 
-							if(nombre_pieza.equalsIgnoreCase(pieza_seleccionada)){
-								codigo_seleccionado = json_array_partes_temp.getJSONObject(x).getString("codigo");
-								Log.i("CODIGO SELECCIONADO", codigo_seleccionado+ "null");
+							if (nombre_codigo.equalsIgnoreCase(nombreCodigofinal)) {
+								nombre_seleccionado = json_array_partes_temp.getJSONObject(x).getString("nombre");
+								Log.i("CODIGO SELECCIONADO", nombre_seleccionado + "null");
 								precio_seleccionado = json_array_partes_temp.getJSONObject(x).getString("precio_unitario");
 								id_seleccionado = json_array_partes_temp.getJSONObject(x).getString("id");
 							}
@@ -1282,12 +1223,79 @@ public class otDiversey extends Activity implements OnTouchListener{
 				}
 
 
-				LinearLayout piezaly =  (LinearLayout)parentView.getParent().getParent();
-				LinearLayout piezalyy =  (LinearLayout)parentView.getParent().getParent().getParent();
-				AutoCompleteTextView spinerviewCodigo = (AutoCompleteTextView)piezaly.findViewById(R.id.orden_trabajo_autoCompletado_codigo);
-				TextView textviewPrecio = (TextView)piezaly.findViewById(R.id.textViewPrecio);
+				//LinearLayout piezaly =  (LinearLayout)parentView.getParent().getParent();
+				//LinearLayout piezalyy =  (LinearLayout)parentView.getParent().getParent().getParent();
+		/*
+		AutoCompleteTextView spinerviewCodigo = (AutoCompleteTextView)piezaly.findViewById(R.id.orden_trabajo_autoCompletado_codigo);
+		TextView textviewPrecio = (TextView)piezaly.findViewById(R.id.textViewPrecio);
+		Spinner spinerNombre = (Spinner)piezaly.findViewById(R.id.orden_trabajo_spinner_nombre);
+		TextView textviewIdPieza = (TextView)piezalyy.findViewById(R.id.id_pieza_hidden);
+		*/
+				spinNombrePieza.setSelection(posicionListaCodigo);
+				textoPrecio.setText(precio_seleccionado);
+				//textviewIdPieza.setText(id_seleccionado);
+				//spinerviewCodigo.setText(codigo_seleccionado);
 
-				TextView textviewIdPieza = (TextView)piezalyy.findViewById(R.id.id_pieza_hidden);
+				//textviewCodigo.setText(codigo_seleccionado);
+				//textviewPrecio.setText(precio_seleccionado);
+
+			}
+
+		});
+
+
+		spinNombrePieza.setOnItemSelectedListener(new OnItemSelectedListener() {
+
+			public void onItemSelected(AdapterView<?> parentView, View selectedItemView,
+									   int position, long id) {
+				//Toast.makeText(parentView.getContext(), "Has seleccionado " +
+				//	parentView.getItemAtPosition(position).toString(), Toast.LENGTH_LONG).show();
+
+				//String pieza_seleccionada = parentView.getItemAtPosition(position).toString();
+				String pieza_seleccionada = "";
+				pieza_seleccionada = (String) ((TextView) selectedItemView).getText().toString();
+				pieza_seleccionada = pieza_seleccionada.toLowerCase() + " ";
+
+				String codigo_seleccionado = "";
+				String precio_seleccionado = "";
+				String id_seleccionado = "";
+
+
+				for (int i = 0; i < num_maquinas; i++) {
+					try {
+						JSONArray json_array_partes_temp = jsonArray_maquinas_back.getJSONObject(i).getJSONArray("json_piezas");
+						Log.i("json_array_part_temp", json_array_partes_temp.toString());
+						int num_part = json_array_partes_temp.length();
+						Log.i("NUM MAQ:NUM PART", Integer.toString(num_maquinas) + " : " + Integer.toString(num_part));
+
+						for (int x = 0; x < num_part; x++) {
+
+							String nombre_pieza = "";
+							nombre_pieza = (String) json_array_partes_temp.getJSONObject(x).getString("nombre").toString();
+							nombre_pieza = nombre_pieza.toLowerCase() + " ";
+							Log.i("FOR x", " pieza_seleccionada : " + pieza_seleccionada + "/" + "  " + "nompre_pieza : " + nombre_pieza + "/");
+
+							if (nombre_pieza.equalsIgnoreCase(pieza_seleccionada)) {
+								codigo_seleccionado = json_array_partes_temp.getJSONObject(x).getString("codigo");
+								Log.i("CODIGO SELECCIONADO", codigo_seleccionado + "null");
+								precio_seleccionado = json_array_partes_temp.getJSONObject(x).getString("precio_unitario");
+								id_seleccionado = json_array_partes_temp.getJSONObject(x).getString("id");
+							}
+
+						}
+
+					} catch (JSONException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				}
+
+				LinearLayout piezaly = (LinearLayout) parentView.getParent().getParent();
+				LinearLayout piezalyy = (LinearLayout) parentView.getParent().getParent().getParent();
+				AutoCompleteTextView spinerviewCodigo = (AutoCompleteTextView) piezaly.findViewById(R.id.orden_trabajo_autoCompletado_codigo);
+				TextView textviewPrecio = (TextView) piezaly.findViewById(R.id.textViewPrecio);
+
+				TextView textviewIdPieza = (TextView) piezalyy.findViewById(R.id.id_pieza_hidden);
 
 				textviewIdPieza.setText(id_seleccionado);
 				spinerviewCodigo.setText(codigo_seleccionado);
@@ -1302,10 +1310,36 @@ public class otDiversey extends Activity implements OnTouchListener{
 			}
 		});
 
+		TextView titulo_detalle_lote = (TextView) mylinear.findViewById(R.id.titulo_detalle_lote);
+		titulo_detalle_lote.setTypeface(fontBold);
+
+		TextView title_nombre_pieza = (TextView) mylinear.findViewById(R.id.title_nombre_pieza);
+		title_nombre_pieza.setTypeface(fontBold);
+
+		TextView title_cantidad = (TextView) mylinear.findViewById(R.id.title_cantidad);
+		title_cantidad.setTypeface(fontBold);
+
+		TextView title_codigo = (TextView) mylinear.findViewById(R.id.title_codigo);
+		title_codigo.setTypeface(fontBold);
+
+		TextView title_precio = (TextView) mylinear.findViewById(R.id.title_precio);
+		title_precio.setTypeface(fontBold);
+
+		TextView textViewPrecio = (TextView) mylinear.findViewById(R.id.textViewPrecio);
+		textViewPrecio.setTypeface(fontRegular);
+
+		EditText editText_cantidad_pieza = (EditText) mylinear.findViewById(R.id.editText_cantidad_pieza);
+		editText_cantidad_pieza.setTypeface(fontRegular);
+
+		AutoCompleteTextView orden_trabajo_autoCompletado_codigo = (AutoCompleteTextView) mylinear.findViewById(R.id.orden_trabajo_autoCompletado_codigo);
+		orden_trabajo_autoCompletado_codigo.setTypeface(fontRegular);
+
 		//spiner fin
 		contenedorPiezas.addView(mylinear);
 		contenedorPiezas.requestFocus();
 	}
+
+
 
 	public void eliminarPiezas(View v){
 
@@ -2169,7 +2203,7 @@ public class otDiversey extends Activity implements OnTouchListener{
 	endOt();
 	}
 
-@SuppressWarnings("deprecation")
+	@SuppressWarnings("deprecation")
 	public void AvisoError(String title, String Mensaje) {
 		AlertDialog alertDialog = new AlertDialog.Builder(this).create();
 		alertDialog.setTitle("Aviso...");
@@ -2261,7 +2295,7 @@ public class otDiversey extends Activity implements OnTouchListener{
 	@Override
 	public void onBackPressed(){
 
-		Toast.makeText(getApplicationContext(), " Press Back again to Exit ", Toast.LENGTH_SHORT).show();
+		//Toast.makeText(getApplicationContext(), " Press Back again to Exit ", Toast.LENGTH_SHORT).show();
 
 		//sp.edit().putString("screen_state", "WORK_OT");
 
@@ -2307,9 +2341,48 @@ public class otDiversey extends Activity implements OnTouchListener{
 
 		}else if(sp.getString("screen_state","").equalsIgnoreCase("PRE_OT")){
 
-			super.onBackPressed();
+			showDialog(1);
+
 		}
 
+	}
+
+	@Override
+	protected Dialog onCreateDialog(int id) {
+		switch (id) {
+			case 1:
+				// Create out AlterDialog
+				AlertDialog.Builder builder = new AlertDialog.Builder(this);
+				Drawable icon = getResources().getDrawable(R.drawable.logo_app);
+				Bitmap d = ((BitmapDrawable)icon).getBitmap();
+				Bitmap bitmapOrig = Bitmap.createScaledBitmap(d, 30, 30, false);
+				icon = new BitmapDrawable(bitmapOrig);
+				builder.setIcon(icon);
+				builder.setTitle("Servicio Logística Diversey");
+				builder.setMessage("Deseas cerrar la OT?");
+				builder.setCancelable(true);
+				builder.setPositiveButton("SALIR", new OkOnClickListener());
+				builder.setNegativeButton("CANCELAR", new CancelOnClickListener());
+
+				AlertDialog dialog = builder.create();
+				dialog.show();
+		}
+		return super.onCreateDialog(id);
+	}
+
+	private final class CancelOnClickListener implements
+			DialogInterface.OnClickListener {
+		public void onClick(DialogInterface dialog, int which) {
+
+		}
+	}
+
+	private final class OkOnClickListener implements
+			DialogInterface.OnClickListener {
+		public void onClick(DialogInterface dialog, int which) {
+
+			finish();
+		}
 	}
 
 	public void MensajeCodigoBlanco(){
@@ -2402,6 +2475,5 @@ public class otDiversey extends Activity implements OnTouchListener{
 
 		}
 	}
-
 
 	}
