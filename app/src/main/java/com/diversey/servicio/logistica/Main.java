@@ -194,7 +194,6 @@ public class Main extends Activity {
 		Intent i = getIntent();
 		userId = i.getStringExtra("userid");
 
-
 		/*Mapa*/
 		if(isNetworkAvailable()){
 			Criteria crtr = new Criteria();
@@ -210,7 +209,6 @@ public class Main extends Activity {
 		}
 		StartMain sm = new StartMain(this);
 		sm.execute("");
-
 
 	}
 
@@ -466,7 +464,6 @@ public class Main extends Activity {
 	@Override
 	public void onBackPressed() {
 		showDialog(FINISH_ALERT);
-
 	}
 
 	@Override
@@ -483,8 +480,8 @@ public class Main extends Activity {
 			builder.setTitle("Servicio Logística Diversey");
 			builder.setMessage("Deseas terminar esta aplicación?");
 			builder.setCancelable(true);
-			builder.setPositiveButton("Si!", new OkOnClickListener());
-			builder.setNegativeButton("No!", new CancelOnClickListener());
+			builder.setPositiveButton("SALIR", new OkOnClickListener());
+			builder.setNegativeButton("CANCELAR", new CancelOnClickListener());
 
 			AlertDialog dialog = builder.create();
 			dialog.show();
