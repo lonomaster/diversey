@@ -27,6 +27,7 @@
                     android:orientation="vertical" >
 
                     <TextView
+                        android:id="@+id/title_detalle_resumen"
                         android:layout_width="match_parent"
                         android:layout_height="39dip"
                         android:background="@drawable/gradiente"
@@ -172,6 +173,7 @@
                         android:layout_marginTop="15dp" >
 
                         <TextView
+                            android:id="@+id/title_diagnostico_resumen"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_alignParentLeft="true"
@@ -213,6 +215,7 @@
                         android:layout_marginTop="15dp" >
 
                         <TextView
+                            android:id="@+id/title_obs_resumen"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_alignParentLeft="true"
@@ -250,6 +253,7 @@
                     android:orientation="vertical" >
 
                     <TextView
+                        android:id="@+id/title_maquinas_resumen"
                         android:layout_width="match_parent"
                         android:layout_height="39dip"
                         android:background="@drawable/gradiente"
@@ -472,7 +476,7 @@
                             android:layout_marginBottom="5dp"
                             android:layout_marginLeft="15dp"
                             android:layout_marginTop="15dp"
-                            android:text="Nombre"
+                            android:text="NOMBRE"
                             android:textColor="#a7a7a7"
                             android:textSize="8pt"
                             android:textStyle="bold" />
@@ -496,7 +500,7 @@
                             android:layout_marginBottom="5dp"
                             android:layout_marginLeft="15dp"
                             android:layout_marginTop="15dp"
-                            android:text="Rut"
+                            android:text="RUT"
                             android:textColor="#a7a7a7"
                             android:textSize="8pt"
                             android:textStyle="bold" />
@@ -521,7 +525,7 @@
                             android:layout_marginBottom="5dp"
                             android:layout_marginLeft="15dp"
                             android:layout_marginTop="15dp"
-                            android:text="mail"
+                            android:text="MAIL"
                             android:textColor="#a7a7a7"
                             android:textSize="8pt"
                             android:textStyle="bold" />

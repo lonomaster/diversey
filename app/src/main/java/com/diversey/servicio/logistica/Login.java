@@ -37,12 +37,10 @@ public class Login extends Activity{
 
 		setContentView(R.layout.login);
 
-
 		BebasNeueBook = Typeface.createFromAsset(Login.this.getAssets(),
 				"BebasNeueBook.ttf");
 		BebasNeueBold = Typeface.createFromAsset(Login.this.getAssets(),
 				"BebasNeueBold.ttf");
-
 
 		/*styling*/
 		TextView title_company_name = (TextView) findViewById(R.id.title_company_name);
@@ -116,8 +114,6 @@ dialogC.show();
 					editor.putString("usernameDiversey", uname);
 					editor.putString("useridDiversey", uid);
 					editor.commit();
-
-
 
 				} catch (Exception e) {;} 
 				startActivity(nextScreen);

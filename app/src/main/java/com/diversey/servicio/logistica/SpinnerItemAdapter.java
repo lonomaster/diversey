@@ -24,7 +24,7 @@ public class SpinnerItemAdapter extends ArrayAdapter<String> {
 	public SpinnerItemAdapter(Context context, ArrayList<String> objects) {
 		super(context, 0, objects);
 		BebasNeueBook = Typeface.createFromAsset(context.getAssets(),
-				"BebasNeueBook.ttf");
+				"BebasNeueRegular.ttf");
 		this.context = context;
 		list = objects;
 	}

@@ -195,11 +195,9 @@ public class otDiversey extends Activity implements OnTouchListener{
 		fontBold = Typeface.createFromAsset(otDiversey.this.getAssets(),
 				"BebasNeueBold.ttf");
 
-
 		/*styling*/
 
 		//Mapa
-
 		TextView title_mapa_ubicacion = (TextView)findViewById(R.id.title_mapa_ubicacion);
 		title_mapa_ubicacion.setTypeface(fontBold);
 
@@ -266,7 +264,6 @@ public class otDiversey extends Activity implements OnTouchListener{
 		TextView obs_finales_editText = (TextView)findViewById(R.id.obs_finales_editText);
 		obs_finales_editText.setTypeface(fontRegular);
 
-
 		TextView textView3 = (TextView)findViewById(R.id.textView3);
 		textView3.setTypeface(fontBold);
 
@@ -287,7 +284,6 @@ public class otDiversey extends Activity implements OnTouchListener{
 
 		TextView obs_finales_textview = (TextView)findViewById(R.id.obs_finales_textview);
 		obs_finales_textview.setTypeface(fontRegular);
-
 
 		//firma
 
@@ -324,7 +320,6 @@ public class otDiversey extends Activity implements OnTouchListener{
 		Button orden_trabajo_generar_reporte = (Button)findViewById(R.id.orden_trabajo_generar_reporte);
 		orden_trabajo_generar_reporte.setTypeface(fontBold);
 
-
 		//Falla informada
 
 		TextView orden_trabajo_descripcion_falla = (TextView)findViewById(R.id.orden_trabajo_descripcion_falla);
@@ -349,8 +344,6 @@ public class otDiversey extends Activity implements OnTouchListener{
 
 		Button orden_trabajo_continuar = (Button)findViewById(R.id.orden_trabajo_continuar);
 		orden_trabajo_continuar.setTypeface(fontBold);
-
-
 
 		//Mantenedor
 
@@ -383,7 +376,6 @@ public class otDiversey extends Activity implements OnTouchListener{
 		if(isNetworkAvailable()){
 			String url = "http://maps.googleapis.com/maps/api/staticmap?center="+lat+","+lon+"&zoom=15&size=360x198&scale=2&maptype=roadmap&markers=icon:"+AppParameters.pin+"%7C"+lat+","+lon+"&sensor=true";
 
-
 			Picasso.with(otDiversey.this).load(url).skipMemoryCache().into(staticMap, new Callback() {
 
 				public void onSuccess() {
@@ -395,7 +387,6 @@ public class otDiversey extends Activity implements OnTouchListener{
 					// TODO Auto-generated method stub
 				}
 			});
-
 		}
 		else{
 			staticMap.setBackgroundColor(Color.GRAY);
@@ -474,7 +465,6 @@ public class otDiversey extends Activity implements OnTouchListener{
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-
 				completeMaquinas(nombre_modelo,id_modelo,codigo_maquina,serie,series,descripcion);
 				//completeMaquinas(nombre_modelo,id_modelo,codigo_maquina);
 
@@ -492,7 +482,7 @@ public class otDiversey extends Activity implements OnTouchListener{
 
 
 		else if(tipoOT.equals("4")){//4 realizada
-			completeRealizado(R.id.layout_orden_trabajo_detalle);
+			completeRealizado(R.id.layout_orden_trabajo_detalle);//FRamelayout
 
 			LinearLayout higieneComentarios = (LinearLayout)findViewById(R.id.orden_trabajo_comentarios);
 			higieneComentarios.setVisibility(View.GONE);
@@ -528,6 +518,58 @@ public class otDiversey extends Activity implements OnTouchListener{
 			comentLayout.setVisibility(View.GONE);
 
 			LinearLayout vistaResumenLayout = (LinearLayout)findViewById(R.id.orden_trabajo_vista_resumen);
+
+			TextView title_detalle_resumen = (TextView)vistaResumenLayout.findViewById(R.id.title_detalle_resumen);
+			title_detalle_resumen.setTypeface(fontBold);
+
+			TextView title_falla_informada2 = (TextView)vistaResumenLayout.findViewById(R.id.title_falla_informada);
+			title_falla_informada2.setTypeface(fontBold);
+
+			TextView titulo_insumos_repuestos2 = (TextView)vistaResumenLayout.findViewById(R.id.titulo_insumos_repuestos);
+			titulo_insumos_repuestos2.setTypeface(fontBold);
+
+			TextView title_diagnostico_resumen = (TextView)vistaResumenLayout.findViewById(R.id.title_diagnostico_resumen);
+			title_diagnostico_resumen.setTypeface(fontBold);
+
+			TextView diagnostico_TextView = (TextView)vistaResumenLayout.findViewById(R.id.diagnostico_TextView);
+			diagnostico_TextView.setTypeface(fontRegular);
+
+			TextView title_obs_resumen = (TextView)vistaResumenLayout.findViewById(R.id.title_obs_resumen);
+			title_obs_resumen.setTypeface(fontBold);
+
+			TextView observacion_gral_TextView = (TextView)vistaResumenLayout.findViewById(R.id.observacion_gral_TextView);
+			observacion_gral_TextView.setTypeface(fontRegular);
+
+			TextView title_maquinas_resumen = (TextView)vistaResumenLayout.findViewById(R.id.title_maquinas_resumen);
+			title_maquinas_resumen.setTypeface(fontBold);
+
+			TextView title_tipo2 = (TextView)vistaResumenLayout.findViewById(R.id.title_tipo);
+			title_tipo2.setTypeface(fontBold);
+
+			TextView title_firma2 = (TextView)vistaResumenLayout.findViewById(R.id.title_firma);
+			title_firma2.setTypeface(fontBold);
+
+			TextView title_name2 = (TextView)vistaResumenLayout.findViewById(R.id.title_name);
+			title_name2.setTypeface(fontBold);
+
+			TextView firma_mail_TextView2 = (TextView)vistaResumenLayout.findViewById(R.id.firma_mail_TextView);
+			firma_mail_TextView2.setTypeface(fontRegular);
+
+			TextView firma_nombre_TextView2 = (TextView)vistaResumenLayout.findViewById(R.id.firma_nombre_TextView);
+			firma_nombre_TextView2.setTypeface(fontRegular);
+
+			TextView firma_rut_TextView2 = (TextView)vistaResumenLayout.findViewById(R.id.firma_rut_TextView);
+			firma_rut_TextView.setTypeface(fontRegular);
+
+			TextView title_mail2 = (TextView)vistaResumenLayout.findViewById(R.id.title_mail);
+			title_mail2.setTypeface(fontBold);
+
+			TextView title_rut2 = (TextView)vistaResumenLayout.findViewById(R.id.title_rut);
+			title_rut2.setTypeface(fontBold);
+
+			Button orden_volver = (Button)vistaResumenLayout.findViewById(R.id.orden_volver);
+			orden_volver.setTypeface(fontBold);
+
 			vistaResumenLayout.setVisibility(View.VISIBLE);
 
 			//********************completar datos
@@ -548,6 +590,7 @@ public class otDiversey extends Activity implements OnTouchListener{
 			textViewActividadServicio.setText(diverseyIntent.getStringExtra("tipo_mantencion").toString());
 			textViewTipoServicio.setText(diverseyIntent.getStringExtra("tipo_servicio").toString());
 			textViewDescFalla.setText(diverseyIntent.getStringExtra("descripcion").toString());
+			textViewDescFalla.setTypeface(fontRegular);
 			textViewDiagnostico.setText(diverseyIntent.getStringExtra("diagnostico").toString());
 			textViewObsGeneral.setText(diverseyIntent.getStringExtra("obs_general").toString());
 
@@ -680,8 +723,30 @@ public class otDiversey extends Activity implements OnTouchListener{
 		nroSerieTvw.setText(nro_serie);
 		cantidadTvw.setText(cantidad);
 		codigoTvw.setText(codigo);
+		TextView title_mantencion = (TextView)mantenedorLayout.findViewById(R.id.title_mantencion);
+		title_mantencion.setTypeface(fontBold);
 
-		List<String> list = new ArrayList<String>();
+		TextView title_servicio2 = (TextView)mantenedorLayout.findViewById(R.id.title_servicio2);
+		title_servicio2.setTypeface(fontBold);
+
+		ArrayList<String> list = new ArrayList<String>();
+		list.add("Correctivo");
+		list.add("Preventivo");
+		list.add("Garantia");
+		SpinnerItemAdapter dataAdapter = new SpinnerItemAdapter(this, list);
+		dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+		Spinner spinServicio = (Spinner) findViewById(R.id.orden_trabajo_tipo_mantencion);
+		spinServicio.setAdapter(dataAdapter);
+
+		ArrayList<String> list1 = new ArrayList<String>();
+		list1.add("Facturado");
+		list1.add("Garantia");
+		SpinnerItemAdapter dataAdapter1 = new SpinnerItemAdapter(this, list1);
+		dataAdapter1.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+		Spinner spinTipoServicio = (Spinner) findViewById(R.id.orden_trabajo_tipo_servicio);
+		spinTipoServicio.setAdapter(dataAdapter1);
+
+		/*List<String> list = new ArrayList<String>();
 		list.add("Correctivo");
 		list.add("Preventivo");
 		list.add("Garantia");
@@ -689,15 +754,8 @@ public class otDiversey extends Activity implements OnTouchListener{
 		ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(inflater.getContext(),R.layout.item_spinner, list);
 		dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
-		TextView title_mantencion = (TextView)mantenedorLayout.findViewById(R.id.title_mantencion);
-		title_mantencion.setTypeface(fontBold);
-
-		TextView title_servicio2 = (TextView)mantenedorLayout.findViewById(R.id.title_servicio2);
-		title_servicio2.setTypeface(fontBold);
-
 		Spinner spinServicio = (Spinner) findViewById(R.id.orden_trabajo_tipo_mantencion);
 		spinServicio.setAdapter(dataAdapter);
-
 
 		List<String> list1 = new ArrayList<String>();
 		list1.add("Facturado");
@@ -708,6 +766,11 @@ public class otDiversey extends Activity implements OnTouchListener{
 
 		Spinner spinTipoServicio = (Spinner) findViewById(R.id.orden_trabajo_tipo_servicio);
 		spinTipoServicio.setAdapter(dataAdapter1);
+		*/
+
+
+
+
 
 	}
 
@@ -721,6 +784,8 @@ public class otDiversey extends Activity implements OnTouchListener{
 		String comentarios = diverseyIntent.getStringExtra("comentarios");
 
 		comentarioRealizadoView.setText(comentarios);
+
+
 	}
 
 	public void completeMaquinas (String nombre_modelo, String id_modelo, String codigo_maquina, String serie_maquina,String series_maquina, String descripcion_maquina){
@@ -779,11 +844,21 @@ public class otDiversey extends Activity implements OnTouchListener{
 				Log.d("SerieJSON", idSerieSelected);
 			}
 
-			ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(inflater.getContext(),R.layout.item_spinner_maquinas, arrayList);
+
+			SpinnerItemAdapter dataAdapter = new SpinnerItemAdapter(this, arrayList);
+			dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+			final Spinner spinSerieMaquina = (Spinner) mylinear.findViewById(R.id.spinner_serie);
+			spinSerieMaquina.setAdapter(dataAdapter);
+
+			/*ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(inflater.getContext(),R.layout.item_spinner_maquinas, arrayList);
 			dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
 			final Spinner spinSerieMaquina = (Spinner) mylinear.findViewById(R.id.spinner_serie);
-			spinSerieMaquina.setAdapter(dataAdapter);
+			spinSerieMaquina.setAdapter(dataAdapter);*/
+
+
+
+
 			spinSerieMaquina.setSelection(idSelected);
 			spinSerieMaquina.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 				public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
@@ -855,8 +930,22 @@ public class otDiversey extends Activity implements OnTouchListener{
 
 		TextView textViewMod = (TextView) mylinear.findViewById(R.id.textview_modelo_maquina_resumen);
 		textViewMod.setText(nombre_modelo);
+		textViewMod.setTypeface(fontRegular);
 
+		TextView title_modelo_maq_resumen = (TextView) mylinear.findViewById(R.id.title_modelo_maq_resumen);
+		title_modelo_maq_resumen.setTypeface(fontBold);
 
+		TextView textview_modelo_maquina_resumen = (TextView) mylinear.findViewById(R.id.textview_modelo_maquina_resumen);
+		textview_modelo_maquina_resumen.setTypeface(fontRegular);
+
+		TextView title_codigo_qr = (TextView) mylinear.findViewById(R.id.title_codigo_qr);
+		title_codigo_qr.setTypeface(fontBold);
+
+		TextView textView_string_qr = (TextView) mylinear.findViewById(R.id.textView_string_qr);
+		textView_string_qr.setTypeface(fontRegular);
+
+		TextView title_part_utilizadas = (TextView) mylinear.findViewById(R.id.title_part_utilizadas);
+		title_part_utilizadas.setTypeface(fontBold);
 
 		//Agregar las piezas de la maquina
 
@@ -868,16 +957,13 @@ public class otDiversey extends Activity implements OnTouchListener{
 			LinearLayout linearContenedor_piezas= (LinearLayout) mylinear.findViewById(R.id.orden_trabajo_piezas_dinamicas_resumen);
 
 			int id2 = R.layout.orden_trabajo_pieza_parte_resumen;//layout del producto a agregar
-
 			LinearLayout mylinearPieza = (LinearLayout) inflater.inflate(id2, null, false);
-
 			LinearLayout.LayoutParams params2 = new LinearLayout.LayoutParams(LayoutParams.FILL_PARENT, LayoutParams.WRAP_CONTENT);
 			params2.topMargin = 15;
 			params2.gravity = Gravity.RIGHT;
 			//params.height = 50;
 			mylinear.setLayoutParams(params2);
 			//spinner
-
 
 			//int id_maq = Integer.parseInt(textViewIdMaq.getText().toString());
 			try {
@@ -899,12 +985,8 @@ public class otDiversey extends Activity implements OnTouchListener{
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-
-
 			//se agrega la pieza al contenedor de piezas de la maquina
-
 			linearContenedor_piezas.addView(mylinearPieza);
-
 		}
 
 		/*TextView textViewID = (TextView) mylinear.findViewById(R.id.id_maquina_hidden);
@@ -927,7 +1009,10 @@ public class otDiversey extends Activity implements OnTouchListener{
 	public void onClick(View v){
 		switch(v.getId()){
 		case R.id.button_back_listmap:
-			super.onBackPressed();
+
+			onBackPressed();
+			//super.onBackPressed();
+
 			break;
 		case R.id.orden_volver:
 			super.onBackPressed();
@@ -1057,7 +1142,9 @@ public class otDiversey extends Activity implements OnTouchListener{
 		int i; //indice maquinas
 		int x;//indice partes
 
-		final List<String> list12 = new ArrayList<String>();
+		//final List<String> list12 = new ArrayList<String>();
+		final ArrayList<String> list12 = new ArrayList<String>();
+
 		final List<String> listCodigo = new ArrayList<String>();
 
 		LayoutInflater inflater = LayoutInflater.from(this);//layout de tipo inflater
@@ -1110,14 +1197,25 @@ public class otDiversey extends Activity implements OnTouchListener{
 
 		}
 
+
+
+		SpinnerItemAdapter dataAdapter = new SpinnerItemAdapter(this, list12);
+		dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+		final Spinner orden_trabajo_spinner_nombre = (Spinner) mylinear.findViewById(R.id.orden_trabajo_spinner_nombre);
+		orden_trabajo_spinner_nombre.setAdapter(dataAdapter);
+
+
+
 		ArrayAdapter<String> dataAdapter1 = new ArrayAdapter<String>(inflater.getContext(),R.layout.item_spinner_piezas, list12);
 		dataAdapter1.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
-		ArrayAdapter<String> dataAdapter2 = new ArrayAdapter<String>(inflater.getContext(),R.layout.item_spinner_piezas, listCodigo);
-		dataAdapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-
 		final Spinner spinNombrePieza = (Spinner) mylinear.findViewById(R.id.orden_trabajo_spinner_nombre);
 		spinNombrePieza.setAdapter(dataAdapter1);
+
+
+
+		ArrayAdapter<String> dataAdapter2 = new ArrayAdapter<String>(inflater.getContext(),R.layout.item_spinner_piezas, listCodigo);
+		dataAdapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
 		final TextView textoPrecio = (TextView)mylinear.findViewById(R.id.textViewPrecio);
 		final AutoCompleteTextView spinCodigoPieza = (AutoCompleteTextView) mylinear.findViewById(R.id.orden_trabajo_autoCompletado_codigo);
@@ -1171,7 +1269,6 @@ public class otDiversey extends Activity implements OnTouchListener{
 			activarBuscar.setVisibility(View.VISIBLE);
 		}
 
-
 		spinCodigoPieza.setOnItemClickListener(new OnItemClickListener() {
 
 
@@ -1192,11 +1289,10 @@ public class otDiversey extends Activity implements OnTouchListener{
 					}
 				}
 
-
 				for (int i = 0; i < num_maquinas; i++) {
 					try {
 						JSONArray json_array_partes_temp = jsonArray_maquinas_back.getJSONObject(i).getJSONArray("json_piezas");
-						Log.i("json_array_partes_temp .TOSTRING", json_array_partes_temp.toString());
+						Log.i("json_array_part_temp ", json_array_partes_temp.toString());
 						int num_part = json_array_partes_temp.length();
 						Log.i("NUM MAQ:NUM PART", Integer.toString(num_maquinas) + " : " + Integer.toString(num_part));
 
@@ -1338,8 +1434,6 @@ public class otDiversey extends Activity implements OnTouchListener{
 		contenedorPiezas.addView(mylinear);
 		contenedorPiezas.requestFocus();
 	}
-
-
 
 	public void eliminarPiezas(View v){
 
@@ -1841,16 +1935,14 @@ public class otDiversey extends Activity implements OnTouchListener{
 	}
 
 	public void terminarOt(){
+
 		//Detalle
 		Spinner spinTipoServicio = (Spinner) findViewById(R.id.orden_trabajo_tipo_servicio);
 		Spinner spinServicio = (Spinner) findViewById(R.id.orden_trabajo_tipo_mantencion);
-		
 		EditText horometroEt = (EditText)findViewById(R.id.orden_trabajo_horometro);
 		EditText horasFactEt = (EditText)findViewById(R.id.orden_trabajo_horas_facturar);
-
 		tipo_mantencion = spinServicio.getSelectedItem().toString();
 		tipo_servicio = spinTipoServicio.getSelectedItem().toString();
-
 		horometro = horometroEt.getText().toString();
 
 		if(horometro== ""){
@@ -1877,8 +1969,7 @@ public class otDiversey extends Activity implements OnTouchListener{
 
 		EditText horasHombreEditText = (EditText)findViewById(R.id.horas_hombre_editText_hh);
 		EditText minutosHombreEditText = (EditText)findViewById(R.id.minutos_hombre_editText_mm);
-		
-	
+
 		horasHombre= " ";
 		minutosHombre= " ";
 		
@@ -1889,9 +1980,7 @@ public class otDiversey extends Activity implements OnTouchListener{
 			
 			int transformar_horas_a_minutos = (Integer.parseInt(horasHombre)) * 60;
 			minutosTrabajados = transformar_horas_a_minutos + (Integer.parseInt(minutosHombre));
-			
-			
-			
+
 			String hh = Integer.toString(minutosTrabajados);
 			
 			horas_hombre = hh;
@@ -1900,8 +1989,6 @@ public class otDiversey extends Activity implements OnTouchListener{
 			
 			Log.i("capturar HH", "hh : " + horasHombre + "otra var : " + hh + "horas_hombre  : " + horas_hombre);
 		}
-		
-		
 
 		EditText obsFinalesEditText = (EditText)findViewById(R.id.obs_finales_editText);
 		obsFinales = obsFinalesEditText.getText().toString();
@@ -1937,7 +2024,6 @@ public class otDiversey extends Activity implements OnTouchListener{
 
 			LinearLayout contenedor_piezas = (LinearLayout) maquinaX.findViewById(R.id.orden_trabajo_piezas_dinamicas);
 			int childcount_piezas = contenedor_piezas.getChildCount();
-
 
 			//por cada pieza
 			for (int y = 1; y <= childcount_piezas; y++){//por cada pieza en la maquina
@@ -1990,8 +2076,6 @@ public class otDiversey extends Activity implements OnTouchListener{
 				e.printStackTrace();
 			}	*/
 
-
-
 		}
 
 		//datos de la firma
@@ -2004,8 +2088,7 @@ public class otDiversey extends Activity implements OnTouchListener{
 		nombre_receptor= textViewFirmaNombre.getText().toString();
 		mail_receptor= textViewFirmaMail.getText().toString();
 
-
-		Log.i("json_maquinas : ",json_maquinas.toString());
+		//Log.i("json_maquinas : ",json_maquinas.toString());
 
 	}
 
@@ -2024,8 +2107,6 @@ public class otDiversey extends Activity implements OnTouchListener{
 
 		u.json_imagenes = json_imagenes.toString();
 		u.json_imagenes_qr = json_imagenes_qr.toString();
-
-
 
 		try {
 
@@ -2079,8 +2160,6 @@ public class otDiversey extends Activity implements OnTouchListener{
 			//			datosOT.put("tipoFacturacion", tipoFacturacion);
 			datosOT.put("id_tecnico", diverseyIntent.getStringExtra("id_tecnico"));
 
-
-			
 			datosOT.put("horometro", horometro);
 
 			datosOT.put("prueba", "prueba");
@@ -2098,9 +2177,7 @@ public class otDiversey extends Activity implements OnTouchListener{
 			datosOT.put("horas_hombre", horas_hombre );
 			u.horas_hombre = horas_hombre;
 			//datosOt.put("minutos", minutos_hombre);
-			
-			
-			
+
 			//firma
 			datosOT.put("rut_receptor", rut_receptor);
 			u.firma_rut = rut_receptor;
@@ -2115,10 +2192,7 @@ public class otDiversey extends Activity implements OnTouchListener{
 			e.printStackTrace();
 		}
 
-
 		Log.i("FIN OT", "Json = " + datosOT.toString());
-
-
 
 		//
 		Intent it = new Intent();
@@ -2126,8 +2200,7 @@ public class otDiversey extends Activity implements OnTouchListener{
 
 		bl.putString("json-datos", datosOT.toString());
 		//it.putExtras(bl);
-		
-		
+
 		if(uploadDataThr(datosOT)){
 			Log.i("Data: ", "BUNDLE CONSTRUIDO !!! OK !!!");
 			//bl.putString("json-datos", datosOT.toString());
@@ -2475,5 +2548,59 @@ public class otDiversey extends Activity implements OnTouchListener{
 
 		}
 	}
+
+/*
+	@Override
+	public void onPause() {
+		super.onPause();  // Always call the superclass method first
+
+		// Release the Camera because we don't need it when paused
+		// and other activities might need to use it.
+
+		terminarOt();
+
+		try {
+
+			JSONArray jsonimagenes = new JSONArray(json_imagenes.toString());
+			JSONArray jsonimagenes_qr = new JSONArray(json_imagenes_qr.toString());
+
+			datosOT.put("json_imagenes", jsonimagenes);
+			datosOT.put("json_imagenes_qr", jsonimagenes_qr);
+
+			//sobre la OT
+			datosOT.put("orden_trabajo_id", idOT);
+			datosOT.put("tipo_orden_id", "4");
+			datosOT.put("diagnostico", diagnostico);
+			datosOT.put("obsGeneral", obsGeneral);
+			datosOT.put("comentarios", comentarioGeneral);
+			datosOT.put("string_base64_firma", string_base64_firma);
+			datosOT.put("latitud_empleado", latitudTecnico);
+			datosOT.put("longitud_empleado", longitudTecnico);
+			datosOT.put("empleado_id", idTecnico);
+			datosOT.put("fecha_inicio_ejecucion", fecha_inicio_ejecucion);
+			//detalle
+			datosOT.put("tipo_mantencion", tipo_mantencion);
+			datosOT.put("tipo_servicio", tipo_servicio);
+			//Tipos de reparacion
+			datosOT.put("id_tecnico", diverseyIntent.getStringExtra("id_tecnico"));
+			datosOT.put("horometro", horometro);
+			datosOT.put("prueba", "prueba");
+			datosOT.put("horas_facturadas", horasFact);
+			datosOT.put("obsFinales", obsFinales);
+			datosOT.put("json_maquinas", json_maquinas);
+			datosOT.put("horas_hombre", horas_hombre );
+			//firma
+			datosOT.put("rut_receptor", rut_receptor);
+			datosOT.put("nombre_receptor", nombre_receptor);
+			datosOT.put("email_receptor", mail_receptor);
+
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
+	}
+
+
+*/
+
 
 	}

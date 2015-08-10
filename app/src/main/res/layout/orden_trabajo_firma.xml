@@ -138,7 +138,7 @@
                     android:layout_marginTop="10dp"
                     android:background="@drawable/selector_btn_celeste"
                     android:onClick="onClick"
-                    android:text="GENERAR REPORTE"
+                    android:text="GUARDAR"
                     android:textColor="#fff"
                     android:textSize="9pt"
                     android:textStyle="bold" />

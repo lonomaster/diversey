@@ -43,15 +43,32 @@
                 android:orientation="horizontal" >
 
                 <TextView
-                    android:id="@+id/list_nombre"
+                    android:id="@+id/title_ot_id"
                     android:layout_width="wrap_content"
-                    android:layout_height="45dip"
-                    android:layout_alignParentLeft="true"
+                    android:layout_height="45dp"
                     android:gravity="center_vertical"
-                    android:text="NOMBRE OT"
+                    android:text="@string/numero_ot"
                     android:textSize="14pt"
                     android:textStyle="bold" />
 
+                <TextView
+                    android:id="@+id/list_numero_ot"
+                    android:layout_width="wrap_content"
+                    android:layout_height="45dp"
+                    android:gravity="center_vertical"
+                    android:layout_toRightOf="@+id/title_ot_id"
+                    android:text="Sin informaciòn"
+                    android:textSize="14pt" />
+
+                <TextView
+                    android:id="@+id/list_nombre"
+                    android:layout_width="wrap_content"
+                    android:layout_height="45dip"
+                    android:layout_marginLeft="20dp"
+                    android:layout_toRightOf="@+id/list_numero_ot"                    android:gravity="center_vertical"
+                    android:text="NOMBRE OT"
+                    android:textSize="14pt"
+                    android:textStyle="bold" />
             </RelativeLayout>
 
             <LinearLayout
@@ -167,20 +184,6 @@
                 android:orientation="horizontal"
                 android:padding="3dip" >
 
-                <TextView
-                    android:id="@+id/title_ot_id"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:text="@string/numero_ot"
-                     android:textSize="12pt"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:id="@+id/list_numero_ot"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:text="0123456789"
-                     android:textSize="12pt" />
 
                 <!--TextView
                     android:layout_width="wrap_content"
