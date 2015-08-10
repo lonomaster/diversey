@@ -129,7 +129,7 @@ public class UserItemAdapter extends ArrayAdapter<UserRecord> {
 					if(user.status.equals("true"))state.setBackgroundColor(context.getResources().getColor(android.R.color.holo_green_dark));
 					break;
 				default:
-					state.setBackgroundColor(context.getResources().getColor(android.R.color.background_dark));
+					state.setBackgroundColor(context.getResources().getColor(android.R.color.holo_orange_dark));
 					break;
 				}
 			}
