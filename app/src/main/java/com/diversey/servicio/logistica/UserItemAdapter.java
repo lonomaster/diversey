@@ -80,7 +80,7 @@ public class UserItemAdapter extends ArrayAdapter<UserRecord> {
 			fechaAsignacion.setVisibility(View.GONE);
 			
 			//logo.setImageBitmap(AppParameters.getCacheBitmap(user.logo));
-
+			Log.d("LogURLPicasso",AppParameters.logourl+user.logo);
 			Picasso.with(context)
 					.load(AppParameters.logourl+user.logo)
 					.placeholder(R.drawable.logo_empresa) // optional
@@ -126,7 +126,7 @@ public class UserItemAdapter extends ArrayAdapter<UserRecord> {
 					break;
 				case AppParameters.OT_REALIZADA:
 					if(user.status.equals("false"))state.setBackgroundColor(context.getResources().getColor(android.R.color.holo_green_light));
-					if(user.status.equals("true"))state.setBackgroundColor(context.getResources().getColor(android.R.color.holo_green_dark));
+					if(user.status.equals("true"))state.setBackgroundColor(context.getResources().getColor(android.R.color.holo_orange_dark));
 					break;
 				default:
 					state.setBackgroundColor(context.getResources().getColor(android.R.color.holo_orange_dark));

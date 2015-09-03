@@ -126,7 +126,7 @@ public class ProcessData{
 						"codigo",
 						jsonObject.getString("comentario"),
 						jsonObject.getString("json_maquinas"),
-
+						jsonObject.getString("json_maquinas_all"),
 						jsonObject.getString("observaciones_finales"),
 						jsonObject.getString("horas_hombre"),
 						jsonObject.getString("observaciones_generales"),

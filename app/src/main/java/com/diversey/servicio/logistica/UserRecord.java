@@ -49,6 +49,7 @@ public String idot;
 	public String codigo;
 	public String comentarios;
 	public String json_maq;
+	public String json_maq_all;
 	public String partes_usadas;
 	public String json_imagenes;
 	public String json_imagenes_qr;
@@ -56,11 +57,11 @@ public String idot;
 	public String allJsonOT;
 	
 	public UserRecord(String nombre, String direccion) {
-		this("0", "0", nombre, "0", direccion, "", "","","","","", "","", "", "","", "","","","","","","","","","","","","","","");
+		this("0", "0", nombre, "0", direccion, "", "","","","","", "","", "", "","", "","","","","","","","","","","","","","","","");
 	}
 	
 	
-	public UserRecord(String id, String rut, String nombre, String razon_social, String direccion, String logo, String tipo_orden_id, String fecha_creacion, String fecha_ejecucion, String latitud, String longitud, String estado, String nombre_contacto, String correo_contacto, String descripcion, String modelo_maquina, String nro_serie, String cantidad, String codigo, String comentarios, String maquinas, String obs_finales, String horas_hombre, String obs_general,String diagnostico,String tipo_mantencion,String tipo_servicio,String firma_nombre,String firma_rut,String firma_mail,String partes_usadas){
+	public UserRecord(String id, String rut, String nombre, String razon_social, String direccion, String logo, String tipo_orden_id, String fecha_creacion, String fecha_ejecucion, String latitud, String longitud, String estado, String nombre_contacto, String correo_contacto, String descripcion, String modelo_maquina, String nro_serie, String cantidad, String codigo, String comentarios, String maquinas,String maquinas_all, String obs_finales, String horas_hombre, String obs_general,String diagnostico,String tipo_mantencion,String tipo_servicio,String firma_nombre,String firma_rut,String firma_mail,String partes_usadas){
 		this.idot=id;
 		this.rut=rut;
 		this.nombre=nombre;
@@ -101,6 +102,7 @@ public String idot;
 		this.codigo = codigo;
 		this.comentarios = comentarios;
 		this.json_maq = maquinas;
+		this.json_maq_all = maquinas_all;
 		this.partes_usadas = partes_usadas;
 		this.status = "false";
 		this.allJsonOT = "";
