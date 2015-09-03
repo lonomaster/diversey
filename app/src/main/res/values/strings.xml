@@ -56,4 +56,8 @@ Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor 
   <string name="obs_adv">Observaciones/Advertencias</string>
   <string name="hint_adv">Advertencias</string>
   <string name="nodata">Sin información</string>
+    <string name="title_activity_home">HomeActivity</string>
+
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
 </resources>

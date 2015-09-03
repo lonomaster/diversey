@@ -91,6 +91,7 @@ public class Main extends Activity {
 	private UserRecord u;
 	private int contadorRefresh = 0;
 	private ArrayList<String> lastOTid = new ArrayList<String>();
+
 	private ServiceConnection mConnection = new ServiceConnection() {
 		public void onServiceConnected(ComponentName className, IBinder service) {
 			mService = new Messenger(service);
@@ -111,22 +112,8 @@ public class Main extends Activity {
 		}
 	};
 
-	public static void dumpIntent(Intent i){
-
-	    Bundle bundle = i.getExtras();
-	    if (bundle != null) {
-	        Set<String> keys = bundle.keySet();
-	        Iterator<String> it = keys.iterator();
-	        Log.e("key intent", "Dumping Intent start");
-	        while (it.hasNext()) {
-	            String key = it.next();
-	            Log.e("key intent","[" + key + "=" + bundle.get(key)+"]");
-	        }
-	        Log.e("key intent","Dumping Intent end");
-	    }
-	}
-
 	/** Called when the activity is first created. */
+
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -138,7 +125,6 @@ public class Main extends Activity {
 
 		setContentView(R.layout.main);
 
-
 		BebasNeueLight = Typeface.createFromAsset(Main.this.getAssets(),
 				"BebasNeueLight.ttf");
 
@@ -148,8 +134,16 @@ public class Main extends Activity {
 		BebasNeueBold = Typeface.createFromAsset(Main.this.getAssets(),
 				"BebasNeueBold.ttf");
 
-		/*styling*/
 
+		/*
+		*  <Button
+                        android:id="@+id/showlist_todos"
+
+                        android:id="@+id/showlist_pendientes"
+
+                        android:id="@+id/showlist_realizados"
+
+		/*styling*/
 		Button botTodos = (Button)findViewById(R.id.showlist_todos);
 		botTodos.setTypeface(BebasNeueBold);
 		botTodos.setBackgroundColor(getResources().getColor(R.color.gray_light));
@@ -161,6 +155,7 @@ public class Main extends Activity {
 		Button botRealizados = (Button)findViewById(R.id.showlist_realizados);
 		botRealizados.setTypeface(BebasNeueRegular);
 		botRealizados.setBackgroundColor(getResources().getColor(android.R.color.holo_green_dark));
+
 
 		TextView title_company_name = (TextView) findViewById(R.id.title_company_name);
 		title_company_name.setTypeface(BebasNeueLight);
@@ -176,10 +171,8 @@ public class Main extends Activity {
 		int versionCode = BuildConfig.VERSION_CODE;
 
 		version.setText("Version "+String.valueOf(versionCode));
-		
 
 		/* END styling*/
-
 
 		dialogL = new SpotsDialog(Main.this, R.style.load);
 		dialogG = new SpotsDialog(Main.this, R.style.get);
@@ -209,7 +202,6 @@ public class Main extends Activity {
 		}
 		StartMain sm = new StartMain(this);
 		sm.execute("");
-
 	}
 
 	@Override
@@ -310,6 +302,7 @@ public class Main extends Activity {
 		setButtons();
 
 		int tipoOt = 0;
+
 		if(v.getId() == R.id.showlist_pendientes){
 			tipoOt=2;
 			Button b = (Button) v;
@@ -628,7 +621,7 @@ public class Main extends Activity {
 
 	void sendOtsMessage(){
 
-		Log.i("Enviando mensaje a servicio", lastOTid.toString() + "|" + userId);
+		Log.i("Enviando msg a servicio", lastOTid.toString() + "|" + userId);
 		sendMessageToService(OTService.MSG_SET_OT_LIST,lastOTid);
 		sendMessageToService(OTService.MSG_SET_HEADER_STRING, userId);
 		return;
@@ -680,10 +673,7 @@ public class Main extends Activity {
 				}
 
 				lastOTid.clear();
-
 				for(UserRecord user: users){
-
-
 					lastOTid.add(user.idot);
 
 					Log.d("SugarLastID",""+user.toString());
@@ -870,7 +860,22 @@ public class Main extends Activity {
 			dialogG.dismiss();
 		}
 	}
-	
+
+	public static void dumpIntent(Intent i){
+
+		Bundle bundle = i.getExtras();
+		if (bundle != null) {
+			Set<String> keys = bundle.keySet();
+			Iterator<String> it = keys.iterator();
+			Log.e("key intent", "Dumping Intent start");
+			while (it.hasNext()) {
+				String key = it.next();
+				Log.e("key intent","[" + key + "=" + bundle.get(key)+"]");
+			}
+			Log.e("key intent","Dumping Intent end");
+		}
+	}
+
 	private final class CancelOnClickListener implements
 	DialogInterface.OnClickListener {
 		public void onClick(DialogInterface dialog, int which) {
@@ -910,6 +915,5 @@ public class Main extends Activity {
 			}
 		}
 	}
-
 
 }

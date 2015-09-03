@@ -26,11 +26,12 @@ import dmax.dialog.SpotsDialog;
 
 public class Login extends Activity{
 
+	public Typeface BebasNeueBook;
+	public Typeface BebasNeueBold;
 	private ArrayList<String> list = new ArrayList<String>();
 	private String userid = "";
 	private AlertDialog dialogC;
-	public Typeface BebasNeueBook;
-	public Typeface BebasNeueBold;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -50,9 +51,6 @@ public class Login extends Activity{
 		textLogin.setTypeface(BebasNeueBook);
 		next.setTypeface(BebasNeueBold);
 
-
-
-
 		/* END styling*/
 
 
@@ -68,7 +66,6 @@ public class Login extends Activity{
 
 		StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
 		StrictMode.setThreadPolicy(policy);
-
 
 		next.setText("Espere...");
 		next.setClickable(false);
@@ -91,7 +88,7 @@ public class Login extends Activity{
 		//final ProgressDialog progDailog = ProgressDialog.show(this, "Conectandose...", "Por favor, espere...", true);
 		//progDailog.setProgress(ProgressDialog.STYLE_SPINNER);
 
-dialogC.show();
+		dialogC.show();
 
 		Spinner spinUsers = (Spinner) findViewById(R.id.login_users);
 		String username = spinUsers.getSelectedItem().toString();
@@ -194,7 +191,6 @@ dialogC.show();
 				spinUsers.setVisibility(View.GONE);
 				textLogin.setText("No existen usuarios validos, o no hay conexión a internet.");
 			}
-
 
 		}
 	}

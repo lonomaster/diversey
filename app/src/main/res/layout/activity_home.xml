@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/fondo_login2"
+    android:paddingTop="30dip"
+    tools:context=".Login"
+    tools:ignore="PxUsage" >
+
+    <RelativeLayout
+        android:id="@+id/header"
+        android:layout_width="fill_parent"
+        android:layout_height="100dp"
+        android:layout_alignParentTop="true"
+        android:background="@color/amber_pressed">
+
+        <TextView
+            android:id="@+id/title_logistica"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="20dp"
+            android:text="Sistema Logìstica Diversey"
+            android:textColor="@color/white"
+            android:textSize="20dp"
+            android:textStyle="bold"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/title_logistica"
+            android:layout_below="@+id/title_logistica"
+            android:text="Version 0.0"
+            android:textColor="@color/white"
+            android:textSize="18dp"
+            android:textStyle="normal"/>
+
+        <TextView
+            android:id="@+id/title_user"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:drawableLeft="@drawable/ico_app_taski_user"
+            android:drawablePadding="10dp"
+            android:drawableRight="@drawable/ico_app_taski_close"
+            android:gravity="center_vertical"
+            android:padding="5dp"
+            android:text="UserName"
+            android:textColor="@color/white"
+            android:textSize="20dp"
+            android:textStyle="normal"/>
+
+
+        <ImageView
+            android:id="@+id/logo_tasky"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:gravity="center"
+            android:src="@drawable/logo_app_taski" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/header"
+        android:layout_centerHorizontal="true"
+        android:paddingLeft="40dip"
+        android:paddingRight="40dip"
+        android:paddingTop="45dip" >
+
+
+        <ImageView
+            android:id="@+id/logo_diversey"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/logo_taski"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="70dp"
+            android:gravity="center"
+            android:src="@drawable/logo_diversey2" />
+
+        <Button
+            android:id="@+id/btn_sync"
+            android:layout_width="wrap_content"
+            android:layout_height="68dp"
+            android:layout_below="@+id/logo_diversey"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="70dp"
+            android:background="@drawable/btn_app_taski_sync"
+            android:onClick="onClick"
+            android:textColor="@android:color/white"
+            android:textSize="8pt"
+            android:textStyle="bold" />
+
+        <ImageView
+            android:id="@+id/ico_sync"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/btn_sync"
+            android:layout_alignTop="@+id/btn_sync"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="5dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="5dp"
+            android:layout_toRightOf="@+id/btn_sync"
+            android:background="@drawable/ico_app_taski_sync"
+            android:scaleType="fitXY" />
+
+
+        <Button
+            android:id="@+id/btn_pendientes"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/btn_sync"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="50dp"
+            android:background="@drawable/btn_app_taski_pend"
+            android:onClick="onClick"
+            android:textColor="@android:color/white"
+            android:textSize="8pt"
+            android:textStyle="bold" />
+
+        <ImageView
+            android:id="@+id/ico_pend"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/btn_pendientes"
+            android:layout_alignTop="@+id/btn_pendientes"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="5dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="5dp"
+            android:layout_toRightOf="@+id/btn_pendientes"
+            android:background="@drawable/ico_app_taski_pend"
+            android:scaleType="fitXY" />
+
+        <Button
+            android:id="@+id/btn_done"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/btn_pendientes"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="50dp"
+            android:background="@drawable/done"
+            android:onClick="onClick"
+            android:textColor="@android:color/white"
+            android:textSize="8pt"
+            android:textStyle="bold" />
+
+        <ImageView
+            android:id="@+id/ico_done"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/btn_done"
+            android:layout_alignTop="@+id/btn_done"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="5dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="5dp"
+            android:layout_toRightOf="@+id/btn_done"
+            android:background="@drawable/ico_app_taski_done"
+            android:scaleType="fitXY" />
+
+    </RelativeLayout>
+
+
+</RelativeLayout>
