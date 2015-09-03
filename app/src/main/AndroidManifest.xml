@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     package="com.diversey.servicio.logistica"
+    xmlns:tools="http://schemas.android.com/tools"
     android:versionCode="1"
     android:versionName="1.0" >
+
+    <supports-screens android:xlargeScreens="true" />
 
     <uses-sdk
         android:minSdkVersion="15"
         android:targetSdkVersion="15" />
-
-    <supports-screens android:xlargeScreens="true" />
 
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
@@ -78,18 +78,10 @@
         <service android:name=".OTService" >
         </service>
 
-        <meta-data
-            android:name="DATABASE"
-            android:value="otlogistica.db" />
-        <meta-data
-            android:name="VERSION"
-            android:value="7" />
-        <meta-data
-            android:name="QUERY_LOG"
-            android:value="true" />
-        <meta-data
-            android:name="DOMAIN_PACKAGE_NAME"
-            android:value="com.diversey.servicio.logistica" />
+        <meta-data android:name="DATABASE" android:value="otlogistica.db" />
+        <meta-data android:name="VERSION" android:value="8" />
+        <meta-data android:name="QUERY_LOG" android:value="true" />
+        <meta-data android:name="DOMAIN_PACKAGE_NAME" android:value="com.diversey.servicio.logistica" />
 
         <activity
             android:name=".HomeActivity"

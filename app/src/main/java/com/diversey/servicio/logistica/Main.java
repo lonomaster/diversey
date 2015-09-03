@@ -220,7 +220,7 @@ public class Main extends Activity {
 		counterOTlocal.setVisibility(View.GONE);
 	}
 	List<UserRecord> ots  = Select.from(UserRecord.class)
-			.orderBy("idot Desc").list();
+			.list();
 	usersNow = new ArrayList<UserRecord>(ots);
 	ArrayAdapter<UserRecord> adapter1 = new UserItemAdapter(Main.this,R.layout.listitems, ots);
 	listView1 = (ListView)findViewById(R.id.mylist1);
@@ -339,7 +339,7 @@ public class Main extends Activity {
 				alertDialog.setIcon(android.R.drawable.ic_menu_info_details);
 				alertDialog.show();
 			}else{
-				dialogS.show();
+				dialogR.show();
 				List<UserRecord> OTsLocal  = UserRecord.find(UserRecord.class, "status = ?", "true");
 				int count = 0;
 				for (int i =0; i< OTsLocal.size(); i++) {
@@ -376,7 +376,7 @@ public class Main extends Activity {
 
 				}
 
-				dialogS.dismiss();
+				dialogR.dismiss();
 
 
 					RefreshOts rfot = new RefreshOts(v.getContext());
@@ -408,7 +408,7 @@ public class Main extends Activity {
 
 
 		List<UserRecord> users1 = Select.from(UserRecord.class)
-				.orderBy("idot Desc").list();
+				.list();
 		Log.d("SugarSizeNormal",String.valueOf(users1.size()));//processData.getData();
 		List<UserRecord> users2 = new ArrayList<UserRecord>();
 		ArrayAdapter<UserRecord> adapter = null;
@@ -659,8 +659,7 @@ public class Main extends Activity {
 				}
 				//users = processData.getData();
 
-				users  = Select.from(UserRecord.class)
-						.orderBy("idot Desc").list();
+				users  = Select.from(UserRecord.class).list();
 				Log.d("SugarSizeStart",String.valueOf(users.size()));
 				usersNow = new ArrayList<UserRecord>(users);
 
@@ -739,7 +738,7 @@ public class Main extends Activity {
 					usersNow.clear();
 					//usersNow = processData.getData();
 					usersNow  = Select.from(UserRecord.class)
-							.orderBy("idot Desc").list();
+							.list();
 					Log.d("SugarSizeRefresh",String.valueOf(usersNow.size()));
 
 					usersNow = new ArrayList<UserRecord>(usersNow);
@@ -807,6 +806,7 @@ public class Main extends Activity {
 			nextScreen.putExtra("fecha_realizacion", user.fecha_ejecucion);
 
 			nextScreen.putExtra("json_maquinas", user.json_maq);
+			nextScreen.putExtra("json_maquinas_all", user.json_maq_all);
 
 			nextScreen.putExtra("tipo_ot",user.tipo_orden_id);
 			nextScreen.putExtra("tipo_mantencion",user.tipo_mantencion);

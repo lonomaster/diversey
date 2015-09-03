@@ -113,8 +113,10 @@ public class otDiversey extends Activity implements OnTouchListener{
 	public  UserRecord u;
 	public JSONArray json_partes_usadas;
 	public String json_maq_back_string;
+	public String json_maq_back_string_all;
 	public JSONArray json_maquinas = new JSONArray();
 	public JSONArray jsonArray_maquinas_back;
+	public JSONArray jsonArray_maquinas_back_all;
 	public JSONArray json_imagenes = new JSONArray();
 	public JSONArray json_imagenes_qr = new JSONArray();
 	public JSONObject json_images_qr = new JSONObject();
@@ -393,11 +395,13 @@ public class otDiversey extends Activity implements OnTouchListener{
 		}
 
 		json_maq_back_string = diverseyIntent.getStringExtra("json_maquinas");
+		json_maq_back_string_all = diverseyIntent.getStringExtra("json_maquinas_all");
 
 		//PicassoTools.clearCache(Picasso.with(otDiversey.this));
 		try {
 			Log.i("Crear Json maq OT", json_maq_back_string);
 			jsonArray_maquinas_back = new JSONArray(json_maq_back_string);
+			jsonArray_maquinas_back_all = new JSONArray(json_maq_back_string_all);
 		} catch (JSONException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -595,7 +599,12 @@ public class otDiversey extends Activity implements OnTouchListener{
 			textViewObsGeneral.setText(diverseyIntent.getStringExtra("obs_general").toString());
 
 			// transformar los minutos
-			int datos_tiempo_obtenido = Integer.parseInt(diverseyIntent.getStringExtra("horas_hombre").toString());
+			int datos_tiempo_obtenido = 0;
+			try{
+			 datos_tiempo_obtenido = Integer.parseInt(diverseyIntent.getStringExtra("horas_hombre").toString());
+			}catch(NumberFormatException e){
+
+			}
 			int minuto = datos_tiempo_obtenido%60 ;
 			int hora = datos_tiempo_obtenido/60;
 			textViewHorasHombre.setText(Integer.toString(hora));
@@ -873,6 +882,11 @@ public class otDiversey extends Activity implements OnTouchListener{
 						textViewID.setText(o.getString("id"));
 						textVieCodigo = (TextView)mylinear.findViewById(R.id.textview_campos_codigo);
 						textVieCodigo.setText(o.getString("codigo"));
+
+						LinearLayout contenedorMaquina = (LinearLayout) mylinear.getParent();//linearlayout de la maquina
+						LinearLayout contenedorPiezas = (LinearLayout) contenedorMaquina.findViewById(R.id.orden_trabajo_piezas_dinamicas);//del contenedor de maquinas, se obtiene el contendor de piezas
+
+						contenedorPiezas.removeAllViews();
 						Log.d("SeriesSelected", idSerieSelected);
 					} catch (JSONException e) {
 						e.printStackTrace();
@@ -1020,7 +1034,7 @@ public class otDiversey extends Activity implements OnTouchListener{
 		case R.id.orden_trabajo_generar_reporte:
 			//comentarioGeneral = comentarioGeneralEt.getText().toString();
 
-			PreguntaAccion("Aviso","�Esta Seguro que desea generar el reporte?");
+			PreguntaAccion("Aviso","Esta seguro que desea generar el reporte?");
 
 			//setResult(Main.CASO_HIGIENE);
 
@@ -1147,6 +1161,7 @@ public class otDiversey extends Activity implements OnTouchListener{
 
 		final List<String> listCodigo = new ArrayList<String>();
 
+
 		LayoutInflater inflater = LayoutInflater.from(this);//layout de tipo inflater
 
 		LinearLayout contenedorMaquina = (LinearLayout) v.getParent();//linearlayout de la maquina
@@ -1168,28 +1183,30 @@ public class otDiversey extends Activity implements OnTouchListener{
 
 		//int id_maq = Integer.parseInt(textViewIdMaq.getText().toString());
 		String id_maq = textViewIdMaq.getText().toString();
-
-		for(i = 0; i < jsonArray_maquinas_back.length(); i++){
+		Log.i("LIST ADD PARTES","Maquinas:  "+jsonArray_maquinas_back_all.length());
+		for(i = 0; i < jsonArray_maquinas_back_all.length(); i++){
 			try {
-				String value = jsonArray_maquinas_back.getJSONObject(i).getString("id");
+				String value = jsonArray_maquinas_back_all.getJSONObject(i).getString("id");
 				if(id_maq.equals(value)){
-					JSONArray json_array_partes = jsonArray_maquinas_back.getJSONObject(i).getJSONArray("json_piezas");
+					Log.i("LIST ADD PARTES","si id "+value+"="+id_maq);
+					JSONArray json_array_partes = jsonArray_maquinas_back_all.getJSONObject(i).getJSONArray("json_piezas");
 					if(json_array_partes.length()== 0){
 						list12.add("vacio");
 						listCodigo.add("vacio");
 					}
-					Log.i("LIST ADD",json_array_partes.toString());
+					Log.i("LIST ADD PARTES",json_array_partes.toString());
 
 					for(x = 0; x < json_array_partes.length(); x++){
 						String nombre_parte = json_array_partes.getJSONObject(x).getString("nombre");
 						String codigo_parte = json_array_partes.getJSONObject(x).getString("codigo");
-						Log.i("LIST ADD",nombre_parte);
+						Log.i("LIST ADD PARTES", nombre_parte);
 						list12.add(nombre_parte);
-						listCodigo.add(codigo_parte);
+                        listCodigo.add(codigo_parte);
+                        //listCodigo.add(nombre_parte);
 					}
 					break;
 				}
-				else Log.i("LIST ADD","No id "+value+"="+id_maq);
+				else Log.i("LIST ADD PARTES","No id "+value+"="+id_maq);
 			} catch (JSONException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -1892,7 +1909,7 @@ public class otDiversey extends Activity implements OnTouchListener{
 		int photoW = bmOptions.outWidth;
 		int photoH = bmOptions.outHeight;
 
-		Log.i("get size img desde la sd", "ruta" + " "+ mCurrentPhotoPath + "  "+ "with"+"/"+photoW +"height"+"/"+photoH);
+		Log.i("get size img desde la sd", "ruta" + " " + mCurrentPhotoPath + "  " + "with" + "/" + photoW + "height" + "/" + photoH);
 
 		/* Figure out which way needs to be reduced less */
 		int scaleFactor = 1;
@@ -2201,7 +2218,7 @@ public class otDiversey extends Activity implements OnTouchListener{
 		bl.putString("json-datos", datosOT.toString());
 		//it.putExtras(bl);
 
-		if(uploadDataThr(datosOT)){
+	/*	if(uploadDataThr(datosOT)){
 			Log.i("Data: ", "BUNDLE CONSTRUIDO !!! OK !!!");
 			//bl.putString("json-datos", datosOT.toString());
 			it.putExtras(bl);
@@ -2219,16 +2236,16 @@ public class otDiversey extends Activity implements OnTouchListener{
 			Log.i("Base de datos", "true");
 			u.save();
 			Log.d("SugarServidor", u.toString());
-		}else{
+		}else{ */
 			progDailogGenera.dismiss();
 			progDailogGenera = null;
 			u.status = "true";
 			u.allJsonOT = datosOT.toString();
 			u.save();
 			Log.d("SugarLocal", u.toString());
-			onBackPressedEndot("Sin conexión a internet", "Se ha almacendado localmente la OT, para su posterior sincronización con el servidor.", true);
+			onBackPressedEndot("Almacenamiento Local", "Se ha almacenadado localmente la OT, para su posterior sincronización con el servidor.", true);
 			Log.i("Base de datos", "false");
-		}
+		//}
 	}
 	
 	private void PreguntaAccion(String title, String mensaje) {
@@ -2351,17 +2368,17 @@ public class otDiversey extends Activity implements OnTouchListener{
 	     .setTitle(title.toString())
 	     .setMessage(mensaje.toString())
 	     .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
-	         public void onClick(DialogInterface dialog, int which) {
-	        	 if(insertado){
-			          dialog.dismiss();
-					  finish();
-	        	 }else{
-	        		 dialog.dismiss();
-	        	 }
-	         }
-	      })
+			 public void onClick(DialogInterface dialog, int which) {
+				 if (insertado) {
+					 dialog.dismiss();
+					 finish();
+				 } else {
+					 dialog.dismiss();
+				 }
+			 }
+		 })
 
-	     .setIcon(android.R.drawable.ic_dialog_alert)
+	     .setIcon(android.R.drawable.checkbox_on_background)
 	     .show();
 	 }
 
