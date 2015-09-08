@@ -13,8 +13,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.ServiceConnection;
 import android.content.SharedPreferences;
-import android.content.pm.PackageInfo;
-import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.Typeface;
 import android.graphics.drawable.BitmapDrawable;
@@ -38,6 +36,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ToggleButton;
@@ -71,6 +70,7 @@ public class Main extends Activity {
 	public Typeface BebasNeueRegular;
 	public Typeface BebasNeueLight;
 	public Typeface BebasNeueBold;
+	public Boolean home = true;
 	public JSONObject ot;
 	Timer timer = null;
 	Messenger mService = null;
@@ -91,6 +91,12 @@ public class Main extends Activity {
 	private UserRecord u;
 	private int contadorRefresh = 0;
 	private ArrayList<String> lastOTid = new ArrayList<String>();
+
+	public Button btn_done;
+	public Button btn_pendientes;
+	public LinearLayout homelayout;
+	public RelativeLayout homerelative;
+
 
 	private ServiceConnection mConnection = new ServiceConnection() {
 		public void onServiceConnected(ComponentName className, IBinder service) {
@@ -157,6 +163,38 @@ public class Main extends Activity {
 		botRealizados.setBackgroundColor(getResources().getColor(android.R.color.holo_green_dark));
 
 
+		btn_pendientes = (Button)findViewById(R.id.btn_pendientes);
+		btn_done = (Button)findViewById(R.id.btn_done);
+		homelayout = (LinearLayout)findViewById(R.id.homelayout);
+		homerelative = (RelativeLayout)findViewById(R.id.homerelative);
+
+		btn_pendientes.setOnClickListener(new View.OnClickListener() {
+			public void onClick(View v) {
+				homelayout.setVisibility(View.VISIBLE);
+				homerelative.setVisibility(View.INVISIBLE);
+				home = false;
+				showListPendiente();
+				SharedPreferences prefe=getSharedPreferences("datosDiversey",Login.MODE_PRIVATE);
+				SharedPreferences.Editor editor=prefe.edit();
+				editor.putString("actual", "pendientes");
+				editor.commit();
+
+			}
+		});
+
+		btn_done.setOnClickListener(new View.OnClickListener() {
+			public void onClick(View v) {
+				homelayout.setVisibility(View.VISIBLE);
+				homerelative.setVisibility(View.INVISIBLE);
+				home = false;
+				showListRealizadas();
+				SharedPreferences prefe=getSharedPreferences("datosDiversey",Login.MODE_PRIVATE);
+				SharedPreferences.Editor editor=prefe.edit();
+				editor.putString("actual", "realizadas");
+				editor.commit();
+			}
+		});
+
 		TextView title_company_name = (TextView) findViewById(R.id.title_company_name);
 		title_company_name.setTypeface(BebasNeueLight);
 
@@ -222,17 +260,21 @@ public class Main extends Activity {
 	List<UserRecord> ots  = Select.from(UserRecord.class)
 			.list();
 	usersNow = new ArrayList<UserRecord>(ots);
-	ArrayAdapter<UserRecord> adapter1 = new UserItemAdapter(Main.this,R.layout.listitems, ots);
+	/*ArrayAdapter<UserRecord> adapter1 = new UserItemAdapter(Main.this,R.layout.listitems, ots);
 	listView1 = (ListView)findViewById(R.id.mylist1);
 	listView1.setAdapter(adapter1);
 	adapter1.notifyDataSetChanged();
 
 	listView1.invalidate();
 
-	setButtons();
+		setButtons();
 	Button botTodos = (Button)findViewById(R.id.showlist_todos);
 	botTodos.setTypeface(BebasNeueBold);
-	botTodos.setBackgroundColor(getResources().getColor(R.color.gray_light));
+	botTodos.setBackgroundColor(getResources().getColor(R.color.gray_light));*/
+
+		SharedPreferences prefe=getSharedPreferences("datosDiversey",Login.MODE_PRIVATE);
+		if(prefe.getString("actual","").equalsIgnoreCase("pendientes")) showListPendiente();
+		else showListRealizadas();
 
 	super.onResume();
 }
@@ -297,115 +339,128 @@ public class Main extends Activity {
 		}
 	}
 
-	public void showList(View v) {
+	public void showListPendiente() {
 
 		setButtons();
 
-		int tipoOt = 0;
+		int tipoOt=2;
 
-		if(v.getId() == R.id.showlist_pendientes){
-			tipoOt=2;
-			Button b = (Button) v;
-			v.setBackgroundColor(getResources().getColor(android.R.color.holo_red_light));
-			b.setTypeface(BebasNeueBold);
-		}
-		else if(v.getId() == R.id.showlist_realizados){
-			tipoOt=4;
-			Button b = (Button) v;
-			v.setBackgroundColor(getResources().getColor(android.R.color.holo_green_light));
-			b.setTypeface(BebasNeueBold);
-		}
-		else if(v.getId() == R.id.showlist_todos){
-			tipoOt=0;
-			Button b = (Button) v;
-			v.setBackgroundColor(getResources().getColor(R.color.gray_light));
-			b.setTypeface(BebasNeueBold);
-			//			Log.i("Refrescando","Todos...");
-		}
-		else if(v.getId() == R.id.refresh){
-
-					Log.i("Refrescando", "...");
-           // if(contadorRefresh == 50){
-			VerificarInternet.Internet test = new VerificarInternet.Internet();
-			if(test.conexion(getApplicationContext()) == false){
-				AlertDialog alertDialog = new AlertDialog.Builder(this).create();
-				alertDialog.setTitle("Sin conexión a internet");
-				alertDialog.setMessage("Para sincronizar necesita de una conexión a internet");
-				alertDialog.setButton("Aceptar", new DialogInterface.OnClickListener() {
-					public void onClick(DialogInterface dialog, int which) {
-
-					}
-				});
-				alertDialog.setIcon(android.R.drawable.ic_menu_info_details);
-				alertDialog.show();
-			}else{
-				dialogR.show();
-				List<UserRecord> OTsLocal  = UserRecord.find(UserRecord.class, "status = ?", "true");
-				int count = 0;
-				for (int i =0; i< OTsLocal.size(); i++) {
-
-					Log.d("OTLocal",OTsLocal.get(i).idot);
-					Log.d("OTLocal",OTsLocal.get(i).tipo_orden_id);
-					Log.d("OTLocal",OTsLocal.get(i).json_imagenes);
-					Log.d("OTLocal", OTsLocal.get(i).json_imagenes_qr);
-
-					try {
-						ot = new JSONObject(OTsLocal.get(i).allJsonOT);
-						JSONArray json_imagenes = new JSONArray(OTsLocal.get(i).json_imagenes);
-						JSONArray json_imagenes_qr = new JSONArray(OTsLocal.get(i).json_imagenes_qr);
-
-						ot.put("json_imagenes", json_imagenes);
-						ot.put("json_imagenes_qr", json_imagenes_qr);
-					} catch (JSONException e) {
-						e.printStackTrace();
-					}
-
-					if(AppParameters.postData(ot, "actualizar")){
-						UserRecord u =	OTsLocal.get(i);
-						u.status = "false";
-						u.save();
-						count++;
-					}
-					else{
-						UserRecord u =	OTsLocal.get(i);
-						u.status = "false";
-						u.save();
-						count++;
-					}
+	List<UserRecord> users1 = Select.from(UserRecord.class)
+			.list();
+	Log.d("SugarSizeNormal",String.valueOf(users1.size()));//processData.getData();
+	List<UserRecord> users2 = new ArrayList<UserRecord>();
+	ArrayAdapter<UserRecord> adapter = null;
+	usersNow.clear();
 
 
-				}
 
-				dialogR.dismiss();
-
-
-					RefreshOts rfot = new RefreshOts(v.getContext());
-					rfot.execute("");
-
+		for(UserRecord user: users1){
+			//				Log.i("User (orden):",user.tipo_orden_id + Integer.toString(tipoOt));
+			if(Integer.parseInt(user.tipo_orden_id)==tipoOt){
+				users2.add(user);
 			}
+		}
+		adapter = new UserItemAdapter(this,R.layout.listitems, users2);
+		usersNow = new ArrayList<UserRecord>(users2);
 
-			TextView counterOTlocal = (TextView)findViewById(R.id.ot_local);
 
-			List<UserRecord> OTsLocal  = UserRecord.find(UserRecord.class, "status = ?", "true");
+	otList =  (ListView) findViewById(R.id.mylist1);
+	otList.setAdapter(adapter);
+	adapter.notifyDataSetChanged();
 
-			count_ot_local = OTsLocal.size();
+	otList.invalidate();
 
-			if(count_ot_local>0){
-				counterOTlocal.setVisibility(View.VISIBLE);
-				counterOTlocal.setText(Integer.toString(count_ot_local));
-			}
-			else{
-				counterOTlocal.setVisibility(View.GONE);
-			}
+}
 
-			//contadorRefresh = 0;
-            //}else{
-            //	Log.i("contadorrefresh", Integer.toString(contadorRefresh));
-            //	contadorRefresh++;
-           // }
+
+	public void showListRefresh() {
+
+		setButtons();
+
+		Log.i("Refrescando", "...");
+		// if(contadorRefresh == 50){
+		VerificarInternet.Internet test = new VerificarInternet.Internet();
+		if(test.conexion(getApplicationContext()) == false){
+		AlertDialog alertDialog = new AlertDialog.Builder(this).create();
+		alertDialog.setTitle("Sin conexión a internet");
+		alertDialog.setMessage("Para sincronizar necesita de una conexión a internet");
+		alertDialog.setButton("Aceptar", new DialogInterface.OnClickListener() {
+public void onClick(DialogInterface dialog, int which) {
+
+		}
+		});
+		alertDialog.setIcon(android.R.drawable.ic_menu_info_details);
+		alertDialog.show();
+		}else{
+		dialogR.show();
+		List<UserRecord> OTsLocal  = UserRecord.find(UserRecord.class, "status = ?", "true");
+		int count = 0;
+		for (int i =0; i< OTsLocal.size(); i++) {
+
+		Log.d("OTLocal",OTsLocal.get(i).idot);
+		Log.d("OTLocal",OTsLocal.get(i).tipo_orden_id);
+		Log.d("OTLocal",OTsLocal.get(i).json_imagenes);
+		Log.d("OTLocal", OTsLocal.get(i).json_imagenes_qr);
+
+		try {
+		ot = new JSONObject(OTsLocal.get(i).allJsonOT);
+		JSONArray json_imagenes = new JSONArray(OTsLocal.get(i).json_imagenes);
+		JSONArray json_imagenes_qr = new JSONArray(OTsLocal.get(i).json_imagenes_qr);
+
+		ot.put("json_imagenes", json_imagenes);
+		ot.put("json_imagenes_qr", json_imagenes_qr);
+		} catch (JSONException e) {
+		e.printStackTrace();
+		}
+
+		if(AppParameters.postData(ot, "actualizar")){
+		UserRecord u =	OTsLocal.get(i);
+		u.status = "false";
+		u.save();
+		count++;
+		}
+		else{
+		UserRecord u =	OTsLocal.get(i);
+		u.status = "false";
+		u.save();
+		count++;
 		}
 
 
+		}
+
+		dialogR.dismiss();
+
+
+		RefreshOts rfot = new RefreshOts(Main.this);
+		rfot.execute("");
+
+		}
+
+		TextView counterOTlocal = (TextView)findViewById(R.id.ot_local);
+
+		List<UserRecord> OTsLocal  = UserRecord.find(UserRecord.class, "status = ?", "true");
+
+		count_ot_local = OTsLocal.size();
+
+		if(count_ot_local>0){
+		counterOTlocal.setVisibility(View.VISIBLE);
+		counterOTlocal.setText(Integer.toString(count_ot_local));
+		}
+		else{
+		counterOTlocal.setVisibility(View.GONE);
+		}
+
+
+
+
+		}
+
+	public void showListRealizadas() {
+
+		setButtons();
+
+		int tipoOt=4;
 
 		List<UserRecord> users1 = Select.from(UserRecord.class)
 				.list();
@@ -414,11 +469,6 @@ public class Main extends Activity {
 		ArrayAdapter<UserRecord> adapter = null;
 		usersNow.clear();
 
-		if(tipoOt==0){
-			adapter = new UserItemAdapter(this,R.layout.listitems, users1);
-			usersNow = new ArrayList<UserRecord>(users1);
-		}
-		else{
 			for(UserRecord user: users1){
 				//				Log.i("User (orden):",user.tipo_orden_id + Integer.toString(tipoOt));
 				if(Integer.parseInt(user.tipo_orden_id)==tipoOt){
@@ -427,7 +477,7 @@ public class Main extends Activity {
 			}
 			adapter = new UserItemAdapter(this,R.layout.listitems, users2);
 			usersNow = new ArrayList<UserRecord>(users2);
-		}
+
 
 		otList =  (ListView) findViewById(R.id.mylist1);
 		otList.setAdapter(adapter);
@@ -450,7 +500,12 @@ public class Main extends Activity {
 
 	@Override
 	public void onBackPressed() {
-		showDialog(FINISH_ALERT);
+		if(home) showDialog(FINISH_ALERT);
+		else {
+			home = true;
+			homelayout.setVisibility(View.GONE);
+			homerelative.setVisibility(View.VISIBLE);
+		}
 	}
 
 	@Override

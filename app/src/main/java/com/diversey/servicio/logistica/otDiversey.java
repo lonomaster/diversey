@@ -2451,11 +2451,18 @@ public class otDiversey extends Activity implements OnTouchListener{
 				builder.setTitle("Servicio Logística Diversey");
 				builder.setMessage("Deseas cerrar la OT?");
 				builder.setCancelable(true);
-				builder.setPositiveButton("SALIR", new OkOnClickListener());
+				builder.setPositiveButton("SALIR", new DialogInterface.OnClickListener() {
+					public void onClick(DialogInterface dialog,
+										int which) {
+						onBack();
+
+					}
+				});
 				builder.setNegativeButton("CANCELAR", new CancelOnClickListener());
 
 				AlertDialog dialog = builder.create();
 				dialog.show();
+
 		}
 		return super.onCreateDialog(id);
 	}
@@ -2466,7 +2473,9 @@ public class otDiversey extends Activity implements OnTouchListener{
 
 		}
 	}
-
+private void onBack(){
+	super.onBackPressed();
+}
 	private final class OkOnClickListener implements
 			DialogInterface.OnClickListener {
 		public void onClick(DialogInterface dialog, int which) {

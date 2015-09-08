@@ -148,7 +148,7 @@
             android:layout_below="@+id/btn_pendientes"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="50dp"
-            android:background="@drawable/done"
+            android:background="@drawable/btn_app_taski_done"
             android:onClick="onClick"
             android:textColor="@android:color/white"
             android:textSize="8pt"
