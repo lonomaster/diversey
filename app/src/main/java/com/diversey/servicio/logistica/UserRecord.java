@@ -19,7 +19,7 @@ public String idot;
 	public String razon_social;
 	public String direccion;
 	public String logo;
-	public String tipo_orden_id;
+	public String tipoordenid;
 	
 	public String tipo_mantencion;
 	public String tipo_servicio;
@@ -83,7 +83,7 @@ public String idot;
 		if(logo.length()<4)
 			this.logo="no_img.png"; //default image.
 		
-		this.tipo_orden_id=tipo_orden_id;
+		this.tipoordenid=tipo_orden_id;
 		this.fecha_creacion=fecha_creacion;
 		this.fecha_ejecucion=fecha_ejecucion;
 		this.latitud=latitud;
@@ -120,7 +120,7 @@ public String idot;
 			this.razon_social=jsonObject.getString("razon_social");
 			this.direccion=jsonObject.getString("direccion");
 			this.logo=jsonObject.getString("logo");
-			this.tipo_orden_id=jsonObject.getString("tipo_orden_id");
+			this.tipoordenid=jsonObject.getString("tipo_orden_id");
 			this.fecha_creacion=jsonObject.getString("fecha_creacion");
 			this.fecha_ejecucion=jsonObject.getString("fecha_ejecucion");
 			this.latitud=jsonObject.getString("latitud");
@@ -144,7 +144,7 @@ public String idot;
 				+ "\", \"nombre\":\"" + nombre + "\", \"razon_social\":\""
 				+ razon_social + "\", \"direccion\":\"" + direccion
 				+ "\", \"logo\":\"" + logo
-				+ "\", \"tipo_orden_id\":\"" + tipo_orden_id
+				+ "\", \"tipo_orden_id\":\"" + tipoordenid
 				+ "\", \"fecha_creacion\":\"" + fecha_creacion
 				+ "\", \"fecha_ejecucion\":\"" + fecha_ejecucion
 				+ "\", \"latitud\":\"" + latitud + "\", \"longitud\":\""

@@ -234,7 +234,7 @@ public class ProcessData{
 
 		for(UserRecord uRec: data){
 			if(Integer.parseInt(uRec.idot)==Integer.parseInt(id)){
-				uRec.tipo_orden_id = estado;
+				uRec.tipoordenid = estado;
 				uRec.estado = estado;
 				data.set(pos, uRec);
 				Log.i("Actualizando id"+id,"Pasando a estado"+estado + "Log:" + data.get(pos).toString());

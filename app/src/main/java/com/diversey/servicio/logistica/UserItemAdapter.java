@@ -115,7 +115,7 @@ public class UserItemAdapter extends ArrayAdapter<UserRecord> {
 			fechaEjecucion.setTypeface(BebasNeueRegular);
 
 			if(state != null){
-				int st = Integer.valueOf(user.tipo_orden_id);
+				int st = Integer.valueOf(user.tipoordenid);
 				switch (st) {
 				case AppParameters.OT_PENDIENTE:
 					//state.setImageResource(R.drawable.estadopendientes);

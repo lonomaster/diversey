@@ -2138,7 +2138,7 @@ public class otDiversey extends Activity implements OnTouchListener{
 			datosOT.put("orden_trabajo_id", idOT);
 
 			datosOT.put("tipo_orden_id", "4");
-			u.tipo_orden_id = "4";
+			u.tipoordenid = "4";
 			//datosOT.put("tipo_orden_id", "2");
 
 			datosOT.put("diagnostico", diagnostico);
@@ -2371,6 +2371,10 @@ public class otDiversey extends Activity implements OnTouchListener{
 			 public void onClick(DialogInterface dialog, int which) {
 				 if (insertado) {
 					 dialog.dismiss();
+					 SharedPreferences prefe = getSharedPreferences("datosDiversey", Login.MODE_PRIVATE);
+					 SharedPreferences.Editor editor = prefe.edit();
+					 editor.putString("actual", "home");
+					 editor.commit();
 					 finish();
 				 } else {
 					 dialog.dismiss();

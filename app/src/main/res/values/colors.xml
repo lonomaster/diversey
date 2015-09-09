@@ -22,4 +22,10 @@
     <color name="amber_pressed">#FF9900</color>
     <color name="blue_semi_transparent">#B8E4FF</color>
     <color name="blue_semi_transparent_pressed">#8AD2FF</color>
+
+    <color name="bg_btn_sync">#ff8500</color>
+    <color name="bg_btn_done">#b60005</color>
+    <color name="bg_btn_pend">#0f9d58</color>
+
+
 </resources>

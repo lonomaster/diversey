@@ -183,6 +183,7 @@
         android:background="@drawable/fondo_login2"
         android:paddingTop="30dip"
         tools:context=".Login"
+        android:visibility="visible"
         tools:ignore="PxUsage" >
 
         <RelativeLayout
@@ -190,7 +191,7 @@
             android:layout_width="fill_parent"
             android:layout_height="100dp"
             android:layout_alignParentTop="true"
-            android:background="@color/amber_pressed">
+            android:background="@color/bg_btn_sync">
 
             <TextView
                 android:id="@+id/title_logistica"
@@ -223,12 +224,11 @@
                 android:layout_marginRight="20dp"
                 android:drawableLeft="@drawable/ico_app_taski_user"
                 android:drawablePadding="10dp"
-                android:drawableRight="@drawable/ico_app_taski_close"
                 android:gravity="center_vertical"
                 android:padding="5dp"
                 android:text="UserName"
                 android:textColor="@color/white"
-                android:textSize="20dp"
+                android:textSize="18dp"
                 android:textStyle="normal"/>
 
 
@@ -270,7 +270,7 @@
                 android:layout_below="@+id/logo_diversey"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="70dp"
-                android:background="@drawable/btn_app_taski_sync"
+                android:background="@drawable/selector_btn_sync"
                 android:onClick="onClick"
                 android:textColor="@android:color/white"
                 android:textSize="8pt"
@@ -287,8 +287,22 @@
                 android:layout_marginLeft="10dp"
                 android:layout_marginTop="5dp"
                 android:layout_toRightOf="@+id/btn_sync"
-                android:background="@drawable/ico_app_taski_sync"
+                android:src="@drawable/ico_app_taski_sync"
                 android:scaleType="fitXY" />
+
+            <TextView
+                android:id="@+id/textview_sync_count"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="-43dp"
+                android:gravity="center"
+                android:layout_alignBottom="@+id/btn_sync"
+                android:layout_alignTop="@+id/btn_sync"
+                android:layout_toLeftOf="@+id/btn_sync"
+                android:text="0"
+                android:textColor="@color/bg_btn_sync"
+                android:textSize="20dp"
+                android:textStyle="bold"/>
 
 
             <Button
@@ -298,7 +312,7 @@
                 android:layout_below="@+id/btn_sync"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="50dp"
-                android:background="@drawable/btn_app_taski_pend"
+                android:background="@drawable/selector_btn_pend"
                 android:onClick="onClick"
                 android:textColor="@android:color/white"
                 android:textSize="8pt"
@@ -315,8 +329,22 @@
                 android:layout_marginLeft="10dp"
                 android:layout_marginTop="5dp"
                 android:layout_toRightOf="@+id/btn_pendientes"
-                android:background="@drawable/ico_app_taski_pend"
+                android:src="@drawable/ico_app_taski_pend"
                 android:scaleType="fitXY" />
+
+            <TextView
+                android:id="@+id/textview_pend_count"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="-43dp"
+                android:gravity="center"
+                android:layout_alignBottom="@+id/btn_pendientes"
+                android:layout_alignTop="@+id/btn_pendientes"
+                android:layout_toLeftOf="@+id/btn_pendientes"
+                android:text="0"
+                android:textColor="@color/bg_btn_done"
+                android:textSize="20dp"
+                android:textStyle="bold"/>
 
             <Button
                 android:id="@+id/btn_done"
@@ -325,7 +353,7 @@
                 android:layout_below="@+id/btn_pendientes"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="50dp"
-                android:background="@drawable/btn_app_taski_done"
+                android:background="@drawable/selector_btn_done"
                 android:onClick="onClick"
                 android:textColor="@android:color/white"
                 android:textSize="8pt"
@@ -342,8 +370,22 @@
                 android:layout_marginLeft="10dp"
                 android:layout_marginTop="5dp"
                 android:layout_toRightOf="@+id/btn_done"
-                android:background="@drawable/ico_app_taski_done"
+                android:src="@drawable/ico_app_taski_done"
                 android:scaleType="fitXY" />
+
+            <TextView
+                android:id="@+id/textview_done_count"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="-43dp"
+                android:gravity="center"
+                android:layout_alignBottom="@+id/btn_done"
+                android:layout_alignTop="@+id/btn_done"
+                android:layout_toLeftOf="@+id/btn_done"
+                android:text="0"
+                android:textColor="@color/bg_btn_pend"
+                android:textSize="20dp"
+                android:textStyle="bold"/>
 
         </RelativeLayout>
 
